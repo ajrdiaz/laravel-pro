@@ -294,3 +294,10 @@ export type ProjectModule = {
     command: string;
     progress: Progress;
 };
+
+export type JobRecommendation = {
+    type: string;
+    title: string;
+    body: string;
+    action: { label: string; href: string } | null;
+};

@@ -2,12 +2,20 @@
 import { Head, Link, router } from '@inertiajs/vue3';
 import {
     ArrowLeft,
+    BookOpen,
+    Boxes,
+    Briefcase,
     CircleCheck,
     CircleDashed,
     CircleDot,
+    FolderGit2,
+    Gauge,
+    Layers,
+    Telescope,
     Trash2,
 } from '@lucide/vue';
 import CommandLabel from '@/components/study/CommandLabel.vue';
+import InlineCode from '@/components/study/InlineCode.vue';
 import ProgressBar from '@/components/study/ProgressBar.vue';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -25,8 +33,9 @@ import { formatDate } from '@/lib/format';
 import { index as flashcards } from '@/routes/flashcards';
 import { destroy, index } from '@/routes/jobs';
 import { module as learnModule } from '@/routes/learn';
-import type { JobModule, JobReport } from '@/types';
+import type { JobModule, JobRecommendation, JobReport } from '@/types';
 import { computed } from 'vue';
+import type { Component } from 'vue';
 
 defineOptions({
     layout: {
@@ -47,7 +56,19 @@ const props = defineProps<{
         created_at: string | null;
     };
     report: JobReport;
+    recommendations: JobRecommendation[];
 }>();
+
+// One icon per kind of recommendation, so they can be told apart at a glance.
+const icons: Record<string, Component> = {
+    readiness: Gauge,
+    lesson: BookOpen,
+    project: FolderGit2,
+    stack: Boxes,
+    review: Layers,
+    outside: Telescope,
+    postings: Briefcase,
+};
 
 const toStudy = computed(() =>
     props.report.modules.filter((module) => module.status !== 'ready'),
@@ -130,6 +151,40 @@ function remove() {
             No reconocí ninguna habilidad conocida. Comprueba que pegaste el
             texto completo de los requisitos, no solo el título del puesto.
         </p>
+
+        <section v-if="recommendations.length > 0" class="flex flex-col gap-3">
+            <h2 class="text-xl font-semibold">Recomendaciones</h2>
+            <p class="text-muted-foreground">
+                Qué hacer ahora con lo que pide esta oferta. Son sugerencias a
+                partir de tu progreso, no un veredicto.
+            </p>
+            <ul class="flex flex-col gap-3">
+                <li
+                    v-for="item in recommendations"
+                    :key="item.type"
+                    class="flex gap-3 rounded-xl border bg-card p-4"
+                >
+                    <component
+                        :is="icons[item.type]"
+                        class="mt-0.5 size-5 shrink-0 text-primary"
+                        aria-hidden="true"
+                    />
+                    <div class="flex min-w-0 flex-col gap-2">
+                        <h3 class="font-semibold">{{ item.title }}</h3>
+                        <p class="text-muted-foreground">
+                            <InlineCode :text="item.body" />
+                        </p>
+                        <div v-if="item.action">
+                            <Button variant="outline" size="sm" as-child>
+                                <Link :href="item.action.href">{{
+                                    item.action.label
+                                }}</Link>
+                            </Button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </section>
 
         <section v-if="toStudy.length > 0" class="flex flex-col gap-3">
             <h2 class="text-xl font-semibold">Qué estudiar primero</h2>

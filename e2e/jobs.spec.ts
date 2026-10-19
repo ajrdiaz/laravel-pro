@@ -1,9 +1,16 @@
+import type { Page } from '@playwright/test';
 import { expect, test } from './fixtures';
 
 const posting =
     'Buscamos desarrollador Laravel con experiencia en PHP 8, Eloquent, APIs REST, Docker, ' +
     'Redis y colas. Se valora Vue.js, Inertia, Pest para testing, GitHub Actions y ' +
     'conocimientos de Kubernetes y AWS. Trabajo con MySQL y metodología Scrum.';
+
+/** The list of modules the posting asks for, as opposed to the recommendations. */
+const toStudy = (page: Page) =>
+    page.locator('section', {
+        has: page.getByRole('heading', { name: 'Qué estudiar primero' }),
+    });
 
 test.describe('job posting analyzer', () => {
     test('turns a posting into what to study and what is outside the route', async ({
@@ -30,12 +37,15 @@ test.describe('job posting analyzer', () => {
         await expect(page.getByText('Cubiertas por tu ruta')).toBeVisible();
         await expect(page.getByText('Tu preparación')).toBeVisible();
 
-        // Roadmap modules the posting asks for, with the user's progress in each.
+        // Roadmap modules the posting asks for, with the user's progress in each. The
+        // recommendations mention some of them too, so look inside this section.
         await expect(
             page.getByRole('heading', { name: 'Qué estudiar primero' }),
         ).toBeVisible();
-        await expect(page.getByText('Testing con Pest')).toBeVisible();
-        await expect(page.getByText('Docker y despliegue')).toBeVisible();
+        await expect(toStudy(page).getByText('Testing con Pest')).toBeVisible();
+        await expect(
+            toStudy(page).getByText('Docker y despliegue'),
+        ).toBeVisible();
 
         // What no module teaches yet, with a hint.
         await expect(
@@ -102,7 +112,10 @@ test.describe('job posting analyzer', () => {
         await page.getByRole('button', { name: 'Analizar oferta' }).click();
         await expect(page).toHaveURL(/\/jobs\/\d+$/);
 
-        const phpCard = page.locator('li', { hasText: 'PHP moderno' }).first();
+        const phpCard = toStudy(page)
+            .getByRole('listitem')
+            .filter({ hasText: 'PHP moderno' })
+            .first();
         await expect(phpCard).toContainText('Por empezar');
     });
 });

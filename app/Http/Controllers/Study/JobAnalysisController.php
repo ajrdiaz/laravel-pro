@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Study\StoreJobAnalysisRequest;
 use App\Models\JobAnalysis;
 use App\Services\Jobs\JobAnalysisReport;
+use App\Services\Jobs\JobRecommender;
 use App\Services\Jobs\SkillMatcher;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -52,11 +53,15 @@ class JobAnalysisController extends Controller
     }
 
     /**
-     * Show which roadmap modules the posting asks for, and where the user stands.
+     * Show which roadmap modules the posting asks for, where the user stands, and what
+     * to do next about it.
      */
-    public function show(Request $request, JobAnalysis $analysis, JobAnalysisReport $report): Response
+    public function show(Request $request, JobAnalysis $analysis, JobAnalysisReport $reports, JobRecommender $recommender): Response
     {
         Gate::authorize('view', $analysis);
+
+        $user = $request->user();
+        $report = $reports->for($user, $analysis->body);
 
         return Inertia::render('JobShow', [
             'analysis' => [
@@ -65,7 +70,8 @@ class JobAnalysisController extends Controller
                 'body' => $analysis->body,
                 'created_at' => $analysis->created_at?->toIso8601String(),
             ],
-            'report' => $report->for($request->user(), $analysis->body),
+            'report' => $report,
+            'recommendations' => $recommender->for($user, $report, JobAnalysis::whereBelongsTo($user)->count()),
         ]);
     }
 

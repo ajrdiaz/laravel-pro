@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Form, Head, Link } from '@inertiajs/vue3';
+import { Lightbulb } from '@lucide/vue';
 import JobAnalysisController from '@/actions/App/Http/Controllers/Study/JobAnalysisController';
 import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
@@ -81,6 +82,38 @@ function day(iso: string | null): string {
                 }}</Button>
             </div>
         </Form>
+
+        <section
+            class="flex flex-col gap-3 rounded-xl bg-accent p-4"
+            aria-labelledby="job-tips"
+        >
+            <h2 id="job-tips" class="flex items-center gap-2 font-semibold">
+                <Lightbulb class="size-4 text-primary" aria-hidden="true" />
+                Cómo sacarle partido
+            </h2>
+            <ul class="flex list-disc flex-col gap-1 pl-5 text-sm">
+                <li>
+                    Pega la oferta completa, con los requisitos y lo que «se
+                    valora»: el título del puesto no basta.
+                </li>
+                <li>
+                    Reconoce tecnologías por su nombre. No mide años de
+                    experiencia ni el nivel que piden.
+                </li>
+                <li>
+                    Analiza dos o tres ofertas del mismo puesto: lo que se
+                    repite en todas es lo que de verdad piden.
+                </li>
+                <li>
+                    Vuelve a abrir un análisis cuando hayas estudiado: se
+                    recalcula con tu progreso.
+                </li>
+                <li>
+                    Si una oferta pide algo que ninguna lección cubre, sale en
+                    «Fuera de tu ruta», con una pista por dónde empezar.
+                </li>
+            </ul>
+        </section>
 
         <section v-if="analyses.length > 0" class="flex flex-col gap-3">
             <h2 class="text-xl font-semibold">Tus análisis</h2>

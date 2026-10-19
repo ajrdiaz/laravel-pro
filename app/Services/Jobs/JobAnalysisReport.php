@@ -8,6 +8,12 @@ use App\Services\ProgressReport;
 
 /**
  * Crosses the skills a job posting asks for with how far a user is on the roadmap.
+ *
+ * @phpstan-type Report array{
+ *     summary: array{detected: int, covered: int, outside: int, readiness: int|null},
+ *     modules: list<array{slug: string, title: string, section: string, command: string, status: string, mentions: int, progress: array{done: int, total: int, pct: int}, skills: list<array{name: string, mentions: int, note: string|null}>}>,
+ *     outside: list<array{name: string, mentions: int, category: string|null, hint: string|null}>
+ * }
  */
 class JobAnalysisReport
 {
@@ -17,11 +23,7 @@ class JobAnalysisReport
     ) {}
 
     /**
-     * @return array{
-     *     summary: array{detected: int, covered: int, outside: int, readiness: int|null},
-     *     modules: list<array{slug: string, title: string, section: string, command: string, status: string, mentions: int, progress: array{done: int, total: int, pct: int}, skills: list<array{name: string, mentions: int, note: string|null}>}>,
-     *     outside: list<array{name: string, mentions: int, category: string|null, hint: string|null}>
-     * }
+     * @return Report
      */
     public function for(User $user, string $text): array
     {
