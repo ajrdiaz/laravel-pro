@@ -25,6 +25,9 @@ export default defineConfig({
         baseURL,
         channel,
         locale: 'es-ES',
+        // The app's service worker keeps pages for offline reading. It would only get in the
+        // way of tests about something else, so e2e/pwa.spec.ts is the one place it is allowed.
+        serviceWorkers: 'block',
         // The app marks elements with `data-test`, the starter kit's convention.
         testIdAttribute: 'data-test',
         trace: 'retain-on-failure',

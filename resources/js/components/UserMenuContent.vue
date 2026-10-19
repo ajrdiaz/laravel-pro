@@ -9,6 +9,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import UserInfo from '@/components/UserInfo.vue';
 import { logout } from '@/routes';
+import { clearOfflineData } from '@/lib/pwa';
 import { edit } from '@/routes/profile';
 import type { User } from '@/types';
 
@@ -18,6 +19,9 @@ type Props = {
 
 const handleLogout = () => {
     router.flushAll();
+
+    // The lessons saved for offline reading include the user's notes.
+    void clearOfflineData();
 };
 
 defineProps<Props>();

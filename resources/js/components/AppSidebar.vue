@@ -14,6 +14,7 @@ import {
 } from '@lucide/vue';
 import { computed } from 'vue';
 import AppLogo from '@/components/AppLogo.vue';
+import InstallAppButton from '@/components/InstallAppButton.vue';
 import NavFooter from '@/components/NavFooter.vue';
 import NavMain from '@/components/NavMain.vue';
 import NavUser from '@/components/NavUser.vue';
@@ -126,6 +127,7 @@ const footerNavItems: NavItem[] = [
         </SidebarContent>
 
         <SidebarFooter>
+            <InstallAppButton />
             <NavFooter :items="footerNavItems" />
             <NavUser />
         </SidebarFooter>

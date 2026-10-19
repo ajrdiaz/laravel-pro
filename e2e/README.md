@@ -36,6 +36,10 @@ Otherwise the Chrome installed on the machine is used, with no download. Force o
 - **One user per test.** `e2e/support/create-user.php` creates a verified user and the
   `test` fixture signs it in, so tests never see each other's notes or progress. Use
   `guest` from `e2e/fixtures.ts` for what a visitor sees.
+- **No service worker, except in one file.** The app's service worker keeps lessons for
+  offline reading, which would only get in the way of other tests, so Playwright blocks it
+  (`serviceWorkers: 'block'`). `e2e/pwa.spec.ts` allows it and tests it, going offline with
+  `context.setOffline(true)`.
 - **No Vite dev server.** If `public/hot` exists (`npm run dev` is running) the run stops
   with a message, because the app would load its assets from that server.
 - **Quiet.** Mail goes to the log, the queue is synchronous, the cache is in memory and
