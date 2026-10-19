@@ -19,15 +19,15 @@
       },
       {
         "title": "Endpoints CRUD con API Resources",
-        "detail": "Rutas en `routes/api.php`, un controlador por recurso y un `JsonResource` que dé forma a cada respuesta. Ningún endpoint devuelve el modelo tal cual."
+        "detail": "Activa la API con `php artisan install:api`, que crea `routes/api.php` e instala Sanctum. Un controlador por recurso y un `JsonResource` que dé forma a cada respuesta. Ningún endpoint devuelve el modelo tal cual."
       },
       {
         "title": "Validación con Form Requests",
-        "detail": "Cada escritura valida su entrada en un Form Request. Los errores salen en JSON, con código 422 y un mensaje por campo."
+        "detail": "Cada escritura valida su entrada en un Form Request. Los errores salen en JSON, con código 422 y un mensaje por campo. Sin la cabecera `Accept: application/json`, Laravel redirige en vez de responder 422: haz que `api/*` conteste siempre JSON con `shouldRenderJsonWhen` en `bootstrap/app.php`, y pruébalo con y sin la cabecera."
       },
       {
         "title": "Autenticación con tokens",
-        "detail": "Un login que devuelve un token (Sanctum) y un logout que lo revoca. Las rutas privadas exigen el token y responden 401 si falta."
+        "detail": "Un login que devuelve un token (`createToken` de Sanctum), mostrado en texto plano solo al crearlo, y un logout que lo revoca. Las rutas privadas usan `auth:sanctum` y responden 401 si falta."
       },
       {
         "title": "Autorización con policies",
@@ -35,7 +35,7 @@
       },
       {
         "title": "Paginación, filtros y orden",
-        "detail": "Listados paginados, con filtro por estado y orden por fecha. Sin consultas N+1: cárgalas con `with()` y escribe un test que cuente las consultas del listado."
+        "detail": "Listados paginados, con filtro por estado y orden por fecha. Sin consultas N+1: cárgalas con `with()`, activa `Model::preventLazyLoading()` fuera de producción para que un N+1 lance una excepción y escribe un test que cuente las consultas del listado."
       },
       {
         "title": "Pruebas con Pest",
@@ -125,7 +125,7 @@
     "milestones": [
       {
         "title": "Subida y almacenamiento",
-        "detail": "Valida el tipo y el tamaño del archivo y guárdalo en un disco privado, nunca en la carpeta pública."
+        "detail": "Valida el tipo y el tamaño del archivo y guárdalo en el disco `local` (`storage/app/private`), nunca en el disco `public`."
       },
       {
         "title": "Procesamiento en un job",
@@ -137,7 +137,7 @@
       },
       {
         "title": "Fallos y reintentos",
-        "detail": "Define `tries` y `backoff`, y un método `failed()` que registre la fila y el motivo. Una fila mala no debe detener las demás."
+        "detail": "Define los intentos y la espera entre ellos (`tries` y `backoff`, o los atributos `#[Tries]` y `#[Backoff]` de Laravel 13) y un método `failed()` que registre la fila y el motivo. Una fila mala no debe detener las demás: mira `allowFailures()` en los lotes."
       },
       {
         "title": "Idempotencia",
@@ -163,7 +163,7 @@
     "stretch": [
       "Soportar archivos de cientos de miles de filas y medir cuánto tarda.",
       "Importar desde una URL o un bucket en lugar de una subida.",
-      "Un panel como Horizon para ver la cola."
+      "Un panel como Horizon (necesita Redis) para ver la cola."
     ]
   },
   {
