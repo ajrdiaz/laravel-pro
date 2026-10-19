@@ -14,9 +14,10 @@ const props = defineProps<{
 
 // A request that stays on the page: a visit would reload props and could swallow what
 // the user is typing.
-const http = useHttp(() => update(props.moduleSlug), {
-    body: props.note ?? '',
-});
+const http = useHttp<{ body: string }, { saved: boolean }>(
+    () => update(props.moduleSlug),
+    { body: props.note ?? '' },
+);
 
 // What the server has, to know whether there is anything left to send.
 const saved = ref(props.note ?? '');
