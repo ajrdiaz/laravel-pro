@@ -85,7 +85,7 @@ Sin esta interfaz, un administrador que podía entrar en local recibe un 403 en 
 
 ## Y qué puede hacer dentro
 
-Filament respeta las **policies** que tengas registradas: `viewAny()` oculta el recurso del menú, `create()`, `update()` y `delete()` controlan cada acción, y `deleteAny()` el borrado masivo. Escribe las policies y **pruébalas con tests**: no supongas que un modelo tiene la suya.
+Filament respeta las **policies** que tengas registradas: `viewAny()` oculta el recurso del menú, `create()`, `update()` y `delete()` controlan cada acción, y `deleteAny()` el borrado masivo. Escribe las policies y **pruébalas con tests**: según la documentación de Filament, si falta la policy de un modelo, o el método concreto, el acceso se **permite**. En la siguiente lección verás qué más no cubre por defecto.
 
 ## Cuándo sí y cuándo no
 
