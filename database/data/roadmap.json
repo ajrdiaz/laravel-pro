@@ -1,0 +1,1772 @@
+[
+  {
+    "slug": "php",
+    "position": 1,
+    "section": "Fundamentos",
+    "command": "php artisan tinker",
+    "title": "PHP moderno",
+    "concepts": [
+      "Los tipos de parámetros, de retorno y de propiedades hacen que PHP falle pronto y con un mensaje claro; `declare(strict_types=1)` evita conversiones silenciosas entre tipos.",
+      "El constructor con propiedades promovidas y la palabra `readonly` reducen una clase de datos a una línea por campo y la vuelven inmutable.",
+      "Un `enum` respaldado (`enum Status: string`) reemplaza las constantes sueltas y se puede usar como cast de Eloquent.",
+      "`match` es una expresión estricta: devuelve un valor, no necesita `break` y lanza `UnhandledMatchError` si ningún caso coincide.",
+      "Los argumentos con nombre, el operador nullsafe `?->` y las funciones flecha `fn` acortan el código sin perder claridad.",
+      "Los atributos (`#[...]`) añaden metadatos que el framework lee; Laravel 13 los usa en modelos, controladores y jobs.",
+      "Laravel 13 exige PHP 8.3 o superior."
+    ],
+    "flashcards": [
+      {
+        "question": "¿Qué hace `readonly` en una propiedad?",
+        "answer": "Permite asignarla una sola vez, normalmente en el constructor. Después, cualquier intento de modificarla lanza un error. Sirve para objetos de valor inmutables."
+      },
+      {
+        "question": "Diferencia entre `match` y `switch`.",
+        "answer": "`match` es una expresión que devuelve un valor, compara con `===` (estricto), no necesita `break` y lanza `UnhandledMatchError` si no hay caso. `switch` compara con `==`, necesita `break` y puede caer al caso siguiente."
+      },
+      {
+        "question": "¿Para qué sirve un enum respaldado?",
+        "answer": "Para representar un conjunto cerrado de valores con un tipo: `enum Status: string { case Draft = 'draft'; }`. Se obtiene el valor con `->value` y se crea desde un valor con `Status::from()` o `tryFrom()`."
+      },
+      {
+        "question": "¿Qué es el constructor con propiedades promovidas?",
+        "answer": "Declarar las propiedades directamente en los parámetros del constructor: `public function __construct(private int $id) {}` crea y asigna la propiedad sin repetir código."
+      }
+    ],
+    "quiz": [
+      {
+        "question": "Llamas a `Status::from('archived')` pero ese valor no existe en el enum. ¿Qué ocurre?",
+        "options": [
+          "Lanza `ValueError`",
+          "Devuelve `null`",
+          "Devuelve el primer caso",
+          "Crea un caso nuevo"
+        ],
+        "correct_index": 0,
+        "explanation": "`from()` lanza `ValueError` si el valor no existe. `tryFrom()` devuelve `null` en su lugar."
+      },
+      {
+        "question": "¿Qué devuelve `$user?->profile?->bio` si `$user` es `null`?",
+        "options": [
+          "`null`, sin error",
+          "Un error por leer una propiedad de `null`",
+          "Una cadena vacía",
+          "`false`"
+        ],
+        "correct_index": 0,
+        "explanation": "El operador nullsafe corta toda la cadena en cuanto encuentra `null` y devuelve `null`."
+      }
+    ],
+    "challenge": "Modela los estados de un pedido con un enum respaldado, úsalo como cast en un modelo Eloquent y escribe una función con `match` que devuelva la etiqueta en español de cada estado. Añade un test que compruebe que un valor inválido lanza `ValueError`.",
+    "interview": {
+      "question": "What PHP 8 features do you use most often, and why?",
+      "points": [
+        "Typed properties, constructor promotion and readonly for small immutable value objects.",
+        "Backed enums instead of string constants, also usable as Eloquent casts.",
+        "match expressions and named arguments for clearer code.",
+        "Attributes, which Laravel increasingly uses for configuration.",
+        "Mention strict_types and static analysis (Larastan) to catch type errors early."
+      ]
+    }
+  },
+  {
+    "slug": "req",
+    "position": 2,
+    "section": "Fundamentos",
+    "command": "php artisan route:list",
+    "title": "Ciclo de vida de una request",
+    "concepts": [
+      "Toda request entra por `public/index.php`, que carga el autoload y `bootstrap/app.php`.",
+      "El kernel HTTP pasa la request por el middleware global, luego el del grupo (`web` / `api`) y luego el de la ruta.",
+      "El router resuelve la ruta, aplica route model binding y llama al controlador.",
+      "La respuesta vuelve atravesando los middleware en orden inverso.",
+      "Desde Laravel 11, middleware, rutas y excepciones se configuran en `bootstrap/app.php`."
+    ],
+    "flashcards": [
+      {
+        "question": "¿Cuál es el punto de entrada de cualquier request HTTP en Laravel?",
+        "answer": "`public/index.php`. Carga Composer, crea la aplicación desde `bootstrap/app.php` y le entrega la request."
+      },
+      {
+        "question": "¿Dónde se registran los middleware en Laravel 11 o superior?",
+        "answer": "En `bootstrap/app.php`, dentro de `->withMiddleware(function (Middleware $middleware) { ... })`. Ya no existe `app/Http/Kernel.php`."
+      },
+      {
+        "question": "¿Qué es el route model binding implícito?",
+        "answer": "Si el parámetro de la ruta coincide con una variable tipada como modelo, Laravel busca el registro por su clave (o por la indicada, como `{post:slug}`) y responde 404 si no existe."
+      },
+      {
+        "question": "En un middleware, ¿qué pasa con el código escrito después de `$next($request)`?",
+        "answer": "Se ejecuta cuando la respuesta ya fue generada, así que puedes modificarla (headers, logs, tiempos)."
+      }
+    ],
+    "quiz": [
+      {
+        "question": "¿Qué ocurre cuando route model binding no encuentra el registro?",
+        "options": [
+          "Responde 404",
+          "Pasa `null` al controlador",
+          "Responde 500",
+          "Crea un modelo vacío"
+        ],
+        "correct_index": 0,
+        "explanation": "Laravel lanza `ModelNotFoundException`, que el manejador de excepciones convierte en un 404."
+      },
+      {
+        "question": "Necesitas un middleware que agregue un header a todas las respuestas de la API. ¿Dónde va la lógica?",
+        "options": [
+          "Después de `$next($request)`, sobre la respuesta",
+          "Antes de `$next($request)`",
+          "En el constructor del controlador",
+          "En `routes/web.php`"
+        ],
+        "correct_index": 0,
+        "explanation": "Antes de `$next` todavía no hay respuesta. Después de llamarlo tienes el objeto Response y puedes agregarle headers."
+      }
+    ],
+    "challenge": "Crea un middleware que mida cuánto tarda cada request y lo devuelva en el header `X-Response-Time`. Regístralo solo para el grupo `api` y escribe un test que verifique que el header existe.",
+    "interview": {
+      "question": "Walk me through what happens when Laravel receives an HTTP request.",
+      "points": [
+        "Entry point is public/index.php, which boots the application from bootstrap/app.php.",
+        "The service container and service providers are registered and booted.",
+        "The request passes through global, group and route middleware.",
+        "The router matches the route, resolves model bindings and calls the controller.",
+        "The response travels back through the middleware and is sent to the client; terminable middleware runs afterwards."
+      ]
+    }
+  },
+  {
+    "slug": "ioc",
+    "position": 3,
+    "section": "Fundamentos",
+    "command": "php artisan make:provider",
+    "title": "Service container y providers",
+    "concepts": [
+      "El container resuelve dependencias automáticamente a partir del type-hint (autowiring).",
+      "`bind()` crea una instancia nueva en cada resolución; `singleton()` reutiliza la misma.",
+      "Enlazar una interfaz a una implementación permite cambiarla sin tocar el código que la usa.",
+      "En un provider, `register()` solo registra bindings; `boot()` corre cuando todos los providers ya están registrados.",
+      "Las facades son accesos estáticos a servicios del container y se pueden falsear en tests."
+    ],
+    "flashcards": [
+      {
+        "question": "Diferencia entre `bind()` y `singleton()`.",
+        "answer": "`bind()` devuelve una instancia nueva cada vez que se resuelve. `singleton()` crea una sola y la reutiliza durante toda la vida de la aplicación (o la request)."
+      },
+      {
+        "question": "¿Qué va en `register()` y qué en `boot()`?",
+        "answer": "`register()`: solo bindings en el container. `boot()`: todo lo que necesita otros servicios ya registrados, como observers, macros, gates o view composers."
+      },
+      {
+        "question": "¿Qué es una facade por dentro?",
+        "answer": "Una clase con métodos estáticos que, mediante `getFacadeAccessor()`, resuelve un servicio del container y le reenvía la llamada."
+      },
+      {
+        "question": "¿Para qué enlazar una interfaz a una implementación?",
+        "answer": "Para depender de abstracciones: el controlador pide `PaymentGateway` y el container decide si entrega Stripe, PayPal o un fake en los tests."
+      }
+    ],
+    "quiz": [
+      {
+        "question": "¿En qué método de un provider no deberías usar otros servicios porque quizá aún no están registrados?",
+        "options": [
+          "`register()`",
+          "`boot()`",
+          "`__construct()` del controlador",
+          "`handle()` de un job"
+        ],
+        "correct_index": 0,
+        "explanation": "Durante `register()` otros providers pueden no haberse registrado todavía. Usa `boot()` para lógica que depende de otros servicios."
+      },
+      {
+        "question": "Quieres una única instancia de un cliente HTTP configurado, compartida en toda la aplicación. ¿Qué usas?",
+        "options": [
+          "`singleton()`",
+          "`bind()`",
+          "`new` en cada controlador",
+          "Una variable global"
+        ],
+        "correct_index": 0,
+        "explanation": "`singleton()` crea la instancia una vez. Con Octane conviene `scoped()`, que la reinicia en cada request."
+      }
+    ],
+    "challenge": "Define una interfaz `ExchangeRateProvider` con dos implementaciones: una que lea de una API y otra con tasas fijas. Enlázala en un provider y, en un test, reemplázala con `$this->app->instance()`.",
+    "interview": {
+      "question": "What is the service container, and why would you bind an interface to an implementation?",
+      "points": [
+        "It is Laravel's dependency injection container: it builds objects and resolves their dependencies automatically.",
+        "Binding an interface decouples the code from a concrete class.",
+        "You can swap implementations per environment or in tests without changing the consumers.",
+        "Mention bind vs singleton (and scoped for Octane)."
+      ]
+    }
+  },
+  {
+    "slug": "sql",
+    "position": 4,
+    "section": "Fundamentos",
+    "command": "php artisan db:show",
+    "title": "SQL y diseño de base de datos",
+    "concepts": [
+      "Cada tabla representa una cosa y cada fila un hecho: no repitas datos, sepáralos en tablas y relaciónalos con claves foráneas (normalización).",
+      "Un índice acelera `where`, `join` y `order by` a cambio de escrituras más lentas; en un índice compuesto importa el orden de las columnas.",
+      "`INNER JOIN` devuelve solo las filas con pareja en ambas tablas; `LEFT JOIN` conserva todas las de la izquierda aunque no tengan pareja.",
+      "Una transacción agrupa varias escrituras: o se aplican todas o ninguna (`DB::transaction()`).",
+      "Las restricciones (`not null`, `unique`, claves foráneas) protegen la integridad aunque el código falle o alguien escriba en la base de datos a mano.",
+      "Las migraciones versionan el esquema: una migración que ya corrió en producción no se edita, se crea otra.",
+      "`EXPLAIN` muestra cómo ejecuta la base de datos una consulta y si usa índices o recorre toda la tabla."
+    ],
+    "flashcards": [
+      {
+        "question": "¿Cuándo usar una transacción?",
+        "answer": "Cuando varias escrituras deben tener éxito o fallar juntas, por ejemplo descontar stock y crear el pedido. En Laravel: `DB::transaction(fn () => ...)`; si el callback lanza una excepción, se revierte todo."
+      },
+      {
+        "question": "Diferencia entre `INNER JOIN` y `LEFT JOIN`.",
+        "answer": "`INNER JOIN` solo devuelve filas que tienen pareja en las dos tablas. `LEFT JOIN` devuelve todas las filas de la tabla izquierda y rellena con `NULL` las columnas de la derecha cuando no hay pareja."
+      },
+      {
+        "question": "¿Por qué importa el orden de las columnas en un índice compuesto?",
+        "answer": "El índice `(user_id, status)` sirve para filtrar por `user_id`, o por `user_id` y `status`, pero no ayuda a filtrar solo por `status`. Se usa de izquierda a derecha."
+      },
+      {
+        "question": "¿Qué es una clave foránea y por qué ponerla en la base de datos?",
+        "answer": "Una columna que apunta a la clave de otra tabla. La base de datos impide registros huérfanos y puede borrar en cascada, sin depender de que el código se acuerde."
+      }
+    ],
+    "quiz": [
+      {
+        "question": "Tienes un índice `(user_id, status)`. ¿Qué consulta lo aprovecha mejor?",
+        "options": [
+          "`where user_id = 5 and status = 'paid'`",
+          "`where status = 'paid'`",
+          "`where status like '%paid'`",
+          "`order by created_at`"
+        ],
+        "correct_index": 0,
+        "explanation": "Un índice compuesto se usa de izquierda a derecha, y esta consulta filtra por las dos columnas en ese orden. Filtrar solo por `status` no lo aprovecha."
+      },
+      {
+        "question": "Un pedido y sus líneas se crean con dos inserciones. Si la segunda falla, ¿qué evita dejar un pedido sin líneas?",
+        "options": [
+          "Envolver las dos en `DB::transaction()`",
+          "Insertar primero las líneas",
+          "Usar `try/catch` y seguir adelante",
+          "Añadir un índice único"
+        ],
+        "correct_index": 0,
+        "explanation": "Dentro de una transacción, si algo lanza una excepción se revierte todo lo anterior: no queda un pedido a medias."
+      }
+    ],
+    "challenge": "Diseña el esquema de una tienda (usuarios, productos, pedidos y líneas de pedido) con claves foráneas e índices, escribe las migraciones y una consulta con `JOIN` que liste los 5 clientes que más gastaron. Comprueba con `EXPLAIN` que usa un índice.",
+    "interview": {
+      "question": "How would you design the database for an order system and keep it fast?",
+      "points": [
+        "Normalized tables with foreign keys, and money stored as integer cents.",
+        "Indexes on foreign keys and on the columns used to filter and sort.",
+        "A transaction for every multi-step write, such as stock and order together.",
+        "Use EXPLAIN and the slow query log to find real problems.",
+        "Denormalize or cache only after measuring."
+      ]
+    }
+  },
+  {
+    "slug": "elo",
+    "position": 5,
+    "section": "Backend con Laravel",
+    "command": "php artisan make:model Post -mfs",
+    "title": "Eloquent avanzado",
+    "concepts": [
+      "Relaciones: `hasOne`, `hasMany`, `belongsTo`, `belongsToMany`, `hasManyThrough` y polimórficas.",
+      "Eager loading con `with()` evita el problema N+1.",
+      "`Model::preventLazyLoading()` detecta N+1 en desarrollo lanzando una excepción.",
+      "Los scopes locales reutilizan condiciones de consulta.",
+      "Casts y accessors/mutators con `Attribute::make()` transforman atributos.",
+      "`$fillable` o `$guarded` protegen contra asignación masiva."
+    ],
+    "flashcards": [
+      {
+        "question": "¿Qué es el problema N+1?",
+        "answer": "Cargas una lista (1 consulta) y luego accedes a una relación en cada fila (N consultas más). Se soluciona con `with('relacion')`."
+      },
+      {
+        "question": "Diferencia entre `with()` y `load()`.",
+        "answer": "`with()` carga la relación en la consulta inicial. `load()` la carga después, sobre modelos que ya obtuviste."
+      },
+      {
+        "question": "¿Para qué sirve `withCount('comments')`?",
+        "answer": "Agrega el atributo `comments_count` con una subconsulta, sin cargar todos los comentarios en memoria."
+      },
+      {
+        "question": "¿Qué hace `whereHas()`?",
+        "answer": "Filtra los modelos padre según una condición en su relación. Ejemplo: usuarios que tienen al menos un pedido pagado."
+      }
+    ],
+    "quiz": [
+      {
+        "question": "Muestras 100 posts con `$post->author->name` sin eager loading. ¿Cuántas consultas se ejecutan?",
+        "options": [
+          "101",
+          "1",
+          "2",
+          "100"
+        ],
+        "correct_index": 0,
+        "explanation": "1 consulta para los posts y 1 por cada autor. Con `Post::with('author')` serían solo 2."
+      },
+      {
+        "question": "¿Cómo obtienes solo los usuarios con al menos un pedido pagado?",
+        "options": [
+          "`User::whereHas('orders', fn ($q) => $q->where('status', 'paid'))`",
+          "`User::with('orders')->where('status', 'paid')`",
+          "`User::has('orders')->get()`",
+          "`User::where('orders.status', 'paid')`"
+        ],
+        "correct_index": 0,
+        "explanation": "`whereHas` filtra por una condición en la relación. `with` solo carga datos, no filtra a los usuarios."
+      }
+    ],
+    "challenge": "Modela un blog con User, Post, Tag (muchos a muchos) y Comment. Lista los posts con autor, número de comentarios y tags usando como máximo 4 consultas. Compruébalo con `DB::listen` o Debugbar.",
+    "interview": {
+      "question": "How do you detect and fix N+1 query problems in Laravel?",
+      "points": [
+        "Explain what N+1 is with a concrete example.",
+        "Detect it with Debugbar, Telescope or Model::preventLazyLoading() in development.",
+        "Fix it with eager loading: with(), load(), withCount().",
+        "Select only the columns you need and add indexes on foreign keys."
+      ]
+    }
+  },
+  {
+    "slug": "auth",
+    "position": 6,
+    "section": "Backend con Laravel",
+    "command": "php artisan make:policy PostPolicy --model=Post",
+    "title": "Autenticación y autorización",
+    "concepts": [
+      "Autenticación es saber quién eres; autorización es decidir qué puedes hacer.",
+      "Sanctum usa cookies de sesión para SPAs del mismo dominio y tokens para apps móviles o terceros.",
+      "Los gates sirven para acciones generales; las policies, para acciones sobre un modelo.",
+      "La autorización se aplica con `$this->authorize()`, `Gate::allows()` o el middleware `can:`.",
+      "Las abilities de un token limitan lo que ese token puede hacer."
+    ],
+    "flashcards": [
+      {
+        "question": "Diferencia entre Gate y Policy.",
+        "answer": "Un gate es una regla suelta (por ejemplo, ver el panel de admin). Una policy agrupa las reglas de un modelo: `view`, `update`, `delete` de Post."
+      },
+      {
+        "question": "¿Cuándo usar Sanctum con cookies y cuándo con tokens?",
+        "answer": "Cookies: SPA en el mismo dominio principal que la API. Tokens: apps móviles, integraciones de terceros o clientes en otros dominios."
+      },
+      {
+        "question": "¿Qué código HTTP devuelve una autorización fallida? ¿Y una falta de autenticación?",
+        "answer": "403 Forbidden cuando no tienes permiso. 401 Unauthorized cuando no estás autenticado."
+      },
+      {
+        "question": "¿Para qué sirve `before()` en una policy?",
+        "answer": "Se ejecuta antes que los demás métodos. Si devuelve `true`, autoriza todo; útil para que un admin pueda hacer cualquier acción."
+      }
+    ],
+    "quiz": [
+      {
+        "question": "Una app móvil va a consumir tu API. ¿Qué método de autenticación usas?",
+        "options": [
+          "Tokens de Sanctum",
+          "Cookies de sesión",
+          "Autenticación básica en cada request",
+          "Guardar el password en la app"
+        ],
+        "correct_index": 0,
+        "explanation": "Las apps móviles no comparten cookies con tu dominio. Los personal access tokens de Sanctum están pensados para esto."
+      },
+      {
+        "question": "Un usuario solo puede editar sus propios posts. ¿Dónde pones esa regla?",
+        "options": [
+          "En el método `update` de `PostPolicy`",
+          "En la migración",
+          "En el Form Request de login",
+          "En `.env`"
+        ],
+        "correct_index": 0,
+        "explanation": "La policy compara `$user->id === $post->user_id` y se aplica con `authorize('update', $post)`."
+      }
+    ],
+    "challenge": "Haz una API con Sanctum: login que devuelve un token, roles admin y editor, una policy para Post y tests que comprueben las respuestas 401 y 403.",
+    "interview": {
+      "question": "Explain the difference between authentication and authorization in Laravel, and when you would use a Policy.",
+      "points": [
+        "Authentication identifies the user (guards, Sanctum, sessions or tokens).",
+        "Authorization decides what that user can do (gates and policies).",
+        "Use a Policy when rules belong to a specific model, such as Post or Invoice.",
+        "Mention 401 vs 403 responses."
+      ]
+    }
+  },
+  {
+    "slug": "sec",
+    "position": 7,
+    "section": "Backend con Laravel",
+    "command": "php artisan env:encrypt",
+    "title": "Seguridad web en Laravel",
+    "concepts": [
+      "Laravel protege de la inyección SQL si usas Eloquent o parámetros enlazados; el riesgo aparece con `DB::raw()` y al concatenar entrada del usuario dentro del SQL.",
+      "Blade escapa la salida con `{{ }}`; `{!! !!}` no escapa y es una puerta al XSS.",
+      "Los formularios llevan un token CSRF; en Laravel 13 lo valida el middleware `PreventRequestForgery`, incluido por defecto en el grupo `web`.",
+      "La asignación masiva sin control deja que un usuario cambie campos que no debía (`is_admin`): define qué campos son rellenables.",
+      "El fallo más común es de autorización (IDOR): leer o editar el recurso de otro cambiando un id en la URL. Compruébalo siempre en el servidor con policies.",
+      "Los secretos viven en variables de entorno, nunca en el repositorio; en producción `APP_DEBUG=false` y `APP_KEY` protegida.",
+      "Las contraseñas se guardan con hash (`Hash::make`), los intentos de login se limitan con rate limiting y las subidas se validan por tipo y tamaño."
+    ],
+    "flashcards": [
+      {
+        "question": "¿Qué es un ataque CSRF y cómo lo evita Laravel?",
+        "answer": "Hace que el navegador de la víctima, ya autenticada, envíe una petición que no quería. Laravel exige un token CSRF en las peticiones que cambian estado (`@csrf` en formularios). En una SPA con Sanctum el token se inicializa pidiendo `/sanctum/csrf-cookie`."
+      },
+      {
+        "question": "¿Qué es un IDOR?",
+        "answer": "Insecure Direct Object Reference: acceder o modificar el recurso de otro usuario cambiando un identificador en la URL. Se evita comprobando en el servidor, con una policy, que el recurso pertenece al usuario."
+      },
+      {
+        "question": "¿Cuándo es peligroso `{!! $variable !!}` en Blade?",
+        "answer": "Cuando la variable contiene datos de un usuario: imprime HTML sin escapar y permite inyectar `<script>` (XSS). Úsalo solo con contenido que genera tu código o que ya sanitizaste."
+      },
+      {
+        "question": "¿Cómo se evita la inyección SQL en una consulta escrita a mano?",
+        "answer": "Con parámetros enlazados: `DB::select('select * from users where id = ?', [$id])`. Nunca concatenes entrada del usuario dentro del texto SQL."
+      }
+    ],
+    "quiz": [
+      {
+        "question": "¿Cuál de estas consultas es vulnerable a inyección SQL?",
+        "options": [
+          "`DB::select(\"select * from users where email = '$email'\")`",
+          "`User::where('email', $email)->first()`",
+          "`DB::select('select * from users where email = ?', [$email])`",
+          "`DB::table('users')->where('email', $email)->get()`"
+        ],
+        "correct_index": 0,
+        "explanation": "La primera mete `$email` dentro del texto SQL. Las otras tres usan parámetros enlazados, así que el valor nunca se interpreta como SQL."
+      },
+      {
+        "question": "Un usuario cambia `/invoices/10` por `/invoices/11` y ve una factura ajena. ¿Qué falló?",
+        "options": [
+          "La autorización: nadie comprobó que la factura es suya",
+          "La autenticación",
+          "El token CSRF",
+          "El hash de contraseñas"
+        ],
+        "correct_index": 0,
+        "explanation": "El usuario estaba autenticado, pero faltó comprobar que tiene permiso sobre ese recurso. Es un IDOR y se corrige con una policy."
+      }
+    ],
+    "challenge": "Audita una app tuya: busca `DB::raw`, `{!! !!}`, modelos con campos rellenables de más y rutas sin policy. Corrige cada hallazgo y escribe un test que pruebe que un usuario no puede leer ni editar el recurso de otro (403).",
+    "interview": {
+      "question": "What are the most common security mistakes in a Laravel app, and how do you prevent them?",
+      "points": [
+        "Broken authorization (IDOR): always check ownership with policies.",
+        "Mass assignment: control which fields are fillable.",
+        "Unescaped output (XSS) and raw queries (SQL injection).",
+        "Secrets in the repository, APP_DEBUG on in production.",
+        "Rate limiting on login, and keeping dependencies updated with composer audit."
+      ]
+    }
+  },
+  {
+    "slug": "api",
+    "position": 8,
+    "section": "Backend con Laravel",
+    "command": "php artisan make:resource PostResource",
+    "title": "APIs REST",
+    "concepts": [
+      "Los API Resources transforman modelos en JSON y ocultan campos internos.",
+      "Los Form Requests concentran la validación y la autorización de cada endpoint.",
+      "Códigos correctos: 200, 201, 204, 401, 403, 404, 422.",
+      "`paginate()` combinado con resources devuelve `meta` y `links` automáticamente.",
+      "Versionado (`/api/v1`) y rate limiting con `RateLimiter`.",
+      "Documentación OpenAPI generada con herramientas como Scribe o Scramble."
+    ],
+    "flashcards": [
+      {
+        "question": "¿Qué devuelve Laravel cuando falla la validación de un Form Request en una API?",
+        "answer": "Un 422 con los errores en JSON, siempre que el cliente envíe `Accept: application/json`."
+      },
+      {
+        "question": "Diferencia entre 201 y 204.",
+        "answer": "201 Created: se creó un recurso (normalmente lo devuelves). 204 No Content: todo salió bien pero no hay cuerpo, típico de un DELETE."
+      },
+      {
+        "question": "¿Para qué sirve `whenLoaded()` en un Resource?",
+        "answer": "Incluye la relación solo si ya fue cargada, así el Resource no dispara consultas N+1 por su cuenta."
+      },
+      {
+        "question": "¿Por qué versionar una API?",
+        "answer": "Para poder cambiar la estructura sin romper a los clientes existentes, como apps móviles que no se actualizan al mismo tiempo."
+      }
+    ],
+    "quiz": [
+      {
+        "question": "Acabas de crear un recurso con POST. ¿Qué código devuelves?",
+        "options": [
+          "201",
+          "200",
+          "204",
+          "302"
+        ],
+        "correct_index": 0,
+        "explanation": "201 Created indica que se creó un recurso nuevo."
+      },
+      {
+        "question": "¿Cómo evitas exponer campos como `password` o columnas internas en la respuesta?",
+        "options": [
+          "Con un API Resource que define exactamente qué campos salen",
+          "Devolviendo el modelo completo",
+          "Con `dd()` antes de responder",
+          "Desactivando el JSON"
+        ],
+        "correct_index": 0,
+        "explanation": "El Resource es el contrato público de la API. `$hidden` en el modelo también ayuda, pero el Resource da control total."
+      }
+    ],
+    "challenge": "Construye la API v1 de un gestor de tareas: CRUD completo, Form Requests, Resources, paginación, filtro por estado, límite de 60 requests por minuto y documentación generada.",
+    "interview": {
+      "question": "How do you design and version a REST API in Laravel?",
+      "points": [
+        "Resource-oriented routes and proper HTTP verbs and status codes.",
+        "Form Requests for validation, API Resources for output.",
+        "Versioning with route prefixes like /api/v1.",
+        "Authentication with Sanctum, rate limiting, pagination and OpenAPI docs."
+      ]
+    }
+  },
+  {
+    "slug": "que",
+    "position": 9,
+    "section": "Backend con Laravel",
+    "command": "php artisan queue:work",
+    "title": "Colas, jobs y eventos",
+    "concepts": [
+      "Los jobs (`ShouldQueue`) sacan el trabajo lento de la request.",
+      "Drivers comunes: database, redis, SQS. En producción los workers se mantienen con Supervisor o Horizon.",
+      "`$tries`, `$backoff` y el método `failed()` controlan reintentos y fallos.",
+      "Un job debe ser idempotente: ejecutarlo dos veces no debe romper nada.",
+      "Eventos y listeners desacoplan acciones; un listener también puede ir a la cola.",
+      "Chains ejecutan jobs en secuencia; batches los ejecutan en paralelo con seguimiento de progreso."
+    ],
+    "flashcards": [
+      {
+        "question": "¿Qué significa que un job sea idempotente?",
+        "answer": "Que si se ejecuta más de una vez (por un reintento) el resultado final es el mismo. Por ejemplo, revisar si el pago ya se registró antes de registrarlo."
+      },
+      {
+        "question": "¿Por qué hay que reiniciar los workers después de un deploy?",
+        "answer": "El worker es un proceso de larga vida que tiene el código viejo en memoria. Se usa `php artisan queue:restart`."
+      },
+      {
+        "question": "Diferencia entre chain y batch.",
+        "answer": "Chain: uno tras otro, y si uno falla se detiene la cadena. Batch: en paralelo, con callbacks `then`, `catch` y `finally` y porcentaje de avance."
+      },
+      {
+        "question": "¿Qué hace el trait `SerializesModels`?",
+        "answer": "Guarda solo el identificador del modelo en la cola y lo vuelve a consultar cuando el job se ejecuta."
+      }
+    ],
+    "quiz": [
+      {
+        "question": "Cambiaste el código de un job, pero los workers siguen con el comportamiento anterior. ¿Qué te falta?",
+        "options": [
+          "`php artisan queue:restart`",
+          "`php artisan cache:clear`",
+          "`composer dump-autoload`",
+          "Borrar la tabla jobs"
+        ],
+        "correct_index": 0,
+        "explanation": "Los workers cargan el código una sola vez al iniciar. `queue:restart` les indica que terminen el job actual y se reinicien."
+      },
+      {
+        "question": "Quieres enviar el email de bienvenida sin que el registro tarde más. ¿Qué haces?",
+        "options": [
+          "Un listener o job que implemente `ShouldQueue`",
+          "Enviarlo en el controlador con `Mail::send`",
+          "Usar `sleep()` antes de enviarlo",
+          "Enviarlo desde la vista"
+        ],
+        "correct_index": 0,
+        "explanation": "Al encolarlo, la respuesta vuelve de inmediato y un worker envía el email en segundo plano."
+      }
+    ],
+    "challenge": "Al subir un CSV de productos, procésalo con un batch de jobs: muestra el porcentaje de avance en pantalla y registra las filas con error sin detener el resto.",
+    "interview": {
+      "question": "How do you handle failures and retries in queued jobs?",
+      "points": [
+        "Configure $tries, $backoff and timeout per job.",
+        "Implement failed() to notify or clean up.",
+        "Make jobs idempotent so retries are safe.",
+        "Use the failed_jobs table, queue:retry and Horizon for monitoring."
+      ]
+    }
+  },
+  {
+    "slug": "rt",
+    "position": 10,
+    "section": "Backend con Laravel",
+    "command": "php artisan reverb:start",
+    "title": "Tiempo real con Reverb y Echo",
+    "concepts": [
+      "Un WebSocket mantiene abierta la conexión entre el navegador y el servidor, y el servidor puede enviar mensajes sin que el cliente los pida.",
+      "En Laravel, un evento que implementa `ShouldBroadcast` se publica en un canal y lo envía un worker de cola; `ShouldBroadcastNow` lo envía de inmediato.",
+      "Reverb es el servidor WebSocket oficial de Laravel y Echo es el cliente de JavaScript; se instalan con `php artisan install:broadcasting`.",
+      "Hay canales públicos, privados y de presencia; los privados y los de presencia se autorizan en `routes/channels.php`.",
+      "Para escalar a varios servidores, Reverb usa Redis y un balanceador de carga (`REVERB_SCALING_ENABLED`).",
+      "Pasar de unas 1.000 conexiones simultáneas exige la extensión `ext-uv` y subir el límite de archivos abiertos del sistema."
+    ],
+    "flashcards": [
+      {
+        "question": "¿Qué implementa un evento para emitirse por WebSocket?",
+        "answer": "`ShouldBroadcast`, que lo envía por la cola, o `ShouldBroadcastNow`, que lo envía de inmediato. El método `broadcastOn()` devuelve los canales, y las propiedades públicas del evento forman el contenido del mensaje."
+      },
+      {
+        "question": "Diferencia entre un canal privado y uno de presencia.",
+        "answer": "Los dos exigen autorización en `routes/channels.php`. El de presencia, además, informa de quién está conectado al canal."
+      },
+      {
+        "question": "¿Por qué Reverb necesita Redis con varios servidores?",
+        "answer": "Cada servidor solo conoce las conexiones que tiene abiertas. Redis hace de pub/sub para que un mensaje recibido por uno llegue a los clientes conectados a cualquiera de los otros."
+      },
+      {
+        "question": "¿Qué hace `php artisan reverb:restart`?",
+        "answer": "Cierra con gracia las conexiones y detiene el servidor. Si Supervisor lo gestiona, lo vuelve a levantar con el código nuevo. Hay que ejecutarlo en cada deploy."
+      }
+    ],
+    "quiz": [
+      {
+        "question": "Quieres que solo el dueño de un pedido reciba sus actualizaciones. ¿Qué canal usas?",
+        "options": [
+          "Uno privado, autorizado en `routes/channels.php`",
+          "Uno público",
+          "Un evento sin canal",
+          "Uno de presencia sin autorizar"
+        ],
+        "correct_index": 0,
+        "explanation": "Un canal privado exige que el servidor autorice a cada usuario antes de suscribirlo, así que solo recibe el dueño."
+      },
+      {
+        "question": "Tu evento `ShouldBroadcast` no llega a los clientes y no hay errores. ¿Qué revisas primero?",
+        "options": [
+          "Que haya un worker de cola procesando",
+          "El CSS de la página",
+          "La versión de PHP",
+          "Los índices de la base de datos"
+        ],
+        "correct_index": 0,
+        "explanation": "`ShouldBroadcast` envía el mensaje a través de la cola. Sin un worker corriendo, el evento se queda esperando."
+      }
+    ],
+    "challenge": "Muestra en pantalla el progreso de un job en tiempo real: el job emite un evento `ImportProgressed` con el porcentaje, por un canal privado por usuario, y un componente de Vue o de React lo escucha con `useEcho`.",
+    "interview": {
+      "question": "How would you add real-time notifications to a Laravel app?",
+      "points": [
+        "Broadcast an event that implements ShouldBroadcast, processed by a queue worker.",
+        "Use Reverb on your own infrastructure, or Pusher or Ably as a managed service.",
+        "Listen on the client with Laravel Echo, for example the useEcho hook.",
+        "Private channels with authorization in routes/channels.php.",
+        "Scale with Redis and a load balancer; fall back to polling if WebSockets are blocked."
+      ]
+    }
+  },
+  {
+    "slug": "test",
+    "position": 11,
+    "section": "Backend con Laravel",
+    "command": "php artisan make:test TaskTest --pest",
+    "title": "Testing con Pest",
+    "concepts": [
+      "Los feature tests prueban rutas completas; los unit tests, clases aisladas.",
+      "`RefreshDatabase` deja la base de datos limpia en cada test.",
+      "Las factories generan datos realistas y aceptan estados, como `->unpaid()`.",
+      "Fakes: `Queue::fake()`, `Mail::fake()`, `Http::fake()`, `Storage::fake()`.",
+      "`actingAs($user)` simula un usuario autenticado.",
+      "Pest ofrece `expect()`, datasets y una sintaxis más corta sobre PHPUnit."
+    ],
+    "flashcards": [
+      {
+        "question": "Diferencia entre feature test y unit test.",
+        "answer": "Feature: hace una request real a tu app y revisa la respuesta y la base de datos. Unit: prueba una clase o función sin levantar el framework completo."
+      },
+      {
+        "question": "¿Qué hace `Http::fake()`?",
+        "answer": "Intercepta las llamadas del cliente HTTP de Laravel y devuelve respuestas que tú defines, sin llamar a la API real."
+      },
+      {
+        "question": "¿Cómo verificas que se despachó un job sin ejecutarlo?",
+        "answer": "`Queue::fake()` al inicio y luego `Queue::assertPushed(MiJob::class)`."
+      },
+      {
+        "question": "¿Qué es un estado de factory?",
+        "answer": "Un método que modifica atributos por defecto, por ejemplo `Order::factory()->paid()->create()`."
+      }
+    ],
+    "quiz": [
+      {
+        "question": "Quieres comprobar que se envía un email sin enviarlo de verdad. ¿Qué usas?",
+        "options": [
+          "`Mail::fake()` y luego `Mail::assertSent()` o `assertQueued()`",
+          "Revisar tu bandeja de entrada",
+          "`Mail::send()` con un correo de prueba",
+          "Comentar el envío"
+        ],
+        "correct_index": 0,
+        "explanation": "El fake captura los mailables para que puedas verificar destinatario y contenido."
+      },
+      {
+        "question": "¿Qué trait mantiene la base de datos limpia entre tests?",
+        "options": [
+          "`RefreshDatabase`",
+          "`WithFaker`",
+          "`SerializesModels`",
+          "`Queueable`"
+        ],
+        "correct_index": 0,
+        "explanation": "`RefreshDatabase` ejecuta las migraciones y envuelve cada test en una transacción que se revierte."
+      }
+    ],
+    "challenge": "Escribe los tests de tu API de tareas: caso exitoso, validación 422, 401 sin token, 403 sin permiso y que se despacha un job al marcar una tarea como completada.",
+    "interview": {
+      "question": "How do you test code that calls an external API or dispatches jobs?",
+      "points": [
+        "Use Http::fake() to stub external responses, including error cases.",
+        "Use Queue::fake() and assertPushed() to check jobs without running them.",
+        "Feature tests with RefreshDatabase and factories for realistic data.",
+        "Test the job's handle() logic separately."
+      ]
+    }
+  },
+  {
+    "slug": "perf",
+    "position": 12,
+    "section": "Backend con Laravel",
+    "command": "php artisan optimize",
+    "title": "Rendimiento y caché",
+    "concepts": [
+      "`Cache::remember()` guarda resultados costosos con un tiempo de vida.",
+      "Índices en las columnas que usas en `where`, `join` y `orderBy`.",
+      "Selecciona solo las columnas necesarias; usa `chunkById()` o `lazy()` para lotes grandes.",
+      "En producción: `config:cache`, `route:cache`, `view:cache` (o `optimize`).",
+      "Mide antes de optimizar: Debugbar, Telescope y `EXPLAIN` en SQL."
+    ],
+    "flashcards": [
+      {
+        "question": "Diferencia entre `chunkById()`, `lazy()` y `cursor()`.",
+        "answer": "`chunkById()` procesa por páginas usando el id. `lazy()` también pagina pero devuelve una LazyCollection. `cursor()` usa una sola consulta y un modelo a la vez; gasta poca memoria pero no permite eager loading."
+      },
+      {
+        "question": "Después de `config:cache`, `env('API_KEY')` en un controlador devuelve null. ¿Por qué?",
+        "answer": "Con la configuración cacheada, `.env` ya no se carga. Usa `env()` solo en los archivos de `config/` y en el código usa `config()`."
+      },
+      {
+        "question": "¿Cuándo invalidar la caché?",
+        "answer": "Cuando cambian los datos que contiene, por ejemplo con un observer en `saved` y `deleted` que hace `Cache::forget()`."
+      },
+      {
+        "question": "¿Para qué sirve `EXPLAIN` en una consulta?",
+        "answer": "Muestra cómo la ejecuta la base de datos y si usa índices o recorre toda la tabla."
+      }
+    ],
+    "quiz": [
+      {
+        "question": "Necesitas actualizar 2 millones de filas sin quedarte sin memoria. ¿Qué usas?",
+        "options": [
+          "`chunkById()`",
+          "`all()`",
+          "`get()` y un foreach",
+          "`paginate()` en una vista"
+        ],
+        "correct_index": 0,
+        "explanation": "`chunkById()` procesa por bloques y, al paginar por id, no se salta filas aunque las modifiques."
+      },
+      {
+        "question": "¿Qué haces primero si una página es lenta?",
+        "options": [
+          "Medir: Debugbar o Telescope para ver consultas y tiempos",
+          "Agregar caché a todo",
+          "Cambiar de base de datos",
+          "Subir el servidor de tamaño"
+        ],
+        "correct_index": 0,
+        "explanation": "Sin medir no sabes si el problema es N+1, falta de índices o un servicio externo lento."
+      }
+    ],
+    "challenge": "Toma una página lenta (por ejemplo un dashboard con estadísticas), mídela con Debugbar, agrega índices y caché con invalidación al crear registros, y anota los tiempos antes y después.",
+    "interview": {
+      "question": "A page in your Laravel app is slow. How do you investigate and fix it?",
+      "points": [
+        "Measure first with Debugbar, Telescope or APM tools.",
+        "Look for N+1 queries, missing indexes (EXPLAIN) and heavy queries.",
+        "Cache expensive results and invalidate them correctly.",
+        "Move slow work to queues; cache config and routes in production."
+      ]
+    }
+  },
+  {
+    "slug": "arch",
+    "position": 13,
+    "section": "Backend con Laravel",
+    "command": "php artisan make:class",
+    "title": "Arquitectura y patrones",
+    "concepts": [
+      "Un controlador delgado recibe la request, llama a una acción o a un servicio y devuelve la respuesta; la lógica de negocio vive fuera de él.",
+      "Una clase de acción hace una sola cosa (`CreateOrder`, `ReviewFlashcard`), expone un método público `handle()` y se reutiliza desde un controlador, un job o un comando.",
+      "SOLID, resumido: una responsabilidad por clase, depender de abstracciones y poder sustituir una implementación sin romper a quien la usa.",
+      "Un DTO o un objeto de valor agrupa datos con nombre y tipo, en lugar de pasar arreglos asociativos de mano en mano.",
+      "No abstraigas antes de tiempo: un repositorio sobre Eloquent rara vez aporta. Extrae una interfaz cuando haya dos implementaciones reales o necesites un fake en los tests.",
+      "Los eventos de dominio desacoplan los efectos secundarios (un email, una auditoría) del flujo principal."
+    ],
+    "flashcards": [
+      {
+        "question": "¿Qué es un controlador delgado?",
+        "answer": "Uno que solo recibe la request, delega el trabajo a una acción o servicio y devuelve la respuesta. No contiene reglas de negocio, cálculos ni envío de emails."
+      },
+      {
+        "question": "¿Cuándo tiene sentido una clase de acción?",
+        "answer": "Cuando una operación de negocio se usa desde varios sitios (controlador, comando, job) o es lo bastante compleja para probarse aparte. Una clase, un método público: `handle()`."
+      },
+      {
+        "question": "¿Qué problema resuelve un DTO?",
+        "answer": "Evita pasar arreglos asociativos sin forma: un DTO tiene propiedades con nombre y tipo, así el editor y el análisis estático detectan un campo mal escrito o ausente."
+      },
+      {
+        "question": "¿Por qué suele sobrar un repositorio sobre Eloquent?",
+        "answer": "Eloquent ya es una capa de acceso a datos. Envolverlo en un repositorio duplica sus métodos sin ganar nada y te impide usar sus funciones. Tiene sentido si de verdad vas a cambiar la fuente de datos o necesitas aislar la persistencia."
+      }
+    ],
+    "quiz": [
+      {
+        "question": "Un controlador tiene 80 líneas con reglas de negocio, envío de emails y cálculos. ¿Qué refactor aplicas primero?",
+        "options": [
+          "Mover la lógica a una clase de acción",
+          "Convertirlo en un middleware",
+          "Pasar todo a una vista Blade",
+          "Añadir comentarios"
+        ],
+        "correct_index": 0,
+        "explanation": "Una acción concentra la operación en un solo lugar, se prueba aparte y deja al controlador en lo suyo: recibir y responder."
+      },
+      {
+        "question": "Dos clases dependen directamente de `StripeClient` y quieres probarlas sin llamar a Stripe. ¿Qué haces?",
+        "options": [
+          "Depender de una interfaz y enlazar una implementación real o un fake en el test",
+          "Mockear la palabra `new`",
+          "Usar variables globales",
+          "Comentar el cobro"
+        ],
+        "correct_index": 0,
+        "explanation": "Dependiendo de una abstracción, el container entrega la real en producción y un fake en los tests, sin tocar el código que la usa."
+      }
+    ],
+    "challenge": "Toma un controlador largo y refactorízalo: extrae una acción por operación, un DTO para los datos de entrada y un evento de dominio para los efectos secundarios. Comprueba con los tests existentes que nada cambió.",
+    "interview": {
+      "question": "How do you decide where business logic should live in a Laravel app?",
+      "points": [
+        "Controllers stay thin: validate, delegate, respond.",
+        "Single-purpose action classes for business operations.",
+        "DTOs or value objects instead of loose arrays.",
+        "Interfaces only where there is a real second implementation or a test double.",
+        "Domain events for side effects like notifications."
+      ]
+    }
+  },
+  {
+    "slug": "ts",
+    "position": 14,
+    "section": "Frontend",
+    "command": "npm run types:check",
+    "title": "TypeScript",
+    "concepts": [
+      "TypeScript añade tipos estáticos a JavaScript: los errores aparecen al escribir el código, no cuando el usuario hace clic.",
+      "`type` e `interface` describen la forma de un objeto; para las props de un componente se usa sobre todo `type`.",
+      "Una unión como `'draft' | 'published'` restringe un valor a opciones concretas, y el compilador te obliga a manejarlas todas.",
+      "Los genéricos (`Array<T>`, `Promise<T>`) reutilizan un tipo con contenidos distintos.",
+      "`unknown` es el tipo seguro para datos externos: obliga a comprobarlos antes de usarlos. `any` apaga el compilador.",
+      "Los tipos se borran al compilar: TypeScript no valida en ejecución lo que llega del servidor.",
+      "En un proyecto Inertia, los tipos de las props deben reflejar lo que envía el controlador (mira `resources/js/types/`)."
+    ],
+    "flashcards": [
+      {
+        "question": "Diferencia entre `any` y `unknown`.",
+        "answer": "`any` desactiva las comprobaciones: puedes hacer cualquier cosa y fallar en ejecución. `unknown` acepta cualquier valor pero exige comprobar su tipo (narrowing) antes de usarlo."
+      },
+      {
+        "question": "¿Qué es una unión discriminada?",
+        "answer": "Una unión de objetos con un campo común de valor literal, por ejemplo `{ status: 'ok'; data: T } | { status: 'error'; message: string }`. Al comprobar `status`, TypeScript sabe qué otros campos existen."
+      },
+      {
+        "question": "¿Qué significa `type Props = { id: number; name?: string }`?",
+        "answer": "`id` es obligatoria y `name` es opcional: puede faltar y en ese caso vale `undefined`."
+      },
+      {
+        "question": "¿Qué garantiza TypeScript en tiempo de ejecución?",
+        "answer": "Nada: los tipos se borran al compilar. Una respuesta del servidor puede no cumplir el tipo que declaraste, así que lo que viene de fuera se valida."
+      }
+    ],
+    "quiz": [
+      {
+        "question": "El servidor devuelve JSON que no controlas. ¿Qué tipo usas para recibirlo antes de validarlo?",
+        "options": [
+          "`unknown`",
+          "`any`",
+          "`object`",
+          "`never`"
+        ],
+        "correct_index": 0,
+        "explanation": "`unknown` te obliga a comprobar la forma del dato antes de usarlo. `any` te deja usarlo sin comprobar nada."
+      },
+      {
+        "question": "¿Qué comprueba `vue-tsc --noEmit`?",
+        "options": [
+          "Los tipos de los componentes Vue sin generar archivos",
+          "El formato del código",
+          "Los tests",
+          "El tamaño del bundle"
+        ],
+        "correct_index": 0,
+        "explanation": "`vue-tsc` es el compilador de TypeScript que entiende archivos `.vue`. Con `--noEmit` solo comprueba los tipos y no genera salida."
+      }
+    ],
+    "challenge": "Tipa de punta a punta un formulario de Inertia: define el tipo de las props de la página, el de los datos del formulario y una unión con los estados de carga. Haz que `npm run types:check` falle si olvidas una prop.",
+    "interview": {
+      "question": "Why use TypeScript in a Vue or React project, and what does it not protect you from?",
+      "points": [
+        "It catches mistakes at build time and makes refactors safer.",
+        "Typed props document what each component expects.",
+        "It improves editor autocomplete and navigation.",
+        "Types are erased at runtime, so server data still needs validation.",
+        "Avoid any; prefer unknown and narrowing."
+      ]
+    }
+  },
+  {
+    "slug": "vue",
+    "position": 15,
+    "section": "Frontend",
+    "command": "npm run dev",
+    "title": "Vue 3",
+    "concepts": [
+      "Un componente de un solo archivo (`.vue`) junta `<script setup>`, `<template>` y estilos.",
+      "`ref()` guarda un valor reactivo (en el script se lee y escribe con `.value`); `reactive()` hace reactivo un objeto.",
+      "`computed()` deriva un valor y lo recalcula solo cuando cambian sus dependencias; `watch()` ejecuta un efecto cuando algo cambia.",
+      "Las props bajan datos al hijo y los eventos (`emit`) suben al padre; `v-model` es el atajo de ambos.",
+      "`v-for` necesita una `:key` estable; `v-if` crea o destruye el elemento y `v-show` solo lo oculta con CSS.",
+      "Los composables son funciones `useAlgo()` que encapsulan lógica reactiva reutilizable."
+    ],
+    "flashcards": [
+      {
+        "question": "¿Cuándo usar `computed` en vez de `watch`?",
+        "answer": "Cuando quieres derivar un valor de otros, como un total o una lista filtrada. `watch` es para efectos secundarios: llamar a una API o guardar en `localStorage`."
+      },
+      {
+        "question": "Diferencia entre `v-if` y `v-show`.",
+        "answer": "`v-if` agrega o quita el elemento del DOM. `v-show` lo deja y alterna `display: none`. Usa `v-show` si cambia mucho y `v-if` si casi nunca se muestra."
+      },
+      {
+        "question": "¿Por qué hay que poner `:key` en un `v-for`?",
+        "answer": "Permite a Vue identificar cada elemento al reordenar o filtrar la lista y reutilizar el DOM correcto. Usa un id estable; el índice solo sirve si la lista no cambia."
+      },
+      {
+        "question": "¿Qué es un composable?",
+        "answer": "Una función, por convención `useAlgo()`, que usa la API de composición (`ref`, `computed`, `onMounted`) para encapsular y reutilizar lógica con estado. Un ejemplo de esta app es `useAppearance()` en `resources/js/composables/`."
+      }
+    ],
+    "quiz": [
+      {
+        "question": "Tienes `const count = ref(0)`. ¿Cómo lo incrementas dentro de `<script setup>`?",
+        "options": [
+          "`count.value++`",
+          "`count++`",
+          "`count = count + 1`",
+          "`ref(count + 1)`"
+        ],
+        "correct_index": 0,
+        "explanation": "En el script, un `ref` se lee y se escribe con `.value`. Solo en el template se desenvuelve solo."
+      },
+      {
+        "question": "Un `v-for` recorre tareas que el usuario puede reordenar. ¿Qué `:key` usas?",
+        "options": [
+          "El `id` de la tarea",
+          "El índice del arreglo",
+          "`Math.random()`",
+          "Ninguna"
+        ],
+        "correct_index": 0,
+        "explanation": "Con un id estable, Vue sabe qué elemento es cuál al reordenar. El índice cambia con el orden y `Math.random()` obliga a recrear todo en cada render."
+      }
+    ],
+    "challenge": "Construye una lista de tareas con Vue 3 y `<script setup>`: añadir, completar y borrar, un contador con `computed` y un filtro. Extrae la lógica a un composable `useTasks()`.",
+    "interview": {
+      "question": "Explain Vue's reactivity and when you would use ref, reactive, computed and watch.",
+      "points": [
+        "ref wraps a single value and is accessed with .value in script; reactive makes an object reactive.",
+        "computed derives a cached value from other reactive state.",
+        "watch runs a side effect when a source changes.",
+        "Props go down and events go up; v-model is the shortcut for both.",
+        "Composables extract and reuse stateful logic."
+      ]
+    }
+  },
+  {
+    "slug": "react",
+    "position": 16,
+    "section": "Frontend",
+    "command": "npm run dev",
+    "title": "React",
+    "concepts": [
+      "Un componente es una función que devuelve JSX; recibe `props` y debe ser pura: con los mismos datos devuelve lo mismo.",
+      "`useState` guarda el estado local; al llamar a su setter con un valor nuevo, React vuelve a renderizar el componente. Nunca mutes el estado, crea uno nuevo.",
+      "`useEffect` sincroniza el componente con algo externo (una API, una suscripción); su arreglo de dependencias decide cuándo se ejecuta y su función de limpieza evita fugas.",
+      "Las listas necesitan una `key` estable y los datos fluyen solo hacia abajo; el hijo avisa al padre con funciones que recibe por props.",
+      "No uses `useEffect` para derivar datos del estado: calcúlalos durante el render.",
+      "Con Inertia, un componente de React recibe las props del controlador igual que uno de Vue; el backend no cambia."
+    ],
+    "flashcards": [
+      {
+        "question": "¿Por qué no se debe mutar el estado en React?",
+        "answer": "React compara por referencia para saber si algo cambió. Si mutas el objeto o arreglo existente, la referencia es la misma y no se vuelve a renderizar. Crea una copia: `setItems([...items, nuevo])`."
+      },
+      {
+        "question": "¿Qué hace el arreglo de dependencias de `useEffect`?",
+        "answer": "Indica de qué valores depende el efecto: se ejecuta tras el primer render y cada vez que cambia alguno. Con `[]` corre una sola vez; sin arreglo, en cada render."
+      },
+      {
+        "question": "¿Cuándo no necesitas `useEffect`?",
+        "answer": "Para calcular un valor a partir de props o estado (hazlo durante el render) y para responder a un evento del usuario (hazlo en el manejador). Resérvalo para sincronizar con sistemas externos."
+      },
+      {
+        "question": "Diferencia entre props y estado.",
+        "answer": "Las props llegan del padre y el componente no debe modificarlas. El estado es propio del componente y cambia con su setter, lo que provoca un nuevo render."
+      }
+    ],
+    "quiz": [
+      {
+        "question": "`const [items, setItems] = useState([])`. ¿Cómo añades un elemento correctamente?",
+        "options": [
+          "`setItems([...items, nuevo])`",
+          "`items.push(nuevo)`",
+          "`items[items.length] = nuevo`",
+          "`setItems(items.push(nuevo))`"
+        ],
+        "correct_index": 0,
+        "explanation": "Hay que pasar al setter un arreglo nuevo. Mutar `items` no cambia su referencia, así que React no se entera."
+      },
+      {
+        "question": "`useEffect(() => { fetchUser(id) }, [])` no se vuelve a ejecutar cuando cambia `id`. ¿Qué falta?",
+        "options": [
+          "Poner `id` en el arreglo de dependencias",
+          "Quitar el arreglo",
+          "Usar `useState`",
+          "Llamar a `fetchUser` fuera del componente"
+        ],
+        "correct_index": 0,
+        "explanation": "Con `[]` el efecto solo corre al montar. Si depende de `id`, `id` debe estar en el arreglo para que se ejecute de nuevo cuando cambie."
+      }
+    ],
+    "challenge": "Rehaz en React la lista de tareas del módulo de Vue con el mismo comportamiento: `useState`, un filtro calculado durante el render y un hook propio `useTasks()`.",
+    "interview": {
+      "question": "What is the difference between props and state in React, and when do you use useEffect?",
+      "points": [
+        "Props are inputs from the parent and are read-only; state is owned by the component.",
+        "Never mutate state: create a new array or object.",
+        "useEffect synchronizes with external systems and needs the right dependency array.",
+        "Derived values should be computed during render, not in an effect.",
+        "Lists need stable keys."
+      ]
+    }
+  },
+  {
+    "slug": "css",
+    "position": 17,
+    "section": "Frontend",
+    "command": "npm run dev",
+    "title": "Tailwind CSS",
+    "concepts": [
+      "Tailwind compone los estilos con clases de utilidad (`flex`, `gap-4`, `text-sm`) escritas en el HTML, en vez de CSS aparte para cada componente.",
+      "Los prefijos de estado y de ancho (`hover:`, `focus-visible:`, `md:`, `dark:`) aplican una utilidad solo en esa condición; el diseño es mobile-first.",
+      "Los valores salen de un tema (colores, espaciado, tipografías) que puedes ampliar con variables CSS en `@theme`.",
+      "Para no repetir clases, extrae un componente de Vue o de React, no una clase con `@apply`.",
+      "shadcn-vue y shadcn/ui son componentes accesibles que se copian a tu proyecto (`components/ui`) y se personalizan con Tailwind.",
+      "El modo oscuro de los starter kits se activa con la clase `dark` en `<html>` y la variante `dark:`."
+    ],
+    "flashcards": [
+      {
+        "question": "¿Qué significa mobile-first en Tailwind?",
+        "answer": "Las utilidades sin prefijo se aplican a todos los tamaños y los prefijos (`md:`, `lg:`) las modifican desde ese ancho hacia arriba. Diseñas primero para móvil y vas añadiendo."
+      },
+      {
+        "question": "¿Por qué extraer un componente en lugar de usar `@apply`?",
+        "answer": "Un componente reutiliza estructura y estilo juntos, y deja las clases visibles donde se usan. `@apply` crea CSS que hay que mantener aparte y pierde la ventaja de las utilidades."
+      },
+      {
+        "question": "¿Qué es `cn()` en los proyectos con shadcn?",
+        "answer": "Una función de ayuda que combina `clsx` y `tailwind-merge`: junta clases condicionales y resuelve los conflictos, de modo que si pasas `p-2` y `p-4` queda solo `p-4`."
+      },
+      {
+        "question": "¿Cómo se aplica un estilo solo en modo oscuro?",
+        "answer": "Con el prefijo `dark:`, por ejemplo `bg-white dark:bg-black`. En los starter kits de Laravel se activa al poner la clase `dark` en `<html>`."
+      }
+    ],
+    "quiz": [
+      {
+        "question": "¿Qué clase aplica `padding: 1rem` solo desde pantallas medianas hacia arriba?",
+        "options": [
+          "`md:p-4`",
+          "`p-4:md`",
+          "`md-p-4`",
+          "`p-4 md`"
+        ],
+        "correct_index": 0,
+        "explanation": "El prefijo de ancho va primero y separado por dos puntos: `md:p-4`. `p-4` equivale a 1rem."
+      },
+      {
+        "question": "¿Qué resuelve los conflictos entre utilidades como `p-2` y `p-4` al combinar clases?",
+        "options": [
+          "`tailwind-merge`, normalmente a través de `cn()`",
+          "`@apply`",
+          "`clsx` por sí sola",
+          "`@theme`"
+        ],
+        "correct_index": 0,
+        "explanation": "`clsx` junta clases pero no sabe cuáles se pisan. `tailwind-merge` sí: conserva la última de las que entran en conflicto."
+      }
+    ],
+    "challenge": "Construye una tarjeta de producto responsive (una columna en móvil, tres en escritorio) con modo oscuro, usando solo utilidades de Tailwind y un componente `ProductCard`. Comprueba el contraste y el foco con teclado.",
+    "interview": {
+      "question": "How do you keep a Tailwind codebase maintainable as it grows?",
+      "points": [
+        "Extract components instead of using @apply.",
+        "Design tokens through theme variables.",
+        "A consistent spacing and type scale.",
+        "cn() and tailwind-merge for conditional classes.",
+        "Accessibility variants such as focus-visible, and automatic class sorting with the Prettier plugin."
+      ]
+    }
+  },
+  {
+    "slug": "ine",
+    "position": 18,
+    "section": "Frontend",
+    "command": "php artisan inertia:middleware",
+    "title": "Inertia con Vue y React",
+    "concepts": [
+      "Inertia conecta los controladores de Laravel con páginas Vue o React sin una API separada.",
+      "`Inertia::render('Pagina', $props)` envía los datos como props del componente.",
+      "`HandleInertiaRequests::share()` comparte datos globales como el usuario o mensajes flash.",
+      "`useForm` maneja envío, errores de validación y el estado `processing`.",
+      "Los partial reloads (`only`) y las deferred props reducen los datos enviados.",
+      "El backend es el mismo con Vue o React; solo cambia la capa de componentes."
+    ],
+    "flashcards": [
+      {
+        "question": "¿Qué es Inertia en una frase?",
+        "answer": "Un puente que permite crear una SPA con Vue o React usando rutas y controladores clásicos de Laravel, sin construir una API."
+      },
+      {
+        "question": "¿Cómo compartes el usuario autenticado con todas las páginas?",
+        "answer": "En el método `share()` del middleware `HandleInertiaRequests`."
+      },
+      {
+        "question": "¿Cómo llegan los errores de validación al formulario?",
+        "answer": "Laravel redirige atrás y Inertia los entrega como `errors`; con `useForm` los lees en `form.errors`."
+      },
+      {
+        "question": "¿Qué es un partial reload?",
+        "answer": "Volver a pedir solo algunas props, por ejemplo `router.reload({ only: ['users'] })`, sin recargar el resto de la página."
+      }
+    ],
+    "quiz": [
+      {
+        "question": "¿Qué te ahorras al usar Inertia en vez de una SPA con API separada?",
+        "options": [
+          "Endpoints JSON y manejo de tokens; usas la sesión normal",
+          "La validación en el backend",
+          "Escribir componentes de frontend",
+          "Las migraciones"
+        ],
+        "correct_index": 0,
+        "explanation": "Inertia usa rutas web y sesión. Sigues validando en Laravel y escribiendo componentes Vue o React."
+      },
+      {
+        "question": "Si migras una página de Vue a React con Inertia, ¿qué cambia en el controlador?",
+        "options": [
+          "Nada, sigue usando `Inertia::render()`",
+          "Hay que devolver JSON",
+          "Hay que crear un API Resource",
+          "Hay que cambiar de router"
+        ],
+        "correct_index": 0,
+        "explanation": "El controlador solo indica el nombre de la página y sus props. El adaptador de frontend decide cómo se renderiza."
+      }
+    ],
+    "challenge": "Rehaz en React una página que ya tengas en Vue con Inertia: mismo controlador, formulario con `useForm`, errores de validación y un partial reload.",
+    "interview": {
+      "question": "When would you choose Inertia over a separate SPA with an API?",
+      "points": [
+        "Inertia fits when one team owns backend and frontend and there is a single web client.",
+        "It avoids building and securing a separate API and handles auth with sessions.",
+        "Choose a separate API when there are mobile apps, third-party consumers or separate teams.",
+        "You can still add an API later for those clients."
+      ]
+    }
+  },
+  {
+    "slug": "fe-test",
+    "position": 19,
+    "section": "Frontend",
+    "command": "npx vitest",
+    "title": "Testing de frontend",
+    "concepts": [
+      "Los tests de componentes (Vitest con Testing Library) comprueban lo que ve el usuario; los end-to-end (Playwright) recorren la app real en un navegador.",
+      "Busca los elementos por rol y texto accesible (`getByRole('button', { name: 'Guardar' })`), no por clases CSS: los tests duran más y, de paso, empujan a una interfaz accesible.",
+      "Playwright espera automáticamente a que un elemento esté listo antes de actuar; evita `sleep` y las esperas fijas.",
+      "Un E2E debe cubrir pocos flujos críticos (registro, compra). El grueso de las pruebas son las rápidas y pequeñas.",
+      "En una app Inertia, prueba la integración con el backend desde Pest (`assertInertia`) y el componente aislado en Vitest.",
+      "Un test inestable (flaky) es peor que no tener test: arréglalo o bórralo."
+    ],
+    "flashcards": [
+      {
+        "question": "¿Por qué buscar por rol en lugar de por clase CSS?",
+        "answer": "El rol y el nombre accesible son lo que usa una persona (o un lector de pantalla). Si cambias el estilo, el test sigue pasando; y si no puedes encontrar un botón por rol, probablemente tampoco sea accesible."
+      },
+      {
+        "question": "¿Qué es el auto-waiting de Playwright?",
+        "answer": "Antes de actuar (clic, escribir) Playwright espera a que el elemento exista, sea visible y esté habilitado. Así no necesitas pausas fijas y los tests fallan menos por culpa de los tiempos."
+      },
+      {
+        "question": "¿Qué es un test flaky?",
+        "answer": "Uno que a veces pasa y a veces falla sin que el código haya cambiado, normalmente por tiempos, datos compartidos o dependencias externas. Destruye la confianza en la suite."
+      },
+      {
+        "question": "¿Qué va en Vitest y qué en Playwright?",
+        "answer": "Vitest: lógica y componentes aislados, rápidos y muchos. Playwright: flujos completos con navegador, backend y base de datos reales, pocos y críticos."
+      }
+    ],
+    "quiz": [
+      {
+        "question": "Un test E2E falla a veces porque el botón aún no aparece. ¿Qué haces?",
+        "options": [
+          "Usar las aserciones con espera automática de Playwright",
+          "Añadir `sleep(5000)`",
+          "Subir el timeout de toda la suite",
+          "Borrar el test"
+        ],
+        "correct_index": 0,
+        "explanation": "Las aserciones de Playwright (`expect(locator)...`) reintentan hasta que se cumplen o vence el tiempo. Una pausa fija es lenta cuando sobra y falla cuando falta."
+      },
+      {
+        "question": "¿Cómo localizas un botón de la forma más estable?",
+        "options": [
+          "`getByRole('button', { name: 'Guardar' })`",
+          "`.btn.btn-primary:nth-child(3)`",
+          "Con un XPath absoluto",
+          "Por su posición en la página"
+        ],
+        "correct_index": 0,
+        "explanation": "El rol y el nombre accesible cambian mucho menos que las clases o la estructura del DOM."
+      }
+    ],
+    "challenge": "Cubre la lista de tareas con un test de componente en Vitest (añadir y completar) y un test E2E en Playwright del flujo completo: iniciar sesión, crear una tarea y verla en la lista.",
+    "interview": {
+      "question": "How do you decide what to cover with unit tests and what with end-to-end tests?",
+      "points": [
+        "Many fast tests for logic and components, few E2E tests for critical flows.",
+        "Query by role and accessible name to keep tests stable.",
+        "Avoid fixed sleeps; rely on auto-waiting and web-first assertions.",
+        "Keep E2E data isolated and reset between runs.",
+        "Treat flaky tests as bugs."
+      ]
+    }
+  },
+  {
+    "slug": "ci",
+    "position": 20,
+    "section": "Producción",
+    "command": "php artisan test --parallel",
+    "title": "Git y GitHub Actions",
+    "concepts": [
+      "Trabajar en ramas cortas y abrir pull requests pequeños, fáciles de revisar.",
+      "`git merge` conserva la historia con un commit de unión; `git rebase` la reescribe en línea. No hagas rebase de ramas que otros ya usan.",
+      "Un workflow de GitHub Actions es un archivo YAML en `.github/workflows/` que se dispara con eventos como `push` o `pull_request`.",
+      "Un workflow tiene jobs; cada job corre en su propio runner (`runs-on: ubuntu-latest`) y ejecuta steps en orden.",
+      "Los secretos se guardan en la configuración del repositorio y se leen con `${{ secrets.NOMBRE }}`, nunca en el código.",
+      "`needs:` ordena jobs, por ejemplo que el deploy espere a que pasen los tests.",
+      "Cachear las dependencias de Composer y npm acelera el pipeline.",
+      "Proteger la rama `main` para exigir que el CI pase antes de hacer merge."
+    ],
+    "flashcards": [
+      {
+        "question": "¿Dónde viven los workflows de GitHub Actions?",
+        "answer": "En `.github/workflows/`, como archivos `.yml` dentro del repositorio."
+      },
+      {
+        "question": "Diferencia entre job y step.",
+        "answer": "Los jobs corren en paralelo por defecto, cada uno en un runner limpio. Los steps corren en orden dentro de un job y comparten sus archivos. Para ordenar jobs se usa `needs:`."
+      },
+      {
+        "question": "Pasos mínimos para correr los tests de Laravel en Actions.",
+        "answer": "`actions/checkout`, instalar PHP (por ejemplo con `shivammathur/setup-php`), `composer install`, copiar `.env.example` a `.env`, `php artisan key:generate` y `php artisan test`."
+      },
+      {
+        "question": "¿Cómo usas MySQL dentro del CI?",
+        "answer": "Declarándolo en `services:` del job con la imagen de MySQL y sus variables, o usando SQLite en memoria si tus tests lo permiten."
+      },
+      {
+        "question": "¿Cuándo usar rebase y cuándo merge?",
+        "answer": "Rebase para actualizar tu rama personal con `main` y dejar una historia limpia. Merge para integrar ramas compartidas sin reescribir lo que otros ya tienen."
+      }
+    ],
+    "quiz": [
+      {
+        "question": "¿Dónde guardas el token o la URL de deploy que usa tu workflow?",
+        "options": [
+          "En los secrets del repositorio",
+          "En el archivo `.yml`",
+          "En `.env.example`",
+          "En un comentario del pull request"
+        ],
+        "correct_index": 0,
+        "explanation": "Los secrets se cifran y no aparecen en los logs. Todo lo que está en el `.yml` es visible para quien vea el repositorio."
+      },
+      {
+        "question": "Quieres que el job de deploy corra solo si los tests pasaron. ¿Qué agregas?",
+        "options": [
+          "`needs: tests` en el job de deploy",
+          "Otro step al final del job de tests con `sleep`",
+          "`runs-on: deploy`",
+          "Nada, los jobs ya corren en orden"
+        ],
+        "correct_index": 0,
+        "explanation": "Sin `needs`, los jobs corren en paralelo. Con `needs: tests`, el deploy espera y se cancela si los tests fallan."
+      }
+    ],
+    "challenge": "Crea un workflow que en cada pull request instale dependencias con caché y corra Pint, Larastan y los tests con MySQL como service. Al hacer merge a `main`, que dispare el deploy solo si todo pasó. Protege la rama `main` en GitHub.",
+    "interview": {
+      "question": "Describe the CI/CD pipeline you would set up for a Laravel project.",
+      "points": [
+        "On every pull request: install dependencies with cache, run Pint, static analysis (Larastan) and the test suite.",
+        "Use a database service (MySQL) or SQLite for tests; keep secrets in GitHub Secrets.",
+        "Protect the main branch so merges require a green pipeline and a review.",
+        "On merge to main: deploy automatically, run migrations and restart queue workers."
+      ]
+    }
+  },
+  {
+    "slug": "ops",
+    "position": 21,
+    "section": "Producción",
+    "command": "php artisan migrate --force",
+    "title": "Docker y despliegue",
+    "concepts": [
+      "Una imagen es la plantilla; un contenedor es una instancia de esa imagen en ejecución.",
+      "Sail o un `docker-compose.yml` propio levanta app, base de datos y Redis igual para todo el equipo.",
+      "En producción: `APP_ENV=production`, `APP_DEBUG=false` y `APP_KEY` definida.",
+      "Pasos de un deploy: código nuevo, `composer install --no-dev --optimize-autoloader`, `npm run build`, `migrate --force`, `optimize` y `queue:restart`.",
+      "Los workers de cola se mantienen vivos con Supervisor (u Horizon) y el scheduler necesita un cron cada minuto.",
+      "Deploys sin caída: cada versión en su carpeta y un symlink que cambia al final (Forge, Envoyer o Deployer).",
+      "Los archivos subidos van a S3 u otro almacenamiento externo, no al disco del servidor.",
+      "`storage` y `bootstrap/cache` deben tener permisos de escritura para el usuario del servidor web."
+    ],
+    "flashcards": [
+      {
+        "question": "Diferencia entre imagen y contenedor de Docker.",
+        "answer": "La imagen es una plantilla de solo lectura construida desde un Dockerfile. El contenedor es esa imagen corriendo, con su propio estado."
+      },
+      {
+        "question": "¿Por qué `php artisan migrate --force` en el deploy?",
+        "answer": "En producción Laravel pide confirmación antes de migrar. `--force` la omite para que el script automático no se quede esperando."
+      },
+      {
+        "question": "¿Qué cron necesita Laravel para el scheduler?",
+        "answer": "Uno que corra cada minuto: `* * * * * cd /ruta-del-proyecto && php artisan schedule:run`."
+      },
+      {
+        "question": "¿Qué riesgo tiene `APP_DEBUG=true` en producción?",
+        "answer": "Muestra trazas de error con rutas, consultas y a veces variables de entorno o credenciales a cualquier visitante."
+      },
+      {
+        "question": "¿Por qué guardar los archivos subidos en S3?",
+        "answer": "Si cambias de servidor, agregas otro o el disco falla, los archivos siguen disponibles. El servidor queda desechable."
+      }
+    ],
+    "quiz": [
+      {
+        "question": "Las tareas programadas funcionan en local pero nunca se ejecutan en el servidor. ¿Qué falta?",
+        "options": [
+          "El cron que ejecuta `schedule:run` cada minuto",
+          "Reiniciar Redis",
+          "Correr `migrate --force`",
+          "Activar `APP_DEBUG`"
+        ],
+        "correct_index": 0,
+        "explanation": "El scheduler de Laravel no corre solo: depende de un cron del sistema que lo invoque cada minuto."
+      },
+      {
+        "question": "Tras el deploy aparece un error 500 con «Permission denied» en `storage/logs`. ¿Qué revisas?",
+        "options": [
+          "Permisos de `storage` y `bootstrap/cache` para el usuario del servidor web",
+          "La versión de Vue",
+          "El archivo `routes/api.php`",
+          "La clave de S3"
+        ],
+        "correct_index": 0,
+        "explanation": "Laravel necesita escribir logs, caché y vistas compiladas en esas carpetas. Si el usuario de PHP-FPM no puede, todo falla con 500."
+      }
+    ],
+    "challenge": "Pon en producción tu API de tareas: VPS (o Forge o Laravel Cloud), dominio con HTTPS, MySQL, Redis para colas, Supervisor para el worker, cron del scheduler, archivos en S3 y deploy automático desde GitHub Actions. Documenta cada paso en el README.",
+    "interview": {
+      "question": "How do you deploy a Laravel application to production?",
+      "points": [
+        "Production settings: APP_ENV=production, APP_DEBUG=false, secrets in environment variables.",
+        "Deploy steps: composer install --no-dev, build assets, migrate --force, cache config and routes, restart queue workers.",
+        "Keep workers alive with Supervisor or Horizon and run the scheduler with a cron entry.",
+        "Zero-downtime releases with symlinks, files on S3, and deploys triggered from CI after tests pass."
+      ]
+    }
+  },
+  {
+    "slug": "obs",
+    "position": 22,
+    "section": "Producción",
+    "command": "php artisan pail",
+    "title": "Observabilidad",
+    "concepts": [
+      "Observar es poder responder qué está pasando en producción sin adivinar, con tres fuentes: logs, métricas y trazas.",
+      "Los logs de Laravel usan canales (`single`, `daily`, `stack`, `stderr`) configurados en `config/logging.php`; en contenedores se suele escribir a stderr.",
+      "Registra con contexto: `Log::info('Pedido pagado', ['order_id' => $id])`, y nunca contraseñas, tokens ni datos personales.",
+      "Telescope inspecciona requests, consultas y jobs mientras desarrollas; Pulse da métricas en producción; Nightwatch es el servicio de monitoreo de Laravel; Sentry captura excepciones.",
+      "Un health check (la ruta `/up` que registra `bootstrap/app.php`) permite que un balanceador o un monitor sepa si la app responde.",
+      "Alerta sobre síntomas (errores, latencia, colas atrasadas), no sobre cada métrica."
+    ],
+    "flashcards": [
+      {
+        "question": "¿Qué es un canal de log?",
+        "answer": "Un destino configurado en `config/logging.php`: `single`, `daily`, `stderr`, `slack`... El canal `stack` combina varios, así un mismo mensaje puede ir a un archivo y a un servicio externo."
+      },
+      {
+        "question": "Diferencia entre log, métrica y traza.",
+        "answer": "El log es un evento con detalle («el pedido 42 falló»). La métrica es un número agregado en el tiempo, como peticiones por segundo o latencia. La traza sigue una petición a través de varios servicios."
+      },
+      {
+        "question": "¿Qué hace `php artisan pail`?",
+        "answer": "Muestra los logs de la aplicación en la terminal en tiempo real, sin abrir `storage/logs`. Acepta filtros: `--filter`, `--message`, `--level` y `--user`."
+      },
+      {
+        "question": "¿Para qué sirve la ruta `/up`?",
+        "answer": "Es el health check que Laravel registra con `health: '/up'` en `bootstrap/app.php`. Responde 200 si la aplicación arrancó, y la usan los balanceadores y los monitores."
+      }
+    ],
+    "quiz": [
+      {
+        "question": "Quieres ver los logs de tu app en vivo desde la terminal mientras pruebas. ¿Qué usas?",
+        "options": [
+          "`php artisan pail`",
+          "`php artisan tinker`",
+          "`php artisan route:list`",
+          "`composer dump-autoload`"
+        ],
+        "correct_index": 0,
+        "explanation": "Pail muestra el log en tiempo real y permite filtrar por nivel, mensaje o usuario."
+      },
+      {
+        "question": "¿Qué debes evitar poner en el contexto de un log?",
+        "options": [
+          "Contraseñas, tokens y datos personales",
+          "El id del pedido",
+          "El nombre del job",
+          "El tiempo de ejecución"
+        ],
+        "correct_index": 0,
+        "explanation": "Los logs se copian, se envían a terceros y se conservan durante meses. Un secreto que entra ahí es un secreto filtrado."
+      }
+    ],
+    "challenge": "Añade observabilidad a tu API de tareas: logs con contexto en las acciones críticas, un canal `stderr` para producción, captura de excepciones con Sentry o Nightwatch y una alerta cuando la cola de jobs se atrasa.",
+    "interview": {
+      "question": "How do you debug a problem that only happens in production?",
+      "points": [
+        "Start from logs and error tracking with enough context to reproduce.",
+        "Check metrics for correlated changes: latency, queue depth, errors.",
+        "Use request or trace IDs to follow a single request end to end.",
+        "Reproduce with production-like data in a safe environment.",
+        "Add the missing log or metric afterwards so the next time is easier."
+      ]
+    }
+  },
+  {
+    "slug": "pay",
+    "position": 23,
+    "section": "Especialización",
+    "command": "php artisan cashier:webhook",
+    "title": "Pagos y suscripciones con Cashier",
+    "concepts": [
+      "Cashier envuelve la API de suscripciones de Stripe: añades el trait `Billable` al modelo y creas suscripciones con `newSubscription()`.",
+      "Nunca guardes datos de tarjeta: Stripe los recoge (Checkout o Elements) y tu base de datos solo guarda identificadores como `stripe_id`.",
+      "El estado real de un pago lo dicen los webhooks, no la redirección del navegador: Cashier trae un controlador en `/stripe/webhook` que verifica la firma con `STRIPE_WEBHOOK_SECRET`.",
+      "Stripe reintenta los webhooks y puede enviarlos duplicados o desordenados: tu código debe ser idempotente.",
+      "Al cancelar, la suscripción entra en un periodo de gracia y sigue activa hasta el final del ciclo pagado (`onGracePeriod()`); `cancelNow()` la termina al instante.",
+      "Prueba siempre con las claves y las tarjetas del modo de pruebas de Stripe antes de pasar a producción."
+    ],
+    "flashcards": [
+      {
+        "question": "¿Por qué fiarse del webhook y no de la redirección tras pagar?",
+        "answer": "El usuario puede cerrar la pestaña antes de volver a tu sitio, o manipular la URL de retorno. El webhook lo envía Stripe directamente a tu servidor, firmado, y es la fuente fiable del estado del pago."
+      },
+      {
+        "question": "¿Qué es el periodo de gracia de una suscripción?",
+        "answer": "El tiempo entre que el usuario cancela y termina el ciclo que ya pagó. La suscripción sigue siendo válida hasta entonces; `onGracePeriod()` te dice si está en ese estado."
+      },
+      {
+        "question": "¿Qué hace el trait `Billable`?",
+        "answer": "Añade al modelo (normalmente `User`) los métodos de Cashier para crear clientes, suscripciones y cobros en Stripe, y guarda su `stripe_id`."
+      },
+      {
+        "question": "¿Cómo manejas un webhook que llega dos veces?",
+        "answer": "Haciendo la acción idempotente: guarda el id del evento de Stripe y comprueba si ya lo aplicaste antes de actuar. Stripe reintenta cuando no recibe una respuesta 2xx, así que los duplicados son normales."
+      }
+    ],
+    "quiz": [
+      {
+        "question": "El usuario paga en Stripe Checkout y vuelve a tu sitio con `?success=true`. ¿Cuándo activas su plan?",
+        "options": [
+          "Cuando llega el webhook que confirma el pago",
+          "Al ver `success=true` en la URL",
+          "Al hacer clic en el botón de pagar",
+          "Nunca: lo hace Stripe por ti"
+        ],
+        "correct_index": 0,
+        "explanation": "Cualquiera puede escribir `?success=true` en la barra del navegador. Solo el webhook firmado por Stripe prueba que el pago ocurrió."
+      },
+      {
+        "question": "Un usuario canceló su plan hace dos días pero ya había pagado el mes. ¿Qué devuelve `$user->subscribed('default')`?",
+        "options": [
+          "`true`, porque está en periodo de gracia",
+          "`false`, porque canceló",
+          "Lanza una excepción",
+          "`null`"
+        ],
+        "correct_index": 0,
+        "explanation": "Hasta que termine el ciclo ya pagado, la suscripción sigue válida. `onGracePeriod()` permite distinguir ese estado."
+      }
+    ],
+    "challenge": "Añade un plan mensual con Cashier en modo de pruebas: una página de precios, Stripe Checkout, un middleware que exija suscripción activa y un test del manejo de un webhook duplicado.",
+    "interview": {
+      "question": "How do you integrate subscriptions with Stripe in Laravel safely?",
+      "points": [
+        "Use Cashier and Stripe-hosted Checkout so card data never touches your server.",
+        "Trust verified webhooks, not browser redirects, for payment state.",
+        "Make webhook handling idempotent and verify the signature.",
+        "Handle grace periods, failed payments and cancellations explicitly.",
+        "Test in Stripe test mode and write tests for the webhook handler."
+      ]
+    }
+  },
+  {
+    "slug": "fil",
+    "position": 24,
+    "section": "Especialización",
+    "command": "php artisan make:filament-resource",
+    "title": "Filament y Livewire",
+    "concepts": [
+      "Livewire te deja escribir componentes dinámicos en PHP: el componente guarda el estado y su vista Blade reacciona con `wire:model` y `wire:click`.",
+      "Cada interacción es una petición al servidor y el cliente puede leer y modificar el estado público: trata cada propiedad pública como entrada del usuario (valida, autoriza y usa `#[Locked]` cuando no deba cambiar).",
+      "Filament construye paneles de administración sobre Livewire: un resource define la tabla, el formulario y las páginas de un modelo (`php artisan make:filament-resource`).",
+      "Filament respeta las policies registradas (`viewAny`, `update`, `delete`...): compruébalo con tests en lugar de suponer que cada modelo tiene la suya.",
+      "Fuera del entorno local, un usuario solo entra al panel si el modelo `User` implementa `FilamentUser` y `canAccessPanel()` devuelve `true`.",
+      "Filament 5 requiere PHP 8.2 o superior, Laravel 11.28 o superior y Tailwind CSS 4.1 o superior; lee la guía de actualización antes de cambiar de versión mayor."
+    ],
+    "flashcards": [
+      {
+        "question": "¿Qué hace `wire:model` en Livewire?",
+        "answer": "Enlaza un campo con una propiedad pública del componente. Para sincronizarla mientras el usuario escribe, usa `wire:model.live`."
+      },
+      {
+        "question": "¿Por qué hay que validar las propiedades públicas de Livewire?",
+        "answer": "Porque el cliente puede enviar cualquier valor para ellas. La documentación de Livewire lo resume así: trata las propiedades públicas como entrada del usuario, igual que una request normal."
+      },
+      {
+        "question": "¿Qué es un resource en Filament?",
+        "answer": "Una clase que describe cómo administrar un modelo: su tabla, su formulario y sus páginas de listado, creación y edición. Se genera con `php artisan make:filament-resource Customer`."
+      },
+      {
+        "question": "¿Cómo restringes quién entra a un panel de Filament?",
+        "answer": "Implementando `FilamentUser` en el modelo `User` con `canAccessPanel(Panel $panel): bool`. En producción, sin eso nadie entra al panel."
+      }
+    ],
+    "quiz": [
+      {
+        "question": "Un componente Livewire tiene `public int $orderId`. ¿Qué riesgo hay?",
+        "options": [
+          "El cliente puede modificar ese valor: hay que autorizar el acceso al pedido o bloquear la propiedad con `#[Locked]`",
+          "Ninguno: las propiedades públicas son de solo lectura",
+          "Solo afecta al CSS",
+          "Livewire la cifra y no se puede cambiar"
+        ],
+        "correct_index": 0,
+        "explanation": "Una propiedad pública puede manipularse desde el navegador. Si decide a qué recurso accede el componente, autorízala en el servidor o márcala con `#[Locked]`."
+      },
+      {
+        "question": "Desplegaste tu panel de Filament y un administrador recibe un 403 al entrar, aunque en local funcionaba. ¿Qué falta?",
+        "options": [
+          "Implementar `FilamentUser` con `canAccessPanel()` en el modelo `User`",
+          "Reinstalar Tailwind",
+          "Ejecutar `npm run build` otra vez",
+          "Cambiar la versión de PHP"
+        ],
+        "correct_index": 0,
+        "explanation": "En local el acceso está abierto, pero en cualquier otro entorno Filament exige el contrato `FilamentUser` para decidir quién puede entrar."
+      }
+    ],
+    "challenge": "Crea un panel con Filament para un modelo (por ejemplo `Product`): tabla con filtros, formulario validado, una policy que limite quién edita y una acción masiva. Escribe un test que compruebe la autorización.",
+    "interview": {
+      "question": "When would you choose Filament, and what are its trade-offs?",
+      "points": [
+        "Fast CRUD-heavy admin panels and internal tools.",
+        "It builds on Livewire, so the team needs to be comfortable with it.",
+        "It respects Laravel policies, but you must test authorization.",
+        "Heavy customization can cost more than building by hand.",
+        "Major versions need migration work."
+      ]
+    }
+  },
+  {
+    "slug": "oct",
+    "position": 25,
+    "section": "Especialización",
+    "command": "php artisan octane:start",
+    "title": "Octane",
+    "concepts": [
+      "Octane arranca la aplicación una sola vez y la mantiene en memoria entre requests, en lugar de arrancarla en cada petición como PHP-FPM.",
+      "Funciona con servidores de aplicación como FrankenPHP, RoadRunner, Swoole y Open Swoole.",
+      "`register()` y `boot()` de los providers corren una vez por worker: no guardes en un singleton el container, la request ni la configuración, porque quedarían obsoletos.",
+      "Los datos añadidos a una propiedad estática persisten entre requests y provocan fugas de memoria.",
+      "Octane reinicia cada worker tras 500 requests por defecto (`--max-requests`), y `php artisan octane:reload` recarga los workers después de un deploy.",
+      "Mide antes: Octane ayuda cuando el coste es arrancar el framework, no cuando lo lento es una consulta."
+    ],
+    "flashcards": [
+      {
+        "question": "¿Qué cambia Octane respecto a PHP-FPM?",
+        "answer": "Con PHP-FPM cada request arranca el framework desde cero. Con Octane la aplicación se arranca una vez, se mantiene en memoria y atiende muchas requests, lo que evita ese coste pero hace que el estado persista entre ellas."
+      },
+      {
+        "question": "¿Cuál es una fuga de memoria típica con Octane?",
+        "answer": "Acumular datos en una propiedad estática o en un singleton. Persisten entre requests y la memoria del worker crece sin parar."
+      },
+      {
+        "question": "Diferencia entre `singleton` y `scoped` con Octane.",
+        "answer": "`singleton` vive toda la vida del worker. `scoped` se reinicia al terminar cada request. Para un servicio que guarde datos de la request, usa `scoped`."
+      },
+      {
+        "question": "¿Cuándo se ejecuta `php artisan octane:reload`?",
+        "answer": "Después de cada deploy: reinicia los workers de forma ordenada para que carguen el código nuevo, ya que los que estaban en marcha tienen el código viejo en memoria."
+      }
+    ],
+    "quiz": [
+      {
+        "question": "Un singleton recibe `$request` en su constructor. Con Octane, ¿qué ocurre?",
+        "options": [
+          "Conserva la request de la primera petición y puede servir datos de otra persona",
+          "Funciona igual que con PHP-FPM",
+          "Falla al arrancar",
+          "Se actualiza solo en cada request"
+        ],
+        "correct_index": 0,
+        "explanation": "El singleton se crea una vez y guarda esa request. Las siguientes peticiones verían sus cabeceras y su entrada. Pasa solo los datos necesarios como argumento de cada método."
+      },
+      {
+        "question": "Acabas de desplegar código nuevo con Octane en marcha. ¿Qué comando aplicas?",
+        "options": [
+          "`php artisan octane:reload`",
+          "`php artisan cache:clear`",
+          "`composer dump-autoload`",
+          "`php artisan optimize:clear`"
+        ],
+        "correct_index": 0,
+        "explanation": "Los workers tienen el código viejo en memoria. `octane:reload` los reinicia con gracia para que carguen el nuevo."
+      }
+    ],
+    "challenge": "Instala Octane con FrankenPHP, mide con una herramienta de carga (como k6) antes y después, y encuentra y corrige un singleton que guarde datos de la request.",
+    "interview": {
+      "question": "When would you use Octane, and what pitfalls should you watch for?",
+      "points": [
+        "When boot time is a real share of request time and you have measured it.",
+        "State persists between requests: avoid statics and singletons holding request data.",
+        "Do not inject the container, request or config into singletons.",
+        "Restart workers on deploy and watch memory per worker.",
+        "Some features, such as concurrent tasks, require Swoole."
+      ]
+    }
+  },
+  {
+    "slug": "scout",
+    "position": 26,
+    "section": "Especialización",
+    "command": "php artisan scout:import",
+    "title": "Búsqueda con Scout",
+    "concepts": [
+      "Scout sincroniza tus modelos Eloquent con un índice de búsqueda: añades el trait `Searchable` y cada cambio del modelo actualiza el índice.",
+      "`toSearchableArray()` decide qué campos se indexan; indexa solo lo que se busca o se filtra.",
+      "Scout soporta Algolia, Meilisearch, Typesense y Turbopuffer, y los motores `database` y `collection` para empezar sin servicios externos.",
+      "El índice es una copia: la base de datos sigue siendo la fuente de verdad, así que debes poder reconstruirlo (`scout:flush` y `scout:import`).",
+      "Indexa en cola (`'queue' => true` en `config/scout.php`) para que guardar un modelo no espere al motor de búsqueda.",
+      "Laravel 13 añade búsqueda semántica con vectores (`whereVectorSimilarTo`) sobre PostgreSQL con `pgvector`."
+    ],
+    "flashcards": [
+      {
+        "question": "¿Qué añade el trait `Searchable` a un modelo?",
+        "answer": "Lo conecta con Scout: al crear, actualizar o borrar el modelo se actualiza el índice de búsqueda, y puedes buscar con `Model::search('texto')->get()`."
+      },
+      {
+        "question": "¿Para qué sirve `toSearchableArray()`?",
+        "answer": "Para decidir qué datos del modelo se envían al índice. Por defecto se indexa el modelo completo; conviene limitarlo a los campos que se buscan o se filtran."
+      },
+      {
+        "question": "¿Por qué indexar en cola?",
+        "answer": "Para que guardar un modelo no tenga que esperar a que responda el motor de búsqueda, ni falle la petición del usuario si ese servicio está lento o caído. Se activa con `'queue' => true`."
+      },
+      {
+        "question": "¿Qué hacen `scout:import` y `scout:flush`?",
+        "answer": "`scout:import` indexa todos los registros existentes de un modelo. `scout:flush` borra del índice todos los registros de un modelo. Juntos reconstruyen el índice desde la base de datos."
+      }
+    ],
+    "quiz": [
+      {
+        "question": "Cambias el esquema del índice y quieres reconstruirlo desde la base de datos. ¿Qué haces?",
+        "options": [
+          "`scout:flush` y luego `scout:import`",
+          "`migrate:fresh`",
+          "`cache:clear`",
+          "Editar el índice a mano"
+        ],
+        "correct_index": 0,
+        "explanation": "`scout:flush` vacía el índice y `scout:import` lo vuelve a llenar con los datos actuales de la base de datos."
+      },
+      {
+        "question": "¿Qué motor de Scout te deja empezar sin ningún servicio externo?",
+        "options": [
+          "El motor `database`",
+          "Algolia",
+          "Meilisearch",
+          "Typesense"
+        ],
+        "correct_index": 0,
+        "explanation": "El motor `database` busca sobre tus propias tablas. Los otros requieren un servicio aparte."
+      }
+    ],
+    "challenge": "Añade búsqueda a un catálogo con Scout y Meilisearch (o el motor `database`): `toSearchableArray()`, indexación en cola, un filtro por categoría y un test que use el motor `collection`.",
+    "interview": {
+      "question": "How would you add search to an existing Laravel application?",
+      "points": [
+        "Start with Scout and the database engine; move to Meilisearch or Typesense when relevance and speed matter.",
+        "Index only the fields you search or filter, and do it in a queue.",
+        "Keep the database as the source of truth and be able to reimport.",
+        "Handle typos, filters and ranking with the engine, not with LIKE.",
+        "Consider semantic search with embeddings for meaning-based queries."
+      ]
+    }
+  }
+]

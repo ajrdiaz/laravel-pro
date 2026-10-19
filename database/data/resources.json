@@ -1,0 +1,1401 @@
+[
+  {
+    "module": "req",
+    "items": [
+      {
+        "title": "Request Lifecycle",
+        "url": "https://laravel.com/framework/docs/13.x/lifecycle",
+        "provider": "Laravel",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "El recorrido oficial de una request, desde `public/index.php` hasta la respuesta."
+      },
+      {
+        "title": "Middleware",
+        "url": "https://laravel.com/framework/docs/13.x/middleware",
+        "provider": "Laravel",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Qué se ejecuta antes y después de `$next`, grupos de middleware y alias."
+      },
+      {
+        "title": "Routing",
+        "url": "https://laravel.com/framework/docs/13.x/routing",
+        "provider": "Laravel",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Rutas, parámetros, route model binding y límites de uso."
+      },
+      {
+        "title": "Controllers",
+        "url": "https://laravel.com/framework/docs/13.x/controllers",
+        "provider": "Laravel",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Controladores de una sola acción, de recurso y middleware por atributos."
+      },
+      {
+        "title": "Getting Started with Laravel",
+        "url": "https://laravel.com/learn/getting-started-with-laravel",
+        "provider": "Laravel Learn",
+        "kind": "course",
+        "language": "en",
+        "is_free": true,
+        "note": "Mini curso en video oficial, 13 lecciones y unos 120 minutos: tu primera app completa. La página no indica ningún precio."
+      },
+      {
+        "title": "PHP Fundamentals",
+        "url": "https://laravel.com/learn/php-fundamentals",
+        "provider": "Laravel Learn",
+        "kind": "course",
+        "language": "en",
+        "is_free": true,
+        "note": "10 lecciones (71 minutos) de PHP moderno enfocado en lo que verás en Laravel. La página no indica ningún precio."
+      }
+    ]
+  },
+  {
+    "module": "ioc",
+    "items": [
+      {
+        "title": "Service Container",
+        "url": "https://laravel.com/framework/docs/13.x/container",
+        "provider": "Laravel",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Bindings, singletons, resolución automática y contextual."
+      },
+      {
+        "title": "Service Providers",
+        "url": "https://laravel.com/framework/docs/13.x/providers",
+        "provider": "Laravel",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Qué va en `register()` y qué en `boot()`."
+      },
+      {
+        "title": "Facades",
+        "url": "https://laravel.com/framework/docs/13.x/facades",
+        "provider": "Laravel",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Cómo una facade resuelve un servicio del container, y cómo falsearla en tests."
+      }
+    ]
+  },
+  {
+    "module": "elo",
+    "items": [
+      {
+        "title": "Eloquent: Getting Started",
+        "url": "https://laravel.com/framework/docs/13.x/eloquent",
+        "provider": "Laravel",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Modelos, asignación masiva, casts y procesamiento por lotes."
+      },
+      {
+        "title": "Eloquent: Relationships",
+        "url": "https://laravel.com/framework/docs/13.x/eloquent-relationships",
+        "provider": "Laravel",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Todas las relaciones, eager loading y cómo evitar el N+1."
+      },
+      {
+        "title": "Database: Query Builder",
+        "url": "https://laravel.com/framework/docs/13.x/queries",
+        "provider": "Laravel",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Lo que Eloquent genera por debajo: joins, agregados y subconsultas."
+      }
+    ]
+  },
+  {
+    "module": "que",
+    "items": [
+      {
+        "title": "Queues",
+        "url": "https://laravel.com/framework/docs/13.x/queues",
+        "provider": "Laravel",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Jobs, reintentos, chains, batches, jobs únicos y despliegue de workers."
+      },
+      {
+        "title": "Horizon",
+        "url": "https://laravel.com/framework/docs/13.x/horizon",
+        "provider": "Laravel",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Panel y configuración para colas Redis."
+      },
+      {
+        "title": "Events",
+        "url": "https://laravel.com/framework/docs/13.x/events",
+        "provider": "Laravel",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Eventos, listeners y listeners en cola."
+      },
+      {
+        "title": "Task Scheduling",
+        "url": "https://laravel.com/framework/docs/13.x/scheduling",
+        "provider": "Laravel",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "El scheduler y el cron que lo dispara cada minuto."
+      }
+    ]
+  },
+  {
+    "module": "auth",
+    "items": [
+      {
+        "title": "Authentication",
+        "url": "https://laravel.com/framework/docs/13.x/authentication",
+        "provider": "Laravel",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Guards, providers, sesión y recordar al usuario."
+      },
+      {
+        "title": "Authorization",
+        "url": "https://laravel.com/framework/docs/13.x/authorization",
+        "provider": "Laravel",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Gates y policies, y cómo aplicarlas en controladores y rutas."
+      },
+      {
+        "title": "Sanctum",
+        "url": "https://laravel.com/framework/docs/13.x/sanctum",
+        "provider": "Laravel",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Tokens con abilities para móviles y terceros, y sesión por cookie para SPAs."
+      },
+      {
+        "title": "Starter Kits",
+        "url": "https://laravel.com/framework/docs/13.x/starter-kits",
+        "provider": "Laravel",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Los kits oficiales de React, Vue, Svelte y Livewire con la autenticación ya montada."
+      },
+      {
+        "title": "Authentication Cheat Sheet",
+        "url": "https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html",
+        "provider": "OWASP",
+        "kind": "article",
+        "language": "en",
+        "is_free": true,
+        "note": "Lista de buenas prácticas de seguridad para revisar tu login y tu manejo de contraseñas."
+      }
+    ]
+  },
+  {
+    "module": "api",
+    "items": [
+      {
+        "title": "Eloquent: API Resources",
+        "url": "https://laravel.com/framework/docs/13.x/eloquent-resources",
+        "provider": "Laravel",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Resources, colecciones, paginación y los resources compatibles con JSON:API de Laravel 13."
+      },
+      {
+        "title": "Validation",
+        "url": "https://laravel.com/framework/docs/13.x/validation",
+        "provider": "Laravel",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Form requests, reglas y el formato de los errores 422."
+      },
+      {
+        "title": "Sanctum",
+        "url": "https://laravel.com/framework/docs/13.x/sanctum",
+        "provider": "Laravel",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Autenticación por token para tu API."
+      },
+      {
+        "title": "Scramble",
+        "url": "https://scramble.dedoc.co",
+        "provider": "Dedoc",
+        "kind": "tool",
+        "language": "en",
+        "is_free": true,
+        "note": "Genera la documentación OpenAPI de tu API a partir del código."
+      },
+      {
+        "title": "Scribe",
+        "url": "https://scribe.knuckles.wtf/laravel/",
+        "provider": "Knuckles",
+        "kind": "tool",
+        "language": "en",
+        "is_free": true,
+        "note": "Otra opción para generar documentación de API para Laravel."
+      }
+    ]
+  },
+  {
+    "module": "test",
+    "items": [
+      {
+        "title": "Testing: Getting Started",
+        "url": "https://laravel.com/framework/docs/13.x/testing",
+        "provider": "Laravel",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Feature tests frente a unit tests, y cómo correrlos."
+      },
+      {
+        "title": "HTTP Tests",
+        "url": "https://laravel.com/framework/docs/13.x/http-tests",
+        "provider": "Laravel",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Hacer requests y las aserciones de respuesta y de JSON."
+      },
+      {
+        "title": "Database Testing",
+        "url": "https://laravel.com/framework/docs/13.x/database-testing",
+        "provider": "Laravel",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "`RefreshDatabase`, factories y seeders en los tests."
+      },
+      {
+        "title": "Mocking",
+        "url": "https://laravel.com/framework/docs/13.x/mocking",
+        "provider": "Laravel",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Los fakes de `Queue`, `Mail`, `Http`, `Event` y `Storage`."
+      },
+      {
+        "title": "Pest: Installation",
+        "url": "https://pestphp.com/docs/installation",
+        "provider": "Pest",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Cómo instalar Pest y su plugin de Laravel."
+      },
+      {
+        "title": "Pest: Writing Tests",
+        "url": "https://pestphp.com/docs/writing-tests",
+        "provider": "Pest",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "La sintaxis `it()` y `test()`."
+      },
+      {
+        "title": "Pest: Datasets",
+        "url": "https://pestphp.com/docs/datasets",
+        "provider": "Pest",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Un mismo test con muchos casos, ideal para validación."
+      }
+    ]
+  },
+  {
+    "module": "perf",
+    "items": [
+      {
+        "title": "Cache",
+        "url": "https://laravel.com/framework/docs/13.x/cache",
+        "provider": "Laravel",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "`Cache::remember`, locks atómicos y drivers."
+      },
+      {
+        "title": "Telescope",
+        "url": "https://laravel.com/framework/docs/13.x/telescope",
+        "provider": "Laravel",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Inspecciona consultas, jobs y requests mientras desarrollas."
+      },
+      {
+        "title": "Pulse",
+        "url": "https://laravel.com/framework/docs/13.x/pulse",
+        "provider": "Laravel",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Métricas de rendimiento en producción: consultas lentas, colas y uso."
+      },
+      {
+        "title": "Use The Index, Luke",
+        "url": "https://use-the-index-luke.com",
+        "provider": "Markus Winand",
+        "kind": "book",
+        "language": "en",
+        "is_free": true,
+        "note": "Libro sobre índices y rendimiento de SQL, con edición web gratuita. Imprescindible antes de cachear a ciegas."
+      },
+      {
+        "title": "Laravel Debugbar",
+        "url": "https://github.com/fruitcake/laravel-debugbar",
+        "provider": "Fruitcake",
+        "kind": "tool",
+        "language": "en",
+        "is_free": true,
+        "note": "Barra de depuración con las consultas de cada página, para cazar los N+1."
+      }
+    ]
+  },
+  {
+    "module": "ine",
+    "items": [
+      {
+        "title": "Inertia: Getting Started",
+        "url": "https://inertiajs.com/docs/v3/getting-started/index",
+        "provider": "Inertia",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Documentación de la versión 3, la que usa el starter kit actual."
+      },
+      {
+        "title": "Inertia: Forms",
+        "url": "https://inertiajs.com/docs/v3/the-basics/forms",
+        "provider": "Inertia",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Envío de formularios, errores de validación y estado de `processing`."
+      },
+      {
+        "title": "Inertia: Shared Data",
+        "url": "https://inertiajs.com/docs/v3/data-props/shared-data",
+        "provider": "Inertia",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Datos disponibles en todas las páginas, como el usuario autenticado."
+      },
+      {
+        "title": "Inertia: Partial Reloads",
+        "url": "https://inertiajs.com/docs/v3/data-props/partial-reloads",
+        "provider": "Inertia",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Volver a pedir solo algunas props con `only`."
+      },
+      {
+        "title": "Vue: Introduction",
+        "url": "https://vuejs.org/guide/introduction.html",
+        "provider": "Vue",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "La guía oficial. Léela antes de Inertia si todavía no dominas Vue."
+      },
+      {
+        "title": "React: Learn",
+        "url": "https://react.dev/learn",
+        "provider": "React",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "El curso oficial de React, con ejercicios interactivos."
+      },
+      {
+        "title": "TypeScript Handbook",
+        "url": "https://www.typescriptlang.org/docs/handbook/intro.html",
+        "provider": "Microsoft",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Los starter kits de Laravel usan TypeScript en Vue y en React."
+      },
+      {
+        "title": "Tailwind CSS",
+        "url": "https://tailwindcss.com/docs",
+        "provider": "Tailwind Labs",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "La base del estilo de los kits oficiales."
+      },
+      {
+        "title": "Laravel 12 Vue & Inertia CRUD with Starter Kit",
+        "url": "https://www.youtube.com/watch?v=iLmq2zpfRI4",
+        "provider": "ItSolutionStuff (YouTube)",
+        "kind": "video",
+        "language": "en",
+        "is_free": true,
+        "note": "Un CRUD con Vue e Inertia sobre el starter kit. Es de Laravel 12: el kit de Laravel 13 usa Inertia 3 y puede diferir en detalles."
+      }
+    ]
+  },
+  {
+    "module": "ci",
+    "items": [
+      {
+        "title": "GitHub Actions",
+        "url": "https://docs.github.com/en/actions",
+        "provider": "GitHub",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Conceptos, runners, secrets y límites."
+      },
+      {
+        "title": "Workflow syntax",
+        "url": "https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax",
+        "provider": "GitHub",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Referencia de `on`, `jobs`, `needs`, `services` y `steps`."
+      },
+      {
+        "title": "setup-php",
+        "url": "https://github.com/shivammathur/setup-php",
+        "provider": "Shivam Mathur",
+        "kind": "tool",
+        "language": "en",
+        "is_free": true,
+        "note": "La acción para instalar PHP y sus extensiones en tus workflows."
+      },
+      {
+        "title": "Pro Git",
+        "url": "https://git-scm.com/book/es/v2",
+        "provider": "Git",
+        "kind": "book",
+        "language": "es",
+        "is_free": true,
+        "note": "El libro oficial de Git, completo y en español. Mira ramas, merge y rebase."
+      },
+      {
+        "title": "Laravel Pint",
+        "url": "https://laravel.com/framework/docs/13.x/pint",
+        "provider": "Laravel",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "El formateador de código que puedes exigir en cada pull request."
+      }
+    ]
+  },
+  {
+    "module": "ops",
+    "items": [
+      {
+        "title": "Deployment",
+        "url": "https://laravel.com/framework/docs/13.x/deployment",
+        "provider": "Laravel",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Requisitos del servidor, optimización y qué cachear en producción."
+      },
+      {
+        "title": "Filesystem",
+        "url": "https://laravel.com/framework/docs/13.x/filesystem",
+        "provider": "Laravel",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Discos locales y S3, para sacar los archivos subidos del servidor."
+      },
+      {
+        "title": "Laravel Sail",
+        "url": "https://laravel.com/framework/docs/13.x/sail",
+        "provider": "Laravel",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Entorno de desarrollo con Docker. Es para desarrollo, no para producción."
+      },
+      {
+        "title": "Docker: Get started",
+        "url": "https://docs.docker.com/get-started/",
+        "provider": "Docker",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Imágenes, contenedores y Compose desde cero."
+      },
+      {
+        "title": "Supervisor",
+        "url": "https://supervisord.org/",
+        "provider": "Supervisor",
+        "kind": "tool",
+        "language": "en",
+        "is_free": true,
+        "note": "El proceso que mantiene vivos tus workers de cola."
+      },
+      {
+        "title": "Laravel Forge",
+        "url": "https://laravel.com/forge",
+        "provider": "Laravel",
+        "kind": "tool",
+        "language": "en",
+        "is_free": false,
+        "note": "Servicio comercial para crear servidores y desplegar apps Laravel. Revisa los precios en su sitio."
+      },
+      {
+        "title": "Laravel Cloud",
+        "url": "https://laravel.com/cloud",
+        "provider": "Laravel",
+        "kind": "tool",
+        "language": "en",
+        "is_free": false,
+        "note": "Plataforma comercial gestionada por Laravel. Revisa los precios en su sitio."
+      }
+    ]
+  },
+  {
+    "module": "php",
+    "items": [
+      {
+        "title": "PHP: Enumerations",
+        "url": "https://www.php.net/manual/en/language.enumerations.php",
+        "provider": "php.net",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "El manual oficial de los enums: respaldados, métodos, `from()` y `tryFrom()`."
+      },
+      {
+        "title": "PHP: Constructors and Destructors",
+        "url": "https://www.php.net/manual/en/language.oop5.decon.php",
+        "provider": "php.net",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Incluye la promoción de propiedades en el constructor."
+      },
+      {
+        "title": "PHP: match",
+        "url": "https://www.php.net/manual/en/control-structures.match.php",
+        "provider": "php.net",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Cómo se compara `match` con `switch` y cuándo lanza `UnhandledMatchError`."
+      },
+      {
+        "title": "PHP 8.3 Released",
+        "url": "https://www.php.net/releases/8.3/en.php",
+        "provider": "php.net",
+        "kind": "article",
+        "language": "en",
+        "is_free": true,
+        "note": "Las novedades de PHP 8.3, la versión mínima que exige Laravel 13."
+      },
+      {
+        "title": "PHP.Watch: PHP 8.3",
+        "url": "https://php.watch/versions/8.3",
+        "provider": "PHP.Watch",
+        "kind": "article",
+        "language": "en",
+        "is_free": true,
+        "note": "Cambios, funciones nuevas y deprecaciones de PHP 8.3 explicadas una a una."
+      },
+      {
+        "title": "PHP Fundamentals",
+        "url": "https://laravel.com/learn/php-fundamentals",
+        "provider": "Laravel Learn",
+        "kind": "course",
+        "language": "en",
+        "is_free": true,
+        "note": "10 lecciones (71 minutos) de PHP moderno enfocado en Laravel. La página no indica ningún precio."
+      }
+    ]
+  },
+  {
+    "module": "sql",
+    "items": [
+      {
+        "title": "SQLBolt",
+        "url": "https://sqlbolt.com",
+        "provider": "SQLBolt",
+        "kind": "course",
+        "language": "en",
+        "is_free": true,
+        "note": "Lecciones interactivas de SQL, con ejercicios que se resuelven en el navegador."
+      },
+      {
+        "title": "Use The Index, Luke",
+        "url": "https://use-the-index-luke.com",
+        "provider": "Markus Winand",
+        "kind": "book",
+        "language": "en",
+        "is_free": true,
+        "note": "Libro sobre índices y rendimiento de SQL, con edición web gratuita."
+      },
+      {
+        "title": "Migrations",
+        "url": "https://laravel.com/framework/docs/13.x/migrations",
+        "provider": "Laravel",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Crear tablas, columnas, índices y claves foráneas, y revertir cambios."
+      },
+      {
+        "title": "Database: Getting Started",
+        "url": "https://laravel.com/framework/docs/13.x/database",
+        "provider": "Laravel",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Consultas, transacciones y los eventos de la base de datos."
+      },
+      {
+        "title": "PostgreSQL: SQL Tutorial",
+        "url": "https://www.postgresql.org/docs/current/tutorial-sql.html",
+        "provider": "PostgreSQL",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Un tutorial corto y claro de SQL, válido también para otros motores."
+      },
+      {
+        "title": "MySQL: EXPLAIN",
+        "url": "https://dev.mysql.com/doc/refman/8.4/en/explain.html",
+        "provider": "MySQL",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Cómo leer el plan de ejecución de una consulta."
+      }
+    ]
+  },
+  {
+    "module": "sec",
+    "items": [
+      {
+        "title": "OWASP Top 10",
+        "url": "https://top10.owasp.org/",
+        "provider": "OWASP",
+        "kind": "article",
+        "language": "en",
+        "is_free": true,
+        "note": "La lista de los riesgos de seguridad más críticos en aplicaciones web."
+      },
+      {
+        "title": "OWASP Cheat Sheet Series",
+        "url": "https://cheatsheetseries.owasp.org/",
+        "provider": "OWASP",
+        "kind": "article",
+        "language": "en",
+        "is_free": true,
+        "note": "Guías cortas y concretas sobre cada tema: autenticación, XSS, CSRF, subida de archivos."
+      },
+      {
+        "title": "CSRF Protection",
+        "url": "https://laravel.com/framework/docs/13.x/csrf",
+        "provider": "Laravel",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "El middleware `PreventRequestForgery`, el token y las peticiones desde una SPA."
+      },
+      {
+        "title": "Encryption",
+        "url": "https://laravel.com/framework/docs/13.x/encryption",
+        "provider": "Laravel",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "`APP_KEY`, cifrado y cómo rotar la clave con `APP_PREVIOUS_KEYS`."
+      },
+      {
+        "title": "Hashing",
+        "url": "https://laravel.com/framework/docs/13.x/hashing",
+        "provider": "Laravel",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Bcrypt y Argon2 para guardar contraseñas."
+      },
+      {
+        "title": "Composer CLI",
+        "url": "https://getcomposer.org/doc/03-cli.md",
+        "provider": "Composer",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Incluye `composer audit`, que avisa de dependencias con vulnerabilidades conocidas."
+      }
+    ]
+  },
+  {
+    "module": "rt",
+    "items": [
+      {
+        "title": "Broadcasting",
+        "url": "https://laravel.com/framework/docs/13.x/broadcasting",
+        "provider": "Laravel",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Eventos, canales, autorización y los hooks `useEcho` para Vue y React."
+      },
+      {
+        "title": "Reverb",
+        "url": "https://laravel.com/framework/docs/13.x/reverb",
+        "provider": "Laravel",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "WebSockets de Laravel: instalación, producción y escalado con Redis."
+      },
+      {
+        "title": "Events",
+        "url": "https://laravel.com/framework/docs/13.x/events",
+        "provider": "Laravel",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Los eventos que luego se emiten por WebSocket."
+      },
+      {
+        "title": "Getting Started with Laravel Reverb",
+        "url": "https://www.youtube.com/watch?v=gv9z1yv0_7k",
+        "provider": "Laravel (YouTube)",
+        "kind": "video",
+        "language": "en",
+        "is_free": true,
+        "note": "Introducción a Reverb publicada en el canal oficial de Laravel."
+      },
+      {
+        "title": "Going Real-Time with Reverb: Laravel In Practice EP17",
+        "url": "https://www.youtube.com/watch?v=4wdFcJZ8kTE",
+        "provider": "Laravel News (YouTube)",
+        "kind": "video",
+        "language": "en",
+        "is_free": true,
+        "note": "Episodio de Laravel In Practice sobre actualizaciones en tiempo real con Reverb."
+      },
+      {
+        "title": "Crea aplicaciones en tiempo real con Laravel Reverb, Livewire y Laravel",
+        "url": "https://www.youtube.com/watch?v=46Y8ORWDtRU",
+        "provider": "El Rincón de Isma (YouTube)",
+        "kind": "video",
+        "language": "es",
+        "is_free": true,
+        "note": "En español y con Livewire en lugar de Vue o React; la parte de Reverb y eventos es la misma."
+      }
+    ]
+  },
+  {
+    "module": "ts",
+    "items": [
+      {
+        "title": "TypeScript Handbook",
+        "url": "https://www.typescriptlang.org/docs/handbook/intro.html",
+        "provider": "Microsoft",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "La guía oficial, de cero a tipos avanzados."
+      },
+      {
+        "title": "TypeScript: Everyday Types",
+        "url": "https://www.typescriptlang.org/docs/handbook/2/everyday-types.html",
+        "provider": "Microsoft",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Uniones, alias de tipo y los tipos del día a día. El capítulo que más se usa."
+      },
+      {
+        "title": "TypeScript Playground",
+        "url": "https://www.typescriptlang.org/play",
+        "provider": "Microsoft",
+        "kind": "tool",
+        "language": "en",
+        "is_free": true,
+        "note": "Escribe TypeScript en el navegador y ve los errores al instante."
+      },
+      {
+        "title": "Vue: Using Vue with TypeScript",
+        "url": "https://vuejs.org/guide/typescript/overview.html",
+        "provider": "Vue",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Cómo tipar props, emits y refs en un componente."
+      },
+      {
+        "title": "React: Using TypeScript",
+        "url": "https://react.dev/learn/typescript",
+        "provider": "React",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Cómo tipar props, estado y hooks en React."
+      }
+    ]
+  },
+  {
+    "module": "vue",
+    "items": [
+      {
+        "title": "Vue: Introduction",
+        "url": "https://vuejs.org/guide/introduction.html",
+        "provider": "Vue",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "La guía oficial de Vue 3."
+      },
+      {
+        "title": "Vue Tutorial",
+        "url": "https://vuejs.org/tutorial/",
+        "provider": "Vue",
+        "kind": "course",
+        "language": "en",
+        "is_free": true,
+        "note": "Un tutorial interactivo que se hace en el navegador, paso a paso."
+      },
+      {
+        "title": "Reactivity Fundamentals",
+        "url": "https://vuejs.org/guide/essentials/reactivity-fundamentals.html",
+        "provider": "Vue",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "`ref`, `reactive` y cómo funciona la reactividad."
+      },
+      {
+        "title": "Composables",
+        "url": "https://vuejs.org/guide/reusability/composables.html",
+        "provider": "Vue",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Cómo extraer y reutilizar lógica con estado."
+      },
+      {
+        "title": "VueUse",
+        "url": "https://vueuse.org",
+        "provider": "VueUse",
+        "kind": "tool",
+        "language": "en",
+        "is_free": true,
+        "note": "Una colección de composables listos para usar. Los starter kits de Laravel ya lo incluyen."
+      },
+      {
+        "title": "shadcn-vue",
+        "url": "https://www.shadcn-vue.com",
+        "provider": "shadcn-vue",
+        "kind": "tool",
+        "language": "en",
+        "is_free": true,
+        "note": "Los componentes de interfaz que usa el starter kit de Vue."
+      }
+    ]
+  },
+  {
+    "module": "react",
+    "items": [
+      {
+        "title": "React: Learn",
+        "url": "https://react.dev/learn",
+        "provider": "React",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "El curso oficial de React, con ejercicios interactivos."
+      },
+      {
+        "title": "Tutorial: Tic-Tac-Toe",
+        "url": "https://react.dev/learn/tutorial-tic-tac-toe",
+        "provider": "React",
+        "kind": "course",
+        "language": "en",
+        "is_free": true,
+        "note": "El primer proyecto del curso oficial: estado, props y listas construyendo un juego."
+      },
+      {
+        "title": "You Might Not Need an Effect",
+        "url": "https://react.dev/learn/you-might-not-need-an-effect",
+        "provider": "React",
+        "kind": "article",
+        "language": "en",
+        "is_free": true,
+        "note": "Cuándo usar `useEffect` y, sobre todo, cuándo no. Léelo después de los primeros ejercicios."
+      },
+      {
+        "title": "Built-in React Hooks",
+        "url": "https://react.dev/reference/react/hooks",
+        "provider": "React",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "La referencia de todos los hooks."
+      },
+      {
+        "title": "React: Using TypeScript",
+        "url": "https://react.dev/learn/typescript",
+        "provider": "React",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Cómo tipar props, estado y hooks."
+      }
+    ]
+  },
+  {
+    "module": "css",
+    "items": [
+      {
+        "title": "Tailwind CSS",
+        "url": "https://tailwindcss.com/docs",
+        "provider": "Tailwind Labs",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "La documentación oficial, con un buscador excelente de utilidades."
+      },
+      {
+        "title": "Responsive Design",
+        "url": "https://tailwindcss.com/docs/responsive-design",
+        "provider": "Tailwind Labs",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Los prefijos de ancho y el enfoque mobile-first."
+      },
+      {
+        "title": "Dark Mode",
+        "url": "https://tailwindcss.com/docs/dark-mode",
+        "provider": "Tailwind Labs",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "La variante `dark:` y cómo activarla por clase."
+      },
+      {
+        "title": "shadcn/ui",
+        "url": "https://ui.shadcn.com",
+        "provider": "shadcn",
+        "kind": "tool",
+        "language": "en",
+        "is_free": true,
+        "note": "Los componentes que usa el starter kit de React."
+      },
+      {
+        "title": "shadcn-vue",
+        "url": "https://www.shadcn-vue.com",
+        "provider": "shadcn-vue",
+        "kind": "tool",
+        "language": "en",
+        "is_free": true,
+        "note": "Los componentes que usa el starter kit de Vue."
+      },
+      {
+        "title": "Diseños CSS",
+        "url": "https://developer.mozilla.org/es/docs/Learn_web_development/Core/CSS_layout",
+        "provider": "MDN",
+        "kind": "docs",
+        "language": "es",
+        "is_free": true,
+        "note": "Flexbox, grid y posicionamiento, en español. Tailwind es CSS: entender esto te ahorra muchos tropiezos."
+      }
+    ]
+  },
+  {
+    "module": "arch",
+    "items": [
+      {
+        "title": "Patrones de diseño",
+        "url": "https://refactoring.guru/es/design-patterns",
+        "provider": "Refactoring.Guru",
+        "kind": "article",
+        "language": "es",
+        "is_free": true,
+        "note": "Un catálogo claro y con ilustraciones de los patrones clásicos, en español. El catálogo web se lee gratis."
+      },
+      {
+        "title": "Service Container",
+        "url": "https://laravel.com/framework/docs/13.x/container",
+        "provider": "Laravel",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "La base para depender de abstracciones y sustituirlas en los tests."
+      },
+      {
+        "title": "Events",
+        "url": "https://laravel.com/framework/docs/13.x/events",
+        "provider": "Laravel",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Los eventos como forma de desacoplar efectos secundarios."
+      },
+      {
+        "title": "Laravel Beyond CRUD",
+        "url": "https://spatie.be/products/laravel-beyond-crud",
+        "provider": "Spatie",
+        "kind": "book",
+        "language": "en",
+        "is_free": false,
+        "note": "Libro de pago sobre cómo organizar un proyecto Laravel grande: dominios, acciones y objetos de datos."
+      }
+    ]
+  },
+  {
+    "module": "pay",
+    "items": [
+      {
+        "title": "Laravel Cashier (Stripe)",
+        "url": "https://laravel.com/framework/docs/13.x/billing",
+        "provider": "Laravel",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Suscripciones, Checkout, webhooks y periodos de gracia."
+      },
+      {
+        "title": "Laravel Cashier (Paddle)",
+        "url": "https://laravel.com/framework/docs/13.x/cashier-paddle",
+        "provider": "Laravel",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "La alternativa con Paddle como proveedor de pagos."
+      },
+      {
+        "title": "Stripe: How subscriptions work",
+        "url": "https://docs.stripe.com/billing/subscriptions/overview",
+        "provider": "Stripe",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "El modelo de Stripe: clientes, productos, precios y suscripciones."
+      },
+      {
+        "title": "Stripe: Webhooks",
+        "url": "https://docs.stripe.com/webhooks",
+        "provider": "Stripe",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Firmas, reintentos y buenas prácticas al recibir eventos."
+      },
+      {
+        "title": "Stripe: Testing",
+        "url": "https://docs.stripe.com/testing",
+        "provider": "Stripe",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Las tarjetas y los datos de prueba para no cobrar de verdad."
+      }
+    ]
+  },
+  {
+    "module": "obs",
+    "items": [
+      {
+        "title": "Logging",
+        "url": "https://laravel.com/framework/docs/13.x/logging",
+        "provider": "Laravel",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Canales, niveles, contexto y Laravel Pail."
+      },
+      {
+        "title": "Telescope",
+        "url": "https://laravel.com/framework/docs/13.x/telescope",
+        "provider": "Laravel",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Inspecciona requests, consultas y jobs mientras desarrollas."
+      },
+      {
+        "title": "Pulse",
+        "url": "https://laravel.com/framework/docs/13.x/pulse",
+        "provider": "Laravel",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Métricas de rendimiento en producción."
+      },
+      {
+        "title": "Laravel Nightwatch",
+        "url": "https://laravel.com/nightwatch",
+        "provider": "Laravel",
+        "kind": "tool",
+        "language": "en",
+        "is_free": false,
+        "note": "Servicio comercial de monitoreo de Laravel. Revisa los precios en su sitio."
+      },
+      {
+        "title": "Sentry for Laravel",
+        "url": "https://docs.sentry.io/platforms/php/guides/laravel/",
+        "provider": "Sentry",
+        "kind": "tool",
+        "language": "en",
+        "is_free": false,
+        "note": "Servicio comercial de captura de errores. Revisa sus planes en su sitio."
+      },
+      {
+        "title": "Monitoring Distributed Systems",
+        "url": "https://sre.google/sre-book/monitoring-distributed-systems/",
+        "provider": "Google SRE",
+        "kind": "book",
+        "language": "en",
+        "is_free": true,
+        "note": "Un capítulo del libro de SRE de Google, gratuito en línea: qué medir y cuándo alertar."
+      }
+    ]
+  },
+  {
+    "module": "fe-test",
+    "items": [
+      {
+        "title": "Vitest: Getting Started",
+        "url": "https://vitest.dev/guide/",
+        "provider": "Vitest",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "El ejecutor de tests que encaja con Vite."
+      },
+      {
+        "title": "Playwright: Installation",
+        "url": "https://playwright.dev/docs/intro",
+        "provider": "Playwright",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Tests de punta a punta en un navegador real."
+      },
+      {
+        "title": "Playwright: Best Practices",
+        "url": "https://playwright.dev/docs/best-practices",
+        "provider": "Playwright",
+        "kind": "article",
+        "language": "en",
+        "is_free": true,
+        "note": "Cómo escribir tests estables: localizadores por rol, aislamiento y esperas."
+      },
+      {
+        "title": "Testing Library",
+        "url": "https://testing-library.com/docs/",
+        "provider": "Testing Library",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "La filosofía de probar lo que ve el usuario y las consultas por rol."
+      },
+      {
+        "title": "Vue Testing Library",
+        "url": "https://testing-library.com/docs/vue-testing-library/intro",
+        "provider": "Testing Library",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "La versión para componentes de Vue."
+      },
+      {
+        "title": "Vue Test Utils",
+        "url": "https://test-utils.vuejs.org",
+        "provider": "Vue",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "La librería oficial de Vue para montar y probar componentes."
+      }
+    ]
+  },
+  {
+    "module": "fil",
+    "items": [
+      {
+        "title": "Livewire: Quickstart",
+        "url": "https://livewire.laravel.com/docs/4.x/quickstart",
+        "provider": "Livewire",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Tu primer componente de Livewire 4."
+      },
+      {
+        "title": "Livewire: Properties",
+        "url": "https://livewire.laravel.com/docs/4.x/properties",
+        "provider": "Livewire",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Incluye la sección de seguridad de las propiedades públicas y `#[Locked]`."
+      },
+      {
+        "title": "Filament: Installation",
+        "url": "https://filamentphp.com/docs/5.x/introduction/installation",
+        "provider": "Filament",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Requisitos de Filament 5 y cómo instalar un panel."
+      },
+      {
+        "title": "Filament: Resources",
+        "url": "https://filamentphp.com/docs/5.x/resources/overview",
+        "provider": "Filament",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Cómo definir tabla y formulario de un modelo, y su autorización con policies."
+      },
+      {
+        "title": "Filament: Users",
+        "url": "https://filamentphp.com/docs/5.x/users/overview",
+        "provider": "Filament",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Quién puede acceder al panel: el contrato `FilamentUser` y `canAccessPanel()`."
+      }
+    ]
+  },
+  {
+    "module": "oct",
+    "items": [
+      {
+        "title": "Octane",
+        "url": "https://laravel.com/framework/docs/13.x/octane",
+        "provider": "Laravel",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Servidores, inyección de dependencias, fugas de memoria y producción."
+      },
+      {
+        "title": "FrankenPHP",
+        "url": "https://frankenphp.dev/docs/",
+        "provider": "FrankenPHP",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "El servidor de aplicación más sencillo de arrancar con Octane."
+      },
+      {
+        "title": "RoadRunner",
+        "url": "https://docs.roadrunner.dev/docs",
+        "provider": "RoadRunner",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "La alternativa escrita en Go."
+      },
+      {
+        "title": "Grafana k6",
+        "url": "https://grafana.com/docs/k6/latest/",
+        "provider": "Grafana",
+        "kind": "tool",
+        "language": "en",
+        "is_free": true,
+        "note": "Una herramienta de pruebas de carga de código abierto, con scripts en JavaScript."
+      },
+      {
+        "title": "laravel/octane",
+        "url": "https://github.com/laravel/octane",
+        "provider": "GitHub",
+        "kind": "tool",
+        "language": "en",
+        "is_free": true,
+        "note": "El repositorio del paquete, con su historial de cambios."
+      }
+    ]
+  },
+  {
+    "module": "scout",
+    "items": [
+      {
+        "title": "Scout",
+        "url": "https://laravel.com/framework/docs/13.x/scout",
+        "provider": "Laravel",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Motores, indexación en cola, filtros y búsqueda semántica."
+      },
+      {
+        "title": "Search",
+        "url": "https://laravel.com/framework/docs/13.x/search",
+        "provider": "Laravel",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "La búsqueda semántica con vectores de Laravel 13."
+      },
+      {
+        "title": "Meilisearch",
+        "url": "https://www.meilisearch.com/docs/getting_started/overview",
+        "provider": "Meilisearch",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Un motor de búsqueda de código abierto, rápido y fácil de autoalojar."
+      },
+      {
+        "title": "Typesense",
+        "url": "https://typesense.org/docs/",
+        "provider": "Typesense",
+        "kind": "docs",
+        "language": "en",
+        "is_free": true,
+        "note": "Otro motor de código abierto con tolerancia a errores de tipeo."
+      },
+      {
+        "title": "laravel/scout",
+        "url": "https://github.com/laravel/scout",
+        "provider": "GitHub",
+        "kind": "tool",
+        "language": "en",
+        "is_free": true,
+        "note": "El repositorio del paquete."
+      }
+    ]
+  }
+]

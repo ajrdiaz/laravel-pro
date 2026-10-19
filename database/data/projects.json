@@ -1,0 +1,222 @@
+[
+  {
+    "slug": "api-de-tareas",
+    "title": "API REST de tareas con tokens",
+    "level": "basico",
+    "hours": 12,
+    "summary": "Una API que otra persona pueda usar sin leer tu código: recursos bien formados, autenticación con tokens, validación, errores consistentes y pruebas. Es el proyecto que más se parece a lo que se pregunta en una entrevista de backend.",
+    "stack": "rest-api",
+    "modules": ["php", "req", "sql", "elo", "auth", "sec", "api", "test", "ci"],
+    "deliverables": [
+      "Repositorio público en GitHub con un README que explique cómo levantarla.",
+      "Ejemplos de peticiones (`curl` o un archivo `.http`) para probar cada endpoint.",
+      "Un workflow de GitHub Actions en verde."
+    ],
+    "milestones": [
+      {
+        "title": "Modelo y migraciones",
+        "detail": "Usuarios, listas y tareas con sus relaciones. Claves foráneas con borrado en cascada e índices en las columnas por las que vas a filtrar. Factories y seeders para tener datos con los que probar."
+      },
+      {
+        "title": "Endpoints CRUD con API Resources",
+        "detail": "Rutas en `routes/api.php`, un controlador por recurso y un `JsonResource` que dé forma a cada respuesta. Ningún endpoint devuelve el modelo tal cual."
+      },
+      {
+        "title": "Validación con Form Requests",
+        "detail": "Cada escritura valida su entrada en un Form Request. Los errores salen en JSON, con código 422 y un mensaje por campo."
+      },
+      {
+        "title": "Autenticación con tokens",
+        "detail": "Un login que devuelve un token (Sanctum) y un logout que lo revoca. Las rutas privadas exigen el token y responden 401 si falta."
+      },
+      {
+        "title": "Autorización con policies",
+        "detail": "Cada persona solo ve y modifica lo suyo. Decide si un recurso ajeno responde 403 o 404, y deja escrito por qué."
+      },
+      {
+        "title": "Paginación, filtros y orden",
+        "detail": "Listados paginados, con filtro por estado y orden por fecha. Sin consultas N+1: cárgalas con `with()` y escribe un test que cuente las consultas del listado."
+      },
+      {
+        "title": "Pruebas con Pest",
+        "detail": "Un test por endpoint y por regla de autorización, incluido el caso en que falla. `php artisan test` debe pasar partiendo de una base de datos vacía."
+      },
+      {
+        "title": "Documentación y CI",
+        "detail": "README con los pasos para levantarla y ejemplos de uso. Un workflow que ejecute los tests en cada push."
+      }
+    ],
+    "stretch": [
+      "Versionar la API bajo `/api/v1`.",
+      "Limitar las peticiones por usuario con rate limiting.",
+      "Generar la documentación OpenAPI desde el código."
+    ]
+  },
+  {
+    "slug": "tablero-de-candidaturas",
+    "title": "Tablero de candidaturas con Inertia y Vue",
+    "level": "intermedio",
+    "hours": 20,
+    "summary": "Una aplicación para seguir las ofertas a las que te postulas, de la primera conversación a la respuesta. Un solo repositorio con Laravel e Inertia: páginas Vue tipadas, formularios con validación y un tablero que se actualiza sin recargar.",
+    "stack": "inertia-vue-react",
+    "modules": ["php", "req", "elo", "auth", "sec", "test", "ts", "vue", "css", "ine", "fe-test", "ci", "ops"],
+    "deliverables": [
+      "Repositorio con README y capturas de pantalla.",
+      "La aplicación desplegada, con una URL pública.",
+      "`vue-tsc` y la suite de pruebas pasando en CI."
+    ],
+    "milestones": [
+      {
+        "title": "Proyecto base y autenticación",
+        "detail": "Parte del starter kit oficial de Laravel con Vue y recórrelo antes de tocarlo: rutas, páginas, layouts y cómo llegan las props. Comprueba que registro, login y cierre de sesión funcionan."
+      },
+      {
+        "title": "Modelo de candidaturas",
+        "detail": "Empresa, puesto, estado, enlace a la oferta, fecha de contacto y notas. El estado es un enum de PHP, no un texto libre."
+      },
+      {
+        "title": "Listado con filtros en la URL",
+        "detail": "Búsqueda y filtro por estado guardados en la query string, con `preserveState`, para que el enlace se pueda compartir y el botón Atrás funcione."
+      },
+      {
+        "title": "Formularios con validación",
+        "detail": "Crear y editar con el componente `Form` o con `useForm` de Inertia. Los errores aparecen junto a cada campo y lo escrito se conserva si falla."
+      },
+      {
+        "title": "Tablero por estados",
+        "detail": "Una vista con una columna por estado y un modo de cambiar una candidatura de columna sin recargar la página. Botones primero; arrastrar y soltar es opcional."
+      },
+      {
+        "title": "Autorización",
+        "detail": "Cada persona solo ve sus candidaturas, con una policy y un test que lo demuestre."
+      },
+      {
+        "title": "Props tipadas",
+        "detail": "Define el tipo de las props de cada página y haz que `vue-tsc` pase sin errores y sin `any`."
+      },
+      {
+        "title": "Pruebas de backend y de frontend",
+        "detail": "Pest con `assertInertia` para cada página, y al menos un test del flujo principal en el navegador o de un componente con la herramienta que elijas."
+      },
+      {
+        "title": "Despliegue",
+        "detail": "Build de producción con `npm run build`, variables de entorno fuera del repositorio y la aplicación en una URL pública. Documenta cómo desplegar de nuevo."
+      }
+    ],
+    "stretch": [
+      "Arrastrar y soltar entre columnas.",
+      "Recordatorios por correo, enviados desde una cola, para hacer seguimiento.",
+      "Exportar el listado a CSV."
+    ]
+  },
+  {
+    "slug": "importador-con-colas",
+    "title": "Importador de CSV con colas y reporte",
+    "level": "intermedio",
+    "hours": 16,
+    "summary": "Subir un archivo grande no debe hacer esperar a nadie. Construye un importador que procese el CSV en segundo plano, aguante filas malas, no duplique datos si se repite y deje un informe de lo que pasó.",
+    "stack": "colas-y-workers",
+    "modules": ["sql", "elo", "ioc", "que", "arch", "test", "perf", "ops", "obs"],
+    "deliverables": [
+      "Repositorio con README que explique cómo levantar la aplicación y el worker.",
+      "Un CSV de ejemplo con filas válidas y filas con errores.",
+      "Una captura o un breve texto del informe que produce ese archivo."
+    ],
+    "milestones": [
+      {
+        "title": "Subida y almacenamiento",
+        "detail": "Valida el tipo y el tamaño del archivo y guárdalo en un disco privado, nunca en la carpeta pública."
+      },
+      {
+        "title": "Procesamiento en un job",
+        "detail": "Un job lee el CSV por bloques, sin cargarlo entero en memoria, y crea las filas. La petición de subida responde de inmediato."
+      },
+      {
+        "title": "Lotes con progreso",
+        "detail": "Divide el trabajo en lotes con `Bus::batch` y muestra el progreso mientras se procesa."
+      },
+      {
+        "title": "Fallos y reintentos",
+        "detail": "Define `tries` y `backoff`, y un método `failed()` que registre la fila y el motivo. Una fila mala no debe detener las demás."
+      },
+      {
+        "title": "Idempotencia",
+        "detail": "Importar el mismo archivo dos veces no duplica datos: apóyate en claves únicas o en `upsert`, y demuéstralo con un test."
+      },
+      {
+        "title": "Informe de resultados",
+        "detail": "Una pantalla con las filas importadas, las rechazadas y la razón de cada rechazo, con la opción de descargar los errores en CSV."
+      },
+      {
+        "title": "Pruebas de la cola",
+        "detail": "`Bus::fake()` o `Queue::fake()` para comprobar qué se encola, y un test que ejecute el job con un CSV pequeño de verdad."
+      },
+      {
+        "title": "Worker en producción",
+        "detail": "Un proceso supervisado para `queue:work`, con reinicio tras cada despliegue (`queue:restart`). Documenta cómo se levanta y cómo se ve si está caído."
+      },
+      {
+        "title": "Observabilidad",
+        "detail": "Registra la duración de cada importación y sus errores, y deja a la vista una forma de saber si la cola está atascada."
+      }
+    ],
+    "stretch": [
+      "Soportar archivos de cientos de miles de filas y medir cuánto tarda.",
+      "Importar desde una URL o un bucket en lugar de una subida.",
+      "Un panel como Horizon para ver la cola."
+    ]
+  },
+  {
+    "slug": "chat-de-equipo",
+    "title": "Chat de equipo en tiempo real",
+    "level": "avanzado",
+    "hours": 16,
+    "summary": "Salas de conversación donde los mensajes aparecen al instante y se ve quién está conectado. Practica WebSockets con Reverb y Echo, canales privados y de presencia, y las dificultades reales: autorizar quién escucha, reconectar y desplegar.",
+    "stack": "tiempo-real",
+    "modules": ["que", "rt", "auth", "ine", "test", "ops", "obs"],
+    "deliverables": [
+      "Repositorio con README, incluido cómo levantar Reverb y el worker.",
+      "Una grabación corta o un GIF de dos pestañas hablando entre sí.",
+      "Una nota con lo que haría falta para atender a muchos usuarios a la vez."
+    ],
+    "milestones": [
+      {
+        "title": "Salas y mensajes",
+        "detail": "Modelos de sala, membresía y mensaje, con una pantalla que lista las salas de la persona y guarda sus mensajes. Todavía sin tiempo real."
+      },
+      {
+        "title": "Un evento que se transmite",
+        "detail": "Cuando se crea un mensaje, un evento `ShouldBroadcast` lo envía al canal de su sala. Envíalo por la cola y comprueba que el worker lo procesa."
+      },
+      {
+        "title": "Reverb y Echo en local",
+        "detail": "Configura Reverb siguiendo la documentación, conecta Echo en el frontend y comprueba en las herramientas del navegador que la conexión WebSocket se abre."
+      },
+      {
+        "title": "Canales privados",
+        "detail": "Cada sala es un canal privado, con la regla de quién puede escucharlo en `routes/channels.php` y un test de que una persona ajena a la sala no entra."
+      },
+      {
+        "title": "La interfaz reacciona",
+        "detail": "El componente de la sala recibe el evento y añade el mensaje a la lista sin recargar. Evita duplicar el mensaje en quien lo envió."
+      },
+      {
+        "title": "Presencia",
+        "detail": "Un canal de presencia que muestre quién está conectado a la sala, con altas y bajas en vivo."
+      },
+      {
+        "title": "Pruebas",
+        "detail": "`Event::fake()` para comprobar que se emite el evento correcto en el canal correcto, y tests de la autorización de canales."
+      },
+      {
+        "title": "Reconexión y despliegue",
+        "detail": "Qué ve la persona si se cae la conexión y qué pasa al volver. Despliega Reverb detrás de un proxy con conexión segura y documenta los pasos."
+      }
+    ],
+    "stretch": [
+      "Indicador de que alguien está escribiendo.",
+      "Mensajes no leídos por sala.",
+      "Escalar Reverb a varios servidores y explicar qué cambia."
+    ]
+  }
+]

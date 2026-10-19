@@ -1,0 +1,1316 @@
+[
+  {
+    "name": "PHP",
+    "aliases": [
+      "php",
+      "php 8",
+      "php8",
+      "php moderno"
+    ],
+    "module": "php"
+  },
+  {
+    "name": "Composer",
+    "aliases": [
+      "composer"
+    ],
+    "module": "php"
+  },
+  {
+    "name": "Laravel",
+    "aliases": [
+      "laravel"
+    ],
+    "module": "req"
+  },
+  {
+    "name": "Middleware",
+    "aliases": [
+      "middleware",
+      "middlewares"
+    ],
+    "module": "req"
+  },
+  {
+    "name": "MVC",
+    "aliases": [
+      "mvc",
+      "modelo vista controlador"
+    ],
+    "module": "req",
+    "note": "Cubre el ciclo de una request, las rutas y los controladores."
+  },
+  {
+    "name": "Inyección de dependencias",
+    "aliases": [
+      "inyeccion de dependencias",
+      "dependency injection",
+      "service container",
+      "service providers",
+      "ioc"
+    ],
+    "module": "ioc"
+  },
+  {
+    "name": "SQL",
+    "aliases": [
+      "sql"
+    ],
+    "module": "sql"
+  },
+  {
+    "name": "MySQL",
+    "aliases": [
+      "mysql"
+    ],
+    "module": "sql"
+  },
+  {
+    "name": "MariaDB",
+    "aliases": [
+      "mariadb"
+    ],
+    "module": "sql"
+  },
+  {
+    "name": "PostgreSQL",
+    "aliases": [
+      "postgresql",
+      "postgres"
+    ],
+    "module": "sql"
+  },
+  {
+    "name": "SQLite",
+    "aliases": [
+      "sqlite"
+    ],
+    "module": "sql"
+  },
+  {
+    "name": "Bases de datos relacionales",
+    "aliases": [
+      "base de datos relacional",
+      "bases de datos relacionales",
+      "rdbms",
+      "modelado de datos",
+      "normalizacion"
+    ],
+    "module": "sql"
+  },
+  {
+    "name": "Eloquent",
+    "aliases": [
+      "eloquent"
+    ],
+    "module": "elo"
+  },
+  {
+    "name": "ORM",
+    "aliases": [
+      "orm"
+    ],
+    "module": "elo",
+    "note": "Eloquent es el ORM de Laravel; el concepto es el mismo en otros."
+  },
+  {
+    "name": "Migraciones",
+    "aliases": [
+      "migraciones",
+      "migrations"
+    ],
+    "module": "elo"
+  },
+  {
+    "name": "Autenticación",
+    "aliases": [
+      "autenticacion",
+      "authentication"
+    ],
+    "module": "auth"
+  },
+  {
+    "name": "Autorización",
+    "aliases": [
+      "autorizacion",
+      "authorization",
+      "roles y permisos",
+      "control de acceso",
+      "rbac"
+    ],
+    "module": "auth"
+  },
+  {
+    "name": "OAuth",
+    "aliases": [
+      "oauth",
+      "oauth2",
+      "oauth 2"
+    ],
+    "module": "auth",
+    "note": "La ruta cubre Sanctum y menciona Passport; el flujo OAuth2 completo no se desarrolla."
+  },
+  {
+    "name": "JWT",
+    "aliases": [
+      "jwt",
+      "json web token",
+      "json web tokens"
+    ],
+    "module": "auth",
+    "note": "Laravel usa tokens de Sanctum; JWT es otra técnica de la misma familia."
+  },
+  {
+    "name": "Sanctum",
+    "aliases": [
+      "sanctum"
+    ],
+    "module": "auth"
+  },
+  {
+    "name": "Passport",
+    "aliases": [
+      "passport"
+    ],
+    "module": "auth"
+  },
+  {
+    "name": "SSO",
+    "aliases": [
+      "sso",
+      "single sign-on",
+      "single sign on"
+    ],
+    "module": "auth",
+    "note": "Se apoya en OAuth; la ruta solo introduce el concepto."
+  },
+  {
+    "name": "Seguridad web",
+    "aliases": [
+      "seguridad",
+      "security",
+      "owasp",
+      "buenas practicas de seguridad",
+      "seguridad web"
+    ],
+    "module": "sec"
+  },
+  {
+    "name": "XSS",
+    "aliases": [
+      "xss",
+      "cross-site scripting"
+    ],
+    "module": "sec"
+  },
+  {
+    "name": "CSRF",
+    "aliases": [
+      "csrf"
+    ],
+    "module": "sec"
+  },
+  {
+    "name": "Inyección SQL",
+    "aliases": [
+      "sql injection",
+      "inyeccion sql"
+    ],
+    "module": "sec"
+  },
+  {
+    "name": "API REST",
+    "aliases": [
+      "api rest",
+      "rest api",
+      "rest apis",
+      "restful",
+      "api restful",
+      "apis rest",
+      "apis restful"
+    ],
+    "module": "api"
+  },
+  {
+    "name": "APIs",
+    "aliases": [
+      "api",
+      "apis"
+    ],
+    "module": "api"
+  },
+  {
+    "name": "OpenAPI",
+    "aliases": [
+      "openapi",
+      "swagger"
+    ],
+    "module": "api"
+  },
+  {
+    "name": "Webhooks",
+    "aliases": [
+      "webhook",
+      "webhooks"
+    ],
+    "module": "api"
+  },
+  {
+    "name": "Postman",
+    "aliases": [
+      "postman"
+    ],
+    "module": "api",
+    "note": "Es una herramienta para probar APIs; el módulo enseña a diseñarlas y probarlas con Pest."
+  },
+  {
+    "name": "Colas",
+    "aliases": [
+      "colas",
+      "queues",
+      "queue",
+      "job queues"
+    ],
+    "module": "que"
+  },
+  {
+    "name": "Horizon",
+    "aliases": [
+      "horizon"
+    ],
+    "module": "que"
+  },
+  {
+    "name": "Tareas programadas",
+    "aliases": [
+      "cron",
+      "scheduler",
+      "tareas programadas"
+    ],
+    "module": "que"
+  },
+  {
+    "name": "RabbitMQ",
+    "aliases": [
+      "rabbitmq"
+    ],
+    "module": "que",
+    "note": "Es otro driver de colas; el módulo explica las colas con Laravel."
+  },
+  {
+    "name": "Amazon SQS",
+    "aliases": [
+      "sqs",
+      "amazon sqs"
+    ],
+    "module": "que",
+    "note": "Es otro driver de colas; el módulo explica las colas con Laravel."
+  },
+  {
+    "name": "Kafka",
+    "aliases": [
+      "kafka"
+    ],
+    "module": "que",
+    "note": "El módulo cubre las colas de Laravel; Kafka es un sistema de mensajería más grande."
+  },
+  {
+    "name": "WebSockets",
+    "aliases": [
+      "websocket",
+      "websockets"
+    ],
+    "module": "rt"
+  },
+  {
+    "name": "Reverb",
+    "aliases": [
+      "reverb"
+    ],
+    "module": "rt"
+  },
+  {
+    "name": "Pusher",
+    "aliases": [
+      "pusher"
+    ],
+    "module": "rt"
+  },
+  {
+    "name": "Tiempo real",
+    "aliases": [
+      "tiempo real",
+      "real-time",
+      "realtime",
+      "real time"
+    ],
+    "module": "rt"
+  },
+  {
+    "name": "Laravel Echo",
+    "aliases": [
+      "laravel echo"
+    ],
+    "module": "rt"
+  },
+  {
+    "name": "Pest",
+    "aliases": [
+      "pest",
+      "pestphp"
+    ],
+    "module": "test"
+  },
+  {
+    "name": "PHPUnit",
+    "aliases": [
+      "phpunit"
+    ],
+    "module": "test"
+  },
+  {
+    "name": "Testing",
+    "aliases": [
+      "testing",
+      "tests",
+      "pruebas automatizadas",
+      "pruebas unitarias",
+      "pruebas de integracion",
+      "unit testing",
+      "unit tests",
+      "tdd",
+      "test-driven",
+      "test driven"
+    ],
+    "module": "test"
+  },
+  {
+    "name": "Rendimiento",
+    "aliases": [
+      "rendimiento",
+      "web performance",
+      "performance tuning",
+      "optimizacion"
+    ],
+    "module": "perf"
+  },
+  {
+    "name": "Redis",
+    "aliases": [
+      "redis"
+    ],
+    "module": "perf",
+    "note": "Se usa para caché y colas; el módulo cubre la caché."
+  },
+  {
+    "name": "Caché",
+    "aliases": [
+      "cache",
+      "caching",
+      "memcached"
+    ],
+    "module": "perf"
+  },
+  {
+    "name": "Escalabilidad",
+    "aliases": [
+      "escalabilidad",
+      "scalability",
+      "alta disponibilidad"
+    ],
+    "module": "perf",
+    "note": "El módulo cubre medir y cachear; escalar infraestructura va más allá."
+  },
+  {
+    "name": "Arquitectura de software",
+    "aliases": [
+      "arquitectura de software",
+      "software architecture",
+      "arquitectura limpia",
+      "clean architecture",
+      "arquitectura hexagonal",
+      "hexagonal"
+    ],
+    "module": "arch"
+  },
+  {
+    "name": "SOLID",
+    "aliases": [
+      "principios solid",
+      "solid principles",
+      "solid design"
+    ],
+    "module": "arch"
+  },
+  {
+    "name": "DDD",
+    "aliases": [
+      "ddd",
+      "domain-driven design",
+      "domain driven design"
+    ],
+    "module": "arch",
+    "note": "La ruta cubre acciones y objetos de datos; DDD completo es más amplio."
+  },
+  {
+    "name": "Patrones de diseño",
+    "aliases": [
+      "patrones de diseno",
+      "design patterns"
+    ],
+    "module": "arch"
+  },
+  {
+    "name": "Clean code",
+    "aliases": [
+      "clean code",
+      "codigo limpio"
+    ],
+    "module": "arch"
+  },
+  {
+    "name": "Microservicios",
+    "aliases": [
+      "microservicios",
+      "microservicio",
+      "microservices"
+    ],
+    "module": "arch",
+    "note": "El módulo plantea cuándo conviene separar; la operación de microservicios va más allá."
+  },
+  {
+    "name": "TypeScript",
+    "aliases": [
+      "typescript",
+      "type script"
+    ],
+    "module": "ts"
+  },
+  {
+    "name": "Vue",
+    "aliases": [
+      "vue",
+      "vuejs",
+      "vue.js",
+      "vue 3"
+    ],
+    "module": "vue"
+  },
+  {
+    "name": "Pinia",
+    "aliases": [
+      "pinia"
+    ],
+    "module": "vue",
+    "note": "El módulo de Vue no desarrolla la gestión de estado global."
+  },
+  {
+    "name": "Vuex",
+    "aliases": [
+      "vuex"
+    ],
+    "module": "vue",
+    "note": "El módulo de Vue no desarrolla la gestión de estado global."
+  },
+  {
+    "name": "Nuxt",
+    "aliases": [
+      "nuxt",
+      "nuxt.js",
+      "nuxtjs"
+    ],
+    "module": "vue",
+    "note": "El módulo cubre Vue; Nuxt añade SSR y rutas. La ficha del stack desacoplado lo comenta."
+  },
+  {
+    "name": "React",
+    "aliases": [
+      "react",
+      "reactjs",
+      "react.js",
+      "react 18",
+      "react 19"
+    ],
+    "module": "react"
+  },
+  {
+    "name": "Next.js",
+    "aliases": [
+      "next.js",
+      "nextjs",
+      "next js"
+    ],
+    "module": "react",
+    "note": "El módulo cubre React; Next añade SSR y rutas. La ficha del stack desacoplado lo comenta."
+  },
+  {
+    "name": "Redux",
+    "aliases": [
+      "redux"
+    ],
+    "module": "react",
+    "note": "El módulo de React no desarrolla la gestión de estado global."
+  },
+  {
+    "name": "Tailwind CSS",
+    "aliases": [
+      "tailwind",
+      "tailwindcss",
+      "tailwind css"
+    ],
+    "module": "css"
+  },
+  {
+    "name": "CSS",
+    "aliases": [
+      "css",
+      "css3"
+    ],
+    "module": "css",
+    "note": "El módulo enseña Tailwind y da por sabido el CSS básico."
+  },
+  {
+    "name": "Inertia",
+    "aliases": [
+      "inertia",
+      "inertiajs",
+      "inertia.js"
+    ],
+    "module": "ine"
+  },
+  {
+    "name": "Vitest",
+    "aliases": [
+      "vitest"
+    ],
+    "module": "fe-test"
+  },
+  {
+    "name": "Jest",
+    "aliases": [
+      "jest"
+    ],
+    "module": "fe-test",
+    "note": "Mismo enfoque que Vitest; el módulo usa Vitest."
+  },
+  {
+    "name": "Playwright",
+    "aliases": [
+      "playwright"
+    ],
+    "module": "fe-test"
+  },
+  {
+    "name": "Cypress",
+    "aliases": [
+      "cypress"
+    ],
+    "module": "fe-test",
+    "note": "Mismo enfoque que Playwright; el módulo usa Playwright."
+  },
+  {
+    "name": "Testing Library",
+    "aliases": [
+      "testing library"
+    ],
+    "module": "fe-test"
+  },
+  {
+    "name": "Pruebas E2E",
+    "aliases": [
+      "e2e",
+      "end-to-end",
+      "end to end"
+    ],
+    "module": "fe-test"
+  },
+  {
+    "name": "Git",
+    "aliases": [
+      "git"
+    ],
+    "module": "ci"
+  },
+  {
+    "name": "GitHub",
+    "aliases": [
+      "github"
+    ],
+    "module": "ci"
+  },
+  {
+    "name": "GitLab",
+    "aliases": [
+      "gitlab"
+    ],
+    "module": "ci",
+    "note": "Mismo flujo que GitHub; el módulo usa GitHub Actions."
+  },
+  {
+    "name": "Bitbucket",
+    "aliases": [
+      "bitbucket"
+    ],
+    "module": "ci",
+    "note": "Mismo flujo que GitHub; el módulo usa GitHub Actions."
+  },
+  {
+    "name": "GitHub Actions",
+    "aliases": [
+      "github actions"
+    ],
+    "module": "ci"
+  },
+  {
+    "name": "CI/CD",
+    "aliases": [
+      "ci/cd",
+      "ci cd",
+      "cicd",
+      "integracion continua",
+      "continuous integration",
+      "despliegue continuo",
+      "continuous delivery",
+      "continuous deployment"
+    ],
+    "module": "ci"
+  },
+  {
+    "name": "Pull requests",
+    "aliases": [
+      "pull request",
+      "pull requests",
+      "code review",
+      "revision de codigo"
+    ],
+    "module": "ci"
+  },
+  {
+    "name": "Jenkins",
+    "aliases": [
+      "jenkins"
+    ],
+    "module": "ci",
+    "note": "Es otra herramienta de CI; el módulo enseña el concepto con GitHub Actions."
+  },
+  {
+    "name": "Docker",
+    "aliases": [
+      "docker",
+      "dockerfile",
+      "docker compose",
+      "contenedores"
+    ],
+    "module": "ops"
+  },
+  {
+    "name": "Linux",
+    "aliases": [
+      "linux"
+    ],
+    "module": "ops"
+  },
+  {
+    "name": "Nginx",
+    "aliases": [
+      "nginx"
+    ],
+    "module": "ops"
+  },
+  {
+    "name": "Apache",
+    "aliases": [
+      "apache"
+    ],
+    "module": "ops"
+  },
+  {
+    "name": "Despliegue",
+    "aliases": [
+      "despliegue",
+      "deploy",
+      "deployment",
+      "devops"
+    ],
+    "module": "ops"
+  },
+  {
+    "name": "Laravel Forge",
+    "aliases": [
+      "laravel forge"
+    ],
+    "module": "ops"
+  },
+  {
+    "name": "Servidores",
+    "aliases": [
+      "vps",
+      "servidores"
+    ],
+    "module": "ops"
+  },
+  {
+    "name": "Observabilidad",
+    "aliases": [
+      "observabilidad",
+      "observability",
+      "monitoreo",
+      "monitoring",
+      "logs",
+      "logging"
+    ],
+    "module": "obs"
+  },
+  {
+    "name": "Sentry",
+    "aliases": [
+      "sentry"
+    ],
+    "module": "obs"
+  },
+  {
+    "name": "Telescope",
+    "aliases": [
+      "telescope"
+    ],
+    "module": "obs"
+  },
+  {
+    "name": "Datadog",
+    "aliases": [
+      "datadog"
+    ],
+    "module": "obs",
+    "note": "Es otra herramienta de monitoreo; el módulo enseña los conceptos."
+  },
+  {
+    "name": "New Relic",
+    "aliases": [
+      "new relic",
+      "newrelic"
+    ],
+    "module": "obs",
+    "note": "Es otra herramienta de monitoreo; el módulo enseña los conceptos."
+  },
+  {
+    "name": "Grafana",
+    "aliases": [
+      "grafana",
+      "prometheus"
+    ],
+    "module": "obs",
+    "note": "Son herramientas de métricas; el módulo enseña los conceptos."
+  },
+  {
+    "name": "Stripe",
+    "aliases": [
+      "stripe"
+    ],
+    "module": "pay"
+  },
+  {
+    "name": "Cashier",
+    "aliases": [
+      "cashier"
+    ],
+    "module": "pay"
+  },
+  {
+    "name": "Pagos en línea",
+    "aliases": [
+      "pagos en linea",
+      "pasarela de pago",
+      "pasarelas de pago",
+      "payment gateway",
+      "payments"
+    ],
+    "module": "pay"
+  },
+  {
+    "name": "Suscripciones",
+    "aliases": [
+      "suscripciones",
+      "subscriptions",
+      "billing"
+    ],
+    "module": "pay"
+  },
+  {
+    "name": "PayPal",
+    "aliases": [
+      "paypal"
+    ],
+    "module": "pay",
+    "note": "Es otro proveedor; el módulo usa Stripe, y las ideas (webhooks, idempotencia) son las mismas."
+  },
+  {
+    "name": "Paddle",
+    "aliases": [
+      "paddle"
+    ],
+    "module": "pay"
+  },
+  {
+    "name": "Mercado Pago",
+    "aliases": [
+      "mercado pago",
+      "mercadopago"
+    ],
+    "module": "pay",
+    "note": "Es otro proveedor; el módulo usa Stripe, y las ideas son las mismas."
+  },
+  {
+    "name": "Culqi",
+    "aliases": [
+      "culqi"
+    ],
+    "module": "pay",
+    "note": "Es una pasarela peruana; el módulo usa Stripe, y las ideas son las mismas."
+  },
+  {
+    "name": "Niubiz",
+    "aliases": [
+      "niubiz",
+      "visanet"
+    ],
+    "module": "pay",
+    "note": "Es una pasarela peruana; el módulo usa Stripe, y las ideas son las mismas."
+  },
+  {
+    "name": "Izipay",
+    "aliases": [
+      "izipay"
+    ],
+    "module": "pay",
+    "note": "Es una pasarela peruana; el módulo usa Stripe, y las ideas son las mismas."
+  },
+  {
+    "name": "Filament",
+    "aliases": [
+      "filament",
+      "filamentphp"
+    ],
+    "module": "fil"
+  },
+  {
+    "name": "Livewire",
+    "aliases": [
+      "livewire"
+    ],
+    "module": "fil"
+  },
+  {
+    "name": "Panel de administración",
+    "aliases": [
+      "panel de administracion",
+      "panel administrativo",
+      "backoffice",
+      "back office",
+      "admin panel"
+    ],
+    "module": "fil"
+  },
+  {
+    "name": "Laravel Nova",
+    "aliases": [
+      "laravel nova"
+    ],
+    "module": "fil",
+    "note": "Es la alternativa de pago a Filament; la idea de panel es la misma."
+  },
+  {
+    "name": "Octane",
+    "aliases": [
+      "octane"
+    ],
+    "module": "oct"
+  },
+  {
+    "name": "Swoole",
+    "aliases": [
+      "swoole",
+      "openswoole"
+    ],
+    "module": "oct"
+  },
+  {
+    "name": "FrankenPHP",
+    "aliases": [
+      "frankenphp"
+    ],
+    "module": "oct"
+  },
+  {
+    "name": "RoadRunner",
+    "aliases": [
+      "roadrunner"
+    ],
+    "module": "oct"
+  },
+  {
+    "name": "Laravel Scout",
+    "aliases": [
+      "laravel scout"
+    ],
+    "module": "scout"
+  },
+  {
+    "name": "Meilisearch",
+    "aliases": [
+      "meilisearch"
+    ],
+    "module": "scout"
+  },
+  {
+    "name": "Typesense",
+    "aliases": [
+      "typesense"
+    ],
+    "module": "scout"
+  },
+  {
+    "name": "Algolia",
+    "aliases": [
+      "algolia"
+    ],
+    "module": "scout"
+  },
+  {
+    "name": "Elasticsearch",
+    "aliases": [
+      "elasticsearch",
+      "elastic search",
+      "opensearch"
+    ],
+    "module": "scout",
+    "note": "El módulo usa Scout con otros motores; el concepto de índice de búsqueda es el mismo."
+  },
+  {
+    "name": "Búsqueda de texto",
+    "aliases": [
+      "motor de busqueda",
+      "full-text search",
+      "full text search",
+      "busqueda de texto"
+    ],
+    "module": "scout"
+  },
+  {
+    "name": "AWS",
+    "aliases": [
+      "aws",
+      "amazon web services",
+      "ec2"
+    ],
+    "module": null,
+    "category": "Nube",
+    "hint": "No tiene módulo en la ruta. Empieza por la documentación de AWS y por S3, que ya aparece en la lección de despliegue."
+  },
+  {
+    "name": "Azure",
+    "aliases": [
+      "azure"
+    ],
+    "module": null,
+    "category": "Nube"
+  },
+  {
+    "name": "Google Cloud",
+    "aliases": [
+      "gcp",
+      "google cloud"
+    ],
+    "module": null,
+    "category": "Nube"
+  },
+  {
+    "name": "Kubernetes",
+    "aliases": [
+      "kubernetes",
+      "k8s"
+    ],
+    "module": null,
+    "category": "Nube",
+    "hint": "Se apoya en Docker, que sí está en la ruta. Aprende primero Docker."
+  },
+  {
+    "name": "Terraform",
+    "aliases": [
+      "terraform"
+    ],
+    "module": null,
+    "category": "Nube"
+  },
+  {
+    "name": "Serverless",
+    "aliases": [
+      "serverless",
+      "laravel vapor"
+    ],
+    "module": null,
+    "category": "Nube"
+  },
+  {
+    "name": "JavaScript",
+    "aliases": [
+      "javascript",
+      "ecmascript",
+      "es6",
+      "js"
+    ],
+    "module": null,
+    "category": "Frontend",
+    "hint": "La ruta da por sabido JavaScript moderno. Repásalo antes de TypeScript, Vue o React."
+  },
+  {
+    "name": "HTML",
+    "aliases": [
+      "html",
+      "html5"
+    ],
+    "module": null,
+    "category": "Frontend"
+  },
+  {
+    "name": "Bootstrap",
+    "aliases": [
+      "bootstrap"
+    ],
+    "module": null,
+    "category": "Frontend",
+    "hint": "La ruta usa Tailwind. Las ideas de diseño responsive se trasladan."
+  },
+  {
+    "name": "Sass",
+    "aliases": [
+      "sass",
+      "scss"
+    ],
+    "module": null,
+    "category": "Frontend"
+  },
+  {
+    "name": "jQuery",
+    "aliases": [
+      "jquery"
+    ],
+    "module": null,
+    "category": "Frontend"
+  },
+  {
+    "name": "Alpine.js",
+    "aliases": [
+      "alpine",
+      "alpine.js",
+      "alpinejs"
+    ],
+    "module": null,
+    "category": "Frontend",
+    "hint": "Aparece en la ficha del stack con Blade."
+  },
+  {
+    "name": "Angular",
+    "aliases": [
+      "angular",
+      "angularjs"
+    ],
+    "module": null,
+    "category": "Frontend"
+  },
+  {
+    "name": "Svelte",
+    "aliases": [
+      "svelte",
+      "sveltekit"
+    ],
+    "module": null,
+    "category": "Frontend"
+  },
+  {
+    "name": "Node.js",
+    "aliases": [
+      "node",
+      "node.js",
+      "nodejs",
+      "express.js",
+      "expressjs"
+    ],
+    "module": null,
+    "category": "Otros lenguajes"
+  },
+  {
+    "name": "Python",
+    "aliases": [
+      "python",
+      "django",
+      "flask",
+      "fastapi"
+    ],
+    "module": null,
+    "category": "Otros lenguajes"
+  },
+  {
+    "name": "Java",
+    "aliases": [
+      "java",
+      "spring",
+      "spring boot"
+    ],
+    "module": null,
+    "category": "Otros lenguajes"
+  },
+  {
+    "name": ".NET",
+    "aliases": [
+      ".net",
+      "c#",
+      "asp.net",
+      "dotnet"
+    ],
+    "module": null,
+    "category": "Otros lenguajes"
+  },
+  {
+    "name": "Go",
+    "aliases": [
+      "golang"
+    ],
+    "module": null,
+    "category": "Otros lenguajes"
+  },
+  {
+    "name": "Ruby on Rails",
+    "aliases": [
+      "ruby",
+      "rails",
+      "ruby on rails"
+    ],
+    "module": null,
+    "category": "Otros lenguajes"
+  },
+  {
+    "name": "MongoDB",
+    "aliases": [
+      "mongodb",
+      "mongo"
+    ],
+    "module": null,
+    "category": "Datos"
+  },
+  {
+    "name": "NoSQL",
+    "aliases": [
+      "nosql"
+    ],
+    "module": null,
+    "category": "Datos"
+  },
+  {
+    "name": "GraphQL",
+    "aliases": [
+      "graphql"
+    ],
+    "module": null,
+    "category": "Datos",
+    "hint": "La ruta cubre APIs REST. GraphQL resuelve el mismo problema con otro enfoque."
+  },
+  {
+    "name": "WordPress",
+    "aliases": [
+      "wordpress",
+      "woocommerce"
+    ],
+    "module": null,
+    "category": "CMS y comercio"
+  },
+  {
+    "name": "Shopify",
+    "aliases": [
+      "shopify",
+      "magento",
+      "prestashop"
+    ],
+    "module": null,
+    "category": "CMS y comercio"
+  },
+  {
+    "name": "Flutter",
+    "aliases": [
+      "flutter",
+      "dart"
+    ],
+    "module": null,
+    "category": "Móvil"
+  },
+  {
+    "name": "React Native",
+    "aliases": [
+      "react native"
+    ],
+    "module": null,
+    "category": "Móvil",
+    "hint": "Usa React, que sí está en la ruta, pero el desarrollo móvil es otro mundo."
+  },
+  {
+    "name": "Swift y Kotlin",
+    "aliases": [
+      "swift",
+      "kotlin"
+    ],
+    "module": null,
+    "category": "Móvil"
+  },
+  {
+    "name": "Metodologías ágiles",
+    "aliases": [
+      "scrum",
+      "agile",
+      "agil",
+      "metodologias agiles",
+      "kanban"
+    ],
+    "module": null,
+    "category": "Equipo",
+    "hint": "No es técnico, pero se pregunta en casi todas las entrevistas."
+  },
+  {
+    "name": "Jira",
+    "aliases": [
+      "jira"
+    ],
+    "module": null,
+    "category": "Equipo"
+  },
+  {
+    "name": "Inglés",
+    "aliases": [
+      "ingles",
+      "english"
+    ],
+    "module": null,
+    "category": "Equipo",
+    "hint": "La sección Entrevista de esta app practica preguntas técnicas en inglés."
+  },
+  {
+    "name": "Inteligencia artificial",
+    "aliases": [
+      "inteligencia artificial",
+      "machine learning",
+      "llm",
+      "openai",
+      "chatgpt",
+      "embeddings"
+    ],
+    "module": null,
+    "category": "IA",
+    "hint": "Laravel 13 trae un SDK de IA. Todavía no tiene módulo en la ruta."
+  },
+  {
+    "name": "Selenium",
+    "aliases": [
+      "selenium"
+    ],
+    "module": null,
+    "category": "Pruebas"
+  }
+]

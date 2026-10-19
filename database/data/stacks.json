@@ -1,0 +1,1223 @@
+[
+  {
+    "slug": "monolito-blade",
+    "category": "web",
+    "name": "Monolito clásico con Blade",
+    "summary": "Una sola app Laravel que renderiza HTML en el servidor con Blade. Es el camino más corto de la idea a producción cuando no necesitas una interfaz muy interactiva.",
+    "headline": [
+      "Laravel",
+      "Blade",
+      "Alpine.js",
+      "Tailwind"
+    ],
+    "when_to_use": [
+      "Sitios con SEO importante: marketing, catálogos, blogs y portales de contenido.",
+      "Paneles internos y CRUDs donde la interactividad se limita a formularios y pequeños widgets.",
+      "Un equipo pequeño, o una sola persona, que domina PHP y poco JavaScript.",
+      "Quieres el menor costo de mantenimiento: sin API aparte y con un build mínimo."
+    ],
+    "when_to_avoid": [
+      "La interfaz es muy dinámica: editores, tableros que se arrastran o estado compartido entre muchas vistas.",
+      "Vas a tener una app móvil u otros clientes que necesiten una API: tendrás que construirla igual.",
+      "El equipo ya piensa en componentes Vue o React y quiere una SPA."
+    ],
+    "pros": [
+      "Menos piezas: un solo repositorio y un solo despliegue.",
+      "Buen SEO y tiempo de carga inicial sin configurar SSR.",
+      "Autenticación por sesión con CSRF incluido, que reduce la superficie de ataque."
+    ],
+    "cons": [
+      "La interactividad avanzada exige Alpine.js, Livewire o JavaScript a mano.",
+      "La interfaz no se puede reutilizar en una app móvil.",
+      "Los componentes Blade no tienen el ecosistema de librerías de Vue o React."
+    ],
+    "technologies": [
+      {
+        "layer": "backend",
+        "name": "Laravel 13",
+        "note": "Requiere PHP 8.3 o superior. Controladores, form requests y Blade como motor de vistas."
+      },
+      {
+        "layer": "frontend",
+        "name": "Blade + Tailwind CSS",
+        "note": "Los componentes Blade (`<x-...>`) reutilizan piezas de interfaz sin JavaScript."
+      },
+      {
+        "layer": "frontend",
+        "name": "Alpine.js",
+        "note": "Interactividad ligera, como menús y modales, sin montar una SPA."
+      },
+      {
+        "layer": "frontend",
+        "name": "Livewire (opcional)",
+        "note": "Componentes dinámicos escritos en PHP. El starter kit oficial de Livewire usa Livewire, Tailwind y Flux UI."
+      },
+      {
+        "layer": "database",
+        "name": "MySQL, MariaDB o PostgreSQL",
+        "note": "SQLite alcanza en desarrollo y en apps pequeñas."
+      },
+      {
+        "layer": "auth",
+        "name": "Sesiones de Laravel + Fortify",
+        "note": "Los starter kits oficiales traen registro, login, verificación de correo y autenticación en dos pasos."
+      },
+      {
+        "layer": "testing",
+        "name": "Pest",
+        "note": "Feature tests con `RefreshDatabase` y factories."
+      },
+      {
+        "layer": "deploy",
+        "name": "Laravel Forge o un VPS con Nginx + PHP-FPM",
+        "note": "En cada deploy: `composer install --no-dev`, `migrate --force` y `optimize`."
+      }
+    ],
+    "modules": [
+      "php",
+      "req",
+      "ioc",
+      "sql",
+      "elo",
+      "auth",
+      "sec",
+      "css",
+      "fil",
+      "test",
+      "ops"
+    ],
+    "also_learn": [
+      "Componentes Blade, slots y layouts",
+      "Alpine.js"
+    ],
+    "sources": [
+      {
+        "title": "Laravel: Starter Kits",
+        "url": "https://laravel.com/docs/13.x/starter-kits"
+      },
+      {
+        "title": "Laravel: Blade Templates",
+        "url": "https://laravel.com/docs/13.x/blade"
+      },
+      {
+        "title": "Livewire",
+        "url": "https://livewire.laravel.com"
+      }
+    ],
+    "reviewed_on": "2026-10-19"
+  },
+  {
+    "slug": "inertia-vue-react",
+    "category": "web",
+    "name": "App web interactiva con Inertia + Vue o React",
+    "summary": "Una SPA que usa las rutas y los controladores de Laravel, sin construir ni proteger una API aparte. Es la base de los starter kits oficiales de Vue y React.",
+    "headline": [
+      "Laravel",
+      "Inertia",
+      "Vue / React",
+      "TypeScript"
+    ],
+    "when_to_use": [
+      "SaaS, dashboards y paneles con mucha interacción y un solo cliente web.",
+      "Una misma persona o equipo hace el backend y el frontend.",
+      "Quieres autenticación por sesión y validación en Laravel, con experiencia de SPA.",
+      "Necesitas renderizado en el servidor (SSR) para el SEO de algunas páginas: Inertia lo soporta."
+    ],
+    "when_to_avoid": [
+      "Habrá app móvil o integraciones de terceros: necesitarás una API de todas formas.",
+      "Frontend y backend los llevan equipos distintos con releases independientes.",
+      "El sitio es casi todo contenido y SEO: Blade es más simple."
+    ],
+    "pros": [
+      "Una sola base de código y un solo despliegue.",
+      "Validación, autorización y sesión funcionan como en un monolito.",
+      "El backend no cambia si pasas de Vue a React: solo cambian los componentes."
+    ],
+    "cons": [
+      "Acopla el frontend al backend: no sirve como API para otros clientes.",
+      "Hay que dominar dos ecosistemas, el de Laravel y el de Vue o React.",
+      "El SSR añade un proceso Node más que desplegar y vigilar."
+    ],
+    "technologies": [
+      {
+        "layer": "backend",
+        "name": "Laravel + adaptador de Inertia",
+        "note": "El controlador responde con `Inertia::render('Pagina', $props)` y las props llegan al componente."
+      },
+      {
+        "layer": "frontend",
+        "name": "Vue 3 (Composition API) o React 19",
+        "note": "Ambos tienen starter kit oficial y los dos usan TypeScript y Tailwind."
+      },
+      {
+        "layer": "frontend",
+        "name": "TypeScript",
+        "note": "Tipa las props de cada página y los datos compartidos."
+      },
+      {
+        "layer": "frontend",
+        "name": "Tailwind CSS + shadcn-vue o shadcn/ui",
+        "note": "Los kits oficiales traen los componentes de interfaz ya instalados."
+      },
+      {
+        "layer": "frontend",
+        "name": "Vite + Wayfinder",
+        "note": "Wayfinder genera funciones TypeScript tipadas para tus rutas y controladores."
+      },
+      {
+        "layer": "database",
+        "name": "MySQL, PostgreSQL o SQLite",
+        "note": "Eloquent es igual que en cualquier otra app Laravel."
+      },
+      {
+        "layer": "auth",
+        "name": "Sesión + Fortify",
+        "note": "El kit incluye login, registro, verificación de correo, 2FA y passkeys."
+      },
+      {
+        "layer": "testing",
+        "name": "Pest con `assertInertia`",
+        "note": "Comprueba el componente y las props que recibe cada página."
+      },
+      {
+        "layer": "testing",
+        "name": "Playwright (opcional)",
+        "note": "Para los flujos de extremo a extremo que importan al negocio."
+      },
+      {
+        "layer": "deploy",
+        "name": "Forge, Laravel Cloud o un VPS",
+        "note": "Además de PHP, el build necesita Node para `npm run build`, y para el proceso SSR si lo usas."
+      }
+    ],
+    "modules": [
+      "php",
+      "req",
+      "elo",
+      "auth",
+      "sec",
+      "test",
+      "perf",
+      "ts",
+      "vue",
+      "react",
+      "css",
+      "ine",
+      "fe-test",
+      "ci",
+      "ops"
+    ],
+    "also_learn": [
+      "Inertia con SSR"
+    ],
+    "sources": [
+      {
+        "title": "Inertia.js",
+        "url": "https://inertiajs.com/docs"
+      },
+      {
+        "title": "Laravel: Starter Kits",
+        "url": "https://laravel.com/docs/13.x/starter-kits"
+      },
+      {
+        "title": "Vue",
+        "url": "https://vuejs.org/guide/introduction.html"
+      },
+      {
+        "title": "React",
+        "url": "https://react.dev/learn"
+      }
+    ],
+    "reviewed_on": "2026-10-19"
+  },
+  {
+    "slug": "rest-api",
+    "category": "api",
+    "name": "REST API para móvil y terceros",
+    "summary": "Laravel solo como API JSON: sin vistas, con autenticación por token y documentación para quien la consuma.",
+    "headline": [
+      "Laravel",
+      "Sanctum",
+      "API Resources",
+      "OpenAPI"
+    ],
+    "when_to_use": [
+      "Apps móviles (iOS, Android, Flutter o React Native) que necesitan un backend.",
+      "Integraciones de terceros o varios clientes que consumen los mismos datos.",
+      "Quieres un contrato estable y versionado entre el backend y cualquier frontend.",
+      "El equipo de backend es independiente del de frontend."
+    ],
+    "when_to_avoid": [
+      "Solo tienes una web propia y un equipo pequeño: Inertia o Blade te ahorran la API.",
+      "Nadie va a mantener la documentación y el versionado: la API se vuelve deuda."
+    ],
+    "pros": [
+      "Un contrato público que sirve a web, móvil y terceros.",
+      "Se prueba de forma muy directa con tests de feature: entra JSON, sale JSON.",
+      "Escala por separado del frontend."
+    ],
+    "cons": [
+      "Hay que diseñar versionado, paginación, formato de errores y límites de uso.",
+      "Más superficie de seguridad: tokens, CORS y rate limiting.",
+      "Un cambio incompatible rompe clientes que no controlas."
+    ],
+    "technologies": [
+      {
+        "layer": "backend",
+        "name": "Laravel en modo API",
+        "note": "`php artisan install:api` prepara `routes/api.php` y Sanctum."
+      },
+      {
+        "layer": "api",
+        "name": "API Resources + Form Requests",
+        "note": "Los resources definen el JSON público; los form requests validan y autorizan. Laravel 13 añade resources compatibles con JSON:API."
+      },
+      {
+        "layer": "auth",
+        "name": "Sanctum (tokens con abilities)",
+        "note": "Tokens personales para móviles y terceros, sin la complejidad de OAuth. Cada token puede limitarse a ciertas acciones."
+      },
+      {
+        "layer": "auth",
+        "name": "Passport (solo si necesitas OAuth2)",
+        "note": "Un servidor OAuth2 completo. Úsalo si terceros deben pedir acceso en nombre de sus propios usuarios."
+      },
+      {
+        "layer": "api",
+        "name": "Rate limiting + versionado `/api/v1`",
+        "note": "`RateLimiter` por usuario o por token, y un prefijo de versión en las rutas."
+      },
+      {
+        "layer": "api",
+        "name": "Documentación OpenAPI",
+        "note": "Scramble o Scribe generan la documentación a partir de tu código."
+      },
+      {
+        "layer": "database",
+        "name": "MySQL o PostgreSQL",
+        "note": "Pagina con `paginate()` o `cursorPaginate()` en listados grandes."
+      },
+      {
+        "layer": "cache",
+        "name": "Redis",
+        "note": "Caché de respuestas costosas y almacén de los límites de uso."
+      },
+      {
+        "layer": "testing",
+        "name": "Pest con `Sanctum::actingAs`",
+        "note": "Prueba los casos 401, 403, 404 y 422 de cada endpoint."
+      },
+      {
+        "layer": "deploy",
+        "name": "Forge, Laravel Cloud o contenedores",
+        "note": "Con GitHub Actions: tests, y deploy solo si todo pasó."
+      },
+      {
+        "layer": "monitoring",
+        "name": "Laravel Nightwatch o Sentry",
+        "note": "Errores y rendimiento por endpoint."
+      }
+    ],
+    "modules": [
+      "php",
+      "req",
+      "sql",
+      "elo",
+      "auth",
+      "sec",
+      "api",
+      "test",
+      "perf",
+      "arch",
+      "ci",
+      "ops",
+      "obs"
+    ],
+    "also_learn": [
+      "Documentación OpenAPI con Scramble o Scribe",
+      "Versionado y política de cambios de una API",
+      "JSON:API y los resources de Laravel 13",
+      "Idempotencia en los endpoints de escritura"
+    ],
+    "sources": [
+      {
+        "title": "Laravel: Sanctum",
+        "url": "https://laravel.com/docs/13.x/sanctum"
+      },
+      {
+        "title": "Laravel: Passport",
+        "url": "https://laravel.com/docs/13.x/passport"
+      },
+      {
+        "title": "Laravel: Eloquent API Resources",
+        "url": "https://laravel.com/docs/13.x/eloquent-resources"
+      },
+      {
+        "title": "Laravel 13: Release Notes",
+        "url": "https://laravel.com/docs/13.x/releases"
+      }
+    ],
+    "reviewed_on": "2026-10-19"
+  },
+  {
+    "slug": "frontend-desacoplado",
+    "category": "api",
+    "name": "Frontend desacoplado (Nuxt o Next) + API Laravel",
+    "summary": "Dos aplicaciones: un frontend Nuxt (Vue) o Next (React) y una API Laravel. Es más trabajo que Inertia, pero separa equipos, despliegues y ciclos de vida.",
+    "headline": [
+      "Laravel API",
+      "Sanctum SPA",
+      "Nuxt / Next"
+    ],
+    "when_to_use": [
+      "SEO fuerte con mucho contenido público: Nuxt y Next resuelven SSR y SSG de serie.",
+      "Equipos de frontend y backend separados, con releases independientes.",
+      "La API ya existe por la app móvil y quieres un cliente web que la reutilice.",
+      "Quieres poder reemplazar el frontend sin tocar el backend."
+    ],
+    "when_to_avoid": [
+      "Equipo pequeño: duplicas repositorios, despliegues, tipos y autenticación.",
+      "Es una app interna sin SEO: Inertia es mucho más barata."
+    ],
+    "pros": [
+      "Frontend y backend evolucionan y se despliegan por separado.",
+      "Todo el ecosistema de Nuxt o Next: SSR, SSG, rutas y caché.",
+      "La misma API sirve a la web y al móvil."
+    ],
+    "cons": [
+      "La autenticación es más delicada: cookies entre subdominios, CORS y CSRF.",
+      "Duplicas validación y tipos entre cliente y servidor.",
+      "Dos pipelines de CI/CD y dos entornos que mantener sincronizados."
+    ],
+    "technologies": [
+      {
+        "layer": "backend",
+        "name": "Laravel API + Sanctum en modo SPA",
+        "note": "Sanctum usa sesión por cookie, sin tokens, incluso con el frontend en otro repositorio, siempre que compartan el dominio principal."
+      },
+      {
+        "layer": "frontend",
+        "name": "Nuxt (Vue) o Next.js (React)",
+        "note": "SSR, SSG y enrutamiento por archivos."
+      },
+      {
+        "layer": "frontend",
+        "name": "TypeScript + cliente HTTP tipado",
+        "note": "Genera el cliente a partir de la especificación OpenAPI para que los tipos no se desincronicen."
+      },
+      {
+        "layer": "api",
+        "name": "CORS y cookies de sesión",
+        "note": "`supports_credentials`, `statefulApi()` y el dominio de la cookie de sesión deben coincidir."
+      },
+      {
+        "layer": "auth",
+        "name": "Fortify o login propio con el guard `web`",
+        "note": "Antes de iniciar sesión, el frontend pide `/sanctum/csrf-cookie`."
+      },
+      {
+        "layer": "database",
+        "name": "MySQL o PostgreSQL",
+        "note": "Todo el acceso a datos queda detrás de la API."
+      },
+      {
+        "layer": "testing",
+        "name": "Pest (API) + Vitest y Playwright (frontend)",
+        "note": "Cada mitad se prueba por separado; Playwright cubre el flujo completo."
+      },
+      {
+        "layer": "deploy",
+        "name": "Forge o Laravel Cloud para la API; un host de Node para el frontend",
+        "note": "Dos despliegues con sus variables de entorno y dominios coordinados."
+      }
+    ],
+    "modules": [
+      "req",
+      "sec",
+      "auth",
+      "api",
+      "ts",
+      "vue",
+      "react",
+      "test",
+      "fe-test",
+      "ci",
+      "ops"
+    ],
+    "also_learn": [
+      "Nuxt, si vas con Vue, o Next.js, si vas con React",
+      "CORS, cookies y CSRF entre dominios",
+      "SSR frente a SSG y estrategias de caché",
+      "Generación de clientes a partir de OpenAPI"
+    ],
+    "sources": [
+      {
+        "title": "Laravel: Sanctum (SPA Authentication)",
+        "url": "https://laravel.com/docs/13.x/sanctum#spa-authentication"
+      },
+      {
+        "title": "Nuxt",
+        "url": "https://nuxt.com/docs"
+      },
+      {
+        "title": "Next.js",
+        "url": "https://nextjs.org/docs"
+      }
+    ],
+    "reviewed_on": "2026-10-19"
+  },
+  {
+    "slug": "colas-y-workers",
+    "category": "async",
+    "name": "Colas, workers y tareas programadas",
+    "summary": "Saca de la request todo lo lento o frágil (emails, reportes, importaciones, webhooks) y procésalo en workers que reintentan solos.",
+    "headline": [
+      "Jobs",
+      "Redis",
+      "Horizon",
+      "Supervisor"
+    ],
+    "when_to_use": [
+      "Envío de emails y notificaciones, o llamadas a APIs externas que pueden fallar.",
+      "Importaciones y exportaciones grandes, reportes, procesamiento de archivos o imágenes.",
+      "Webhooks entrantes que deben responder rápido y procesarse después.",
+      "Tareas periódicas: limpiezas, sincronizaciones y resúmenes, con el scheduler y un cron."
+    ],
+    "when_to_avoid": [
+      "Trabajo de milisegundos que el usuario necesita ver en la misma respuesta.",
+      "No puedes operar procesos de larga vida: empieza con el driver `database`, o con los drivers `deferred` o `background`, que corren el job tras enviar la respuesta."
+    ],
+    "pros": [
+      "Respuestas rápidas: el usuario no espera al trabajo pesado.",
+      "Reintentos, backoff y registro de fallos incluidos.",
+      "Escalas añadiendo workers, sin tocar la web."
+    ],
+    "cons": [
+      "Un worker es un proceso de larga vida: hay que reiniciarlo en cada deploy con `queue:restart`.",
+      "Los jobs deben ser idempotentes, o un reintento duplica efectos.",
+      "Depurar lo que ocurre fuera de la request es más difícil sin monitoreo."
+    ],
+    "technologies": [
+      {
+        "layer": "queue",
+        "name": "Jobs con `ShouldQueue`",
+        "note": "Reintentos, backoff y timeout por job. En Laravel 13 también con atributos como `#[Tries]`, `#[Backoff]` y `#[Timeout]`."
+      },
+      {
+        "layer": "queue",
+        "name": "Driver database, Redis o SQS",
+        "note": "Laravel soporta database, Redis, Amazon SQS y Beanstalkd. `database` sirve para empezar; Redis es lo habitual en producción."
+      },
+      {
+        "layer": "queue",
+        "name": "Horizon",
+        "note": "Panel y configuración para colas Redis. Solo gestiona Redis, no el driver `database`."
+      },
+      {
+        "layer": "queue",
+        "name": "Supervisor",
+        "note": "Mantiene vivos los workers y los reinicia si caen."
+      },
+      {
+        "layer": "queue",
+        "name": "Chains, batches y jobs únicos",
+        "note": "`Bus::chain` ejecuta en secuencia, los batches en paralelo con progreso, y `ShouldBeUnique` evita duplicados."
+      },
+      {
+        "layer": "queue",
+        "name": "Enrutamiento de colas",
+        "note": "`Queue::route(...)`, nuevo en Laravel 13, fija conexión y cola por clase de job en un solo lugar."
+      },
+      {
+        "layer": "cache",
+        "name": "Redis",
+        "note": "Los jobs únicos necesitan una caché con locks atómicos, y Redis la ofrece."
+      },
+      {
+        "layer": "database",
+        "name": "MySQL o PostgreSQL",
+        "note": "La tabla `failed_jobs` guarda los fallos para revisarlos y reintentarlos con `queue:retry`."
+      },
+      {
+        "layer": "testing",
+        "name": "`Queue::fake()` y `Bus::fake()`",
+        "note": "Verifica que se despachó el job sin ejecutarlo; prueba `handle()` por separado."
+      },
+      {
+        "layer": "deploy",
+        "name": "Cron con `schedule:run` cada minuto",
+        "note": "El scheduler no corre solo. Además, `queue:restart` en cada deploy."
+      },
+      {
+        "layer": "monitoring",
+        "name": "Horizon, Pulse o Nightwatch",
+        "note": "Tiempos de espera, fallos y tamaño de cada cola."
+      }
+    ],
+    "modules": [
+      "que",
+      "ioc",
+      "arch",
+      "test",
+      "perf",
+      "ops",
+      "obs"
+    ],
+    "also_learn": [
+      "Horizon: balanceo de colas y métricas",
+      "Middleware de jobs, como límite de uso y WithoutOverlapping",
+      "Idempotencia y claves de deduplicación",
+      "El scheduler de Laravel"
+    ],
+    "sources": [
+      {
+        "title": "Laravel: Queues",
+        "url": "https://laravel.com/docs/13.x/queues"
+      },
+      {
+        "title": "Laravel: Horizon",
+        "url": "https://laravel.com/docs/13.x/horizon"
+      },
+      {
+        "title": "Laravel: Task Scheduling",
+        "url": "https://laravel.com/docs/13.x/scheduling"
+      }
+    ],
+    "reviewed_on": "2026-10-19"
+  },
+  {
+    "slug": "tiempo-real",
+    "category": "async",
+    "name": "Tiempo real con Reverb y Echo",
+    "summary": "Laravel emite eventos por WebSocket y el navegador los recibe al instante, sin recargar ni hacer polling.",
+    "headline": [
+      "Reverb",
+      "Echo",
+      "Redis"
+    ],
+    "when_to_use": [
+      "Chat, notificaciones en vivo y presencia (quién está conectado).",
+      "Paneles que se actualizan solos: pedidos, métricas o estado de procesos largos.",
+      "Mostrar en pantalla el progreso de un job.",
+      "Tableros o ediciones colaborativas sencillas."
+    ],
+    "when_to_avoid": [
+      "Un refresco cada 30 a 60 segundos (polling) es suficiente.",
+      "No puedes mantener un proceso WebSocket abierto ni pagar un servicio gestionado."
+    ],
+    "pros": [
+      "Reverb corre en tu propia infraestructura, sin cobro por mensaje, y Echo funciona con él como con Pusher.",
+      "Se integra con los eventos, las colas y los canales privados de Laravel.",
+      "Laravel Cloud ofrece clusters de Reverb gestionados si no quieres operar el servidor."
+    ],
+    "cons": [
+      "Es otro proceso de larga vida que vigilar y reiniciar con `reverb:restart`.",
+      "Pasar de unas 1.000 conexiones simultáneas exige ajustes: la extensión `ext-uv` y más archivos abiertos permitidos.",
+      "Para varios servidores necesitas Redis y un balanceador de carga."
+    ],
+    "technologies": [
+      {
+        "layer": "realtime",
+        "name": "Laravel Reverb",
+        "note": "`php artisan install:broadcasting` lo instala y configura. Escucha WebSockets en el puerto 8080 por defecto."
+      },
+      {
+        "layer": "realtime",
+        "name": "Laravel Echo (cliente)",
+        "note": "Escucha canales públicos, privados y de presencia desde Vue o React."
+      },
+      {
+        "layer": "realtime",
+        "name": "Pusher o Ably (alternativa gestionada)",
+        "note": "Si prefieres no operar el servidor WebSocket."
+      },
+      {
+        "layer": "backend",
+        "name": "Eventos con `ShouldBroadcast`",
+        "note": "El evento se envía por cola y no bloquea la request."
+      },
+      {
+        "layer": "auth",
+        "name": "Canales privados con sesión o Sanctum",
+        "note": "`routes/channels.php` decide quién puede escuchar cada canal."
+      },
+      {
+        "layer": "cache",
+        "name": "Redis",
+        "note": "Con `REVERB_SCALING_ENABLED`, Redis publica los mensajes entre varios servidores Reverb."
+      },
+      {
+        "layer": "queue",
+        "name": "Workers de cola",
+        "note": "Los eventos de broadcast se procesan en cola, así que necesitas workers."
+      },
+      {
+        "layer": "testing",
+        "name": "`Event::fake()`",
+        "note": "Comprueba que se emite el evento correcto con los datos correctos."
+      },
+      {
+        "layer": "deploy",
+        "name": "Nginx como proxy inverso + Supervisor",
+        "note": "Nginx expone Reverb por `wss` y reenvía el tráfico al puerto interno; Supervisor lo mantiene vivo."
+      },
+      {
+        "layer": "monitoring",
+        "name": "Laravel Pulse",
+        "note": "Tiene recorders para las conexiones y los mensajes de Reverb."
+      }
+    ],
+    "modules": [
+      "que",
+      "rt",
+      "auth",
+      "ine",
+      "test",
+      "ops",
+      "obs"
+    ],
+    "also_learn": [],
+    "sources": [
+      {
+        "title": "Laravel: Reverb",
+        "url": "https://laravel.com/docs/13.x/reverb"
+      },
+      {
+        "title": "Laravel: Broadcasting",
+        "url": "https://laravel.com/docs/13.x/broadcasting"
+      },
+      {
+        "title": "Laravel: Pulse",
+        "url": "https://laravel.com/docs/13.x/pulse"
+      }
+    ],
+    "reviewed_on": "2026-10-19"
+  },
+  {
+    "slug": "event-driven",
+    "category": "async",
+    "name": "Event-driven y varios servicios",
+    "summary": "Varios servicios que se comunican con eventos y colas compartidas (SQS, RabbitMQ) en lugar de llamarse directamente.",
+    "headline": [
+      "SQS / RabbitMQ",
+      "Eventos",
+      "Idempotencia"
+    ],
+    "when_to_use": [
+      "Varios sistemas o equipos que deben reaccionar a los mismos hechos, como pedido creado o pago aprobado.",
+      "Integraciones que no pueden depender de que el otro servicio esté disponible en ese instante.",
+      "Picos de carga que conviene absorber con una cola entre servicios."
+    ],
+    "when_to_avoid": [
+      "Un monolito modular bien hecho todavía te sirve: separar servicios multiplica la complejidad operativa.",
+      "No tienes monitoreo, trazabilidad ni a nadie de guardia: los fallos asíncronos se esconden."
+    ],
+    "pros": [
+      "Desacopla los servicios: uno puede caerse sin tumbar al otro.",
+      "Absorbe picos de carga.",
+      "Facilita auditar y reconstruir lo ocurrido a partir de los eventos."
+    ],
+    "cons": [
+      "Consistencia eventual: los datos no se actualizan a la vez en todos lados.",
+      "Los mensajes pueden llegar duplicados o desordenados: los consumidores deben ser idempotentes.",
+      "Depurar requiere trazas distribuidas y buenos logs."
+    ],
+    "technologies": [
+      {
+        "layer": "backend",
+        "name": "Eventos y listeners en cola",
+        "note": "Un evento de dominio publica el hecho y cada listener reacciona por separado."
+      },
+      {
+        "layer": "queue",
+        "name": "Amazon SQS",
+        "note": "Driver oficial de Laravel; la opción natural si ya estás en AWS."
+      },
+      {
+        "layer": "queue",
+        "name": "RabbitMQ",
+        "note": "Mediante un paquete de la comunidad, no oficial. Revisa que esté mantenido antes de adoptarlo."
+      },
+      {
+        "layer": "queue",
+        "name": "Jobs idempotentes con reintentos",
+        "note": "Detecta duplicados con una clave de idempotencia guardada junto al resultado."
+      },
+      {
+        "layer": "api",
+        "name": "Contratos entre servicios",
+        "note": "Versiona el esquema de los eventos y prueba los contratos entre productor y consumidor."
+      },
+      {
+        "layer": "database",
+        "name": "Una base de datos por servicio",
+        "note": "Cada servicio es dueño de sus datos; los demás los piden por API o por eventos."
+      },
+      {
+        "layer": "testing",
+        "name": "`Event::fake()` y `Queue::fake()`",
+        "note": "Comprueba qué se publica y qué se despacha, sin depender del broker."
+      },
+      {
+        "layer": "deploy",
+        "name": "Docker + CI/CD por servicio",
+        "note": "Cada servicio tiene su pipeline y se despliega por separado."
+      },
+      {
+        "layer": "monitoring",
+        "name": "Trazas distribuidas y logs correlacionados",
+        "note": "Un ID de correlación viaja con cada mensaje; OpenTelemetry es el estándar habitual."
+      }
+    ],
+    "modules": [
+      "que",
+      "ioc",
+      "arch",
+      "api",
+      "test",
+      "ops",
+      "ci",
+      "obs"
+    ],
+    "also_learn": [
+      "SQS o RabbitMQ",
+      "Patrón outbox",
+      "Idempotencia en los consumidores",
+      "Trazabilidad distribuida"
+    ],
+    "sources": [
+      {
+        "title": "Laravel: Events",
+        "url": "https://laravel.com/docs/13.x/events"
+      },
+      {
+        "title": "Laravel: Queues",
+        "url": "https://laravel.com/docs/13.x/queues"
+      }
+    ],
+    "reviewed_on": "2026-10-19"
+  },
+  {
+    "slug": "backoffice-filament",
+    "category": "product",
+    "name": "Backoffice con Filament",
+    "summary": "Un panel de administración completo (tablas, formularios, filtros y permisos) construido a partir de tus modelos. Es una de las formas más rápidas de levantar herramientas internas.",
+    "headline": [
+      "Filament",
+      "Livewire",
+      "Policies"
+    ],
+    "when_to_use": [
+      "Backoffice, panel de soporte o herramientas internas con muchos CRUDs.",
+      "Prototipos donde el panel de administración importa más que la interfaz pública.",
+      "Necesitas filtros, exportaciones, acciones masivas y permisos sin construirlos desde cero."
+    ],
+    "when_to_avoid": [
+      "La interfaz es el producto y necesita un diseño totalmente a medida.",
+      "Tu equipo no quiere aprender Livewire, que es la base de Filament.",
+      "Los administradores necesitan una SPA muy personalizada."
+    ],
+    "pros": [
+      "Un CRUD completo en minutos, ampliable con código PHP.",
+      "Respeta las policies y los roles de Laravel.",
+      "Comunidad grande y muchos plugins."
+    ],
+    "cons": [
+      "Acopla el panel a Livewire y a las versiones de Filament: cada versión mayor exige migrar.",
+      "Personalizar mucho la interfaz cuesta más que hacerla a mano.",
+      "Es otro paradigma que aprender, distinto de Inertia."
+    ],
+    "technologies": [
+      {
+        "layer": "admin",
+        "name": "Filament 5",
+        "note": "Paneles, recursos, formularios, tablas y acciones. La versión 5 usa Livewire 4."
+      },
+      {
+        "layer": "frontend",
+        "name": "Livewire + Alpine.js",
+        "note": "Filament se construye sobre ellos; entenderlos te permite extenderlo."
+      },
+      {
+        "layer": "auth",
+        "name": "Policies de Laravel",
+        "note": "Filament las respeta. Añade spatie/laravel-permission si necesitas roles y permisos editables."
+      },
+      {
+        "layer": "database",
+        "name": "MySQL o PostgreSQL",
+        "note": "Eloquent igual que en el resto de la app; los recursos se apoyan en tus modelos."
+      },
+      {
+        "layer": "testing",
+        "name": "Pest con `Livewire::test`",
+        "note": "Prueba las páginas y acciones del panel como componentes Livewire."
+      },
+      {
+        "layer": "deploy",
+        "name": "Forge o un VPS",
+        "note": "El mismo deploy que cualquier app Laravel: `migrate --force`, `optimize` y reinicio de los workers. Revisa en la documentación de Filament si tu versión pide algún paso extra."
+      },
+      {
+        "layer": "admin",
+        "name": "Laravel Nova (alternativa de pago)",
+        "note": "Panel de administración oficial de Laravel, con licencia de pago."
+      }
+    ],
+    "modules": [
+      "php",
+      "elo",
+      "auth",
+      "sec",
+      "fil",
+      "test",
+      "ops"
+    ],
+    "also_learn": [
+      "Roles y permisos con spatie/laravel-permission"
+    ],
+    "sources": [
+      {
+        "title": "Filament",
+        "url": "https://filamentphp.com/docs"
+      },
+      {
+        "title": "Livewire",
+        "url": "https://livewire.laravel.com"
+      },
+      {
+        "title": "Laravel Nova",
+        "url": "https://nova.laravel.com"
+      }
+    ],
+    "reviewed_on": "2026-10-19"
+  },
+  {
+    "slug": "saas-multitenant",
+    "category": "product",
+    "name": "SaaS multi-tenant con suscripciones",
+    "summary": "Una sola aplicación que sirve a muchos clientes con sus datos aislados y cobra suscripciones recurrentes.",
+    "headline": [
+      "Cashier",
+      "Tenancy",
+      "Inertia"
+    ],
+    "when_to_use": [
+      "Software como servicio cuyos clientes (empresas) no deben ver los datos de los demás.",
+      "Planes, pruebas gratuitas y cobros recurrentes.",
+      "Subdominios o dominios propios por cliente."
+    ],
+    "when_to_avoid": [
+      "Un solo cliente, o una instalación por cliente: el multi-tenant añade complejidad sin retorno.",
+      "No hay cobro recurrente: Cashier y los webhooks sobran."
+    ],
+    "pros": [
+      "Un solo despliegue para todos los clientes.",
+      "Cashier cubre suscripciones, periodos de gracia y el controlador de webhooks.",
+      "Eliges el aislamiento: una base de datos compartida o una por cliente."
+    ],
+    "cons": [
+      "Un fallo de aislamiento es una fuga de datos entre clientes: hay que probarlo siempre.",
+      "Migraciones, colas y caché deben tener en cuenta al tenant.",
+      "Los webhooks de pagos exigen idempotencia y mucho cuidado."
+    ],
+    "technologies": [
+      {
+        "layer": "backend",
+        "name": "Laravel + Inertia (Vue o React)",
+        "note": "La base habitual de un SaaS; mira la ficha de Inertia."
+      },
+      {
+        "layer": "backend",
+        "name": "stancl/tenancy o spatie/laravel-multitenancy",
+        "note": "El primero ('Tenancy for Laravel') automatiza el aislamiento de bases de datos, caché, archivos y colas. El segundo es mínimo y te deja el control."
+      },
+      {
+        "layer": "database",
+        "name": "Base compartida con `tenant_id` o una base por tenant",
+        "note": "La compartida es más simple. Una por tenant aísla mejor, pero complica las migraciones."
+      },
+      {
+        "layer": "payments",
+        "name": "Laravel Cashier (Stripe)",
+        "note": "Suscripciones con `newSubscription`, `subscribed()` y periodo de gracia al cancelar. Paddle tiene su propio paquete, Cashier Paddle."
+      },
+      {
+        "layer": "backend",
+        "name": "Laravel Pennant",
+        "note": "Banderas de funcionalidad por plan o por tenant."
+      },
+      {
+        "layer": "auth",
+        "name": "Sesión + roles por tenant",
+        "note": "Un usuario puede pertenecer a varios tenants con roles distintos."
+      },
+      {
+        "layer": "queue",
+        "name": "Colas conscientes del tenant",
+        "note": "Cada job debe saber a qué tenant pertenece cuando se ejecuta."
+      },
+      {
+        "layer": "cache",
+        "name": "Redis con prefijo por tenant",
+        "note": "Evita que la caché de un cliente se mezcle con la de otro."
+      },
+      {
+        "layer": "testing",
+        "name": "Pest con pruebas explícitas de aislamiento",
+        "note": "Comprueba que el tenant A nunca puede leer ni escribir datos del tenant B."
+      },
+      {
+        "layer": "deploy",
+        "name": "Forge o Laravel Cloud",
+        "note": "Con SSL por dominio de cliente si ofreces dominios propios."
+      }
+    ],
+    "modules": [
+      "php",
+      "auth",
+      "sec",
+      "elo",
+      "que",
+      "perf",
+      "arch",
+      "pay",
+      "test",
+      "ci",
+      "ops",
+      "obs"
+    ],
+    "also_learn": [
+      "Un paquete de tenancy (stancl o spatie)",
+      "Pennant: banderas de funcionalidad por plan",
+      "Dominios y subdominios por tenant"
+    ],
+    "sources": [
+      {
+        "title": "Laravel: Cashier (Stripe)",
+        "url": "https://laravel.com/docs/13.x/billing"
+      },
+      {
+        "title": "Tenancy for Laravel (stancl)",
+        "url": "https://tenancyforlaravel.com"
+      },
+      {
+        "title": "Spatie: laravel-multitenancy",
+        "url": "https://spatie.be/docs/laravel-multitenancy"
+      },
+      {
+        "title": "Laravel: Pennant",
+        "url": "https://laravel.com/docs/13.x/pennant"
+      }
+    ],
+    "reviewed_on": "2026-10-19"
+  },
+  {
+    "slug": "busqueda-scout",
+    "category": "product",
+    "name": "Búsqueda con Scout",
+    "summary": "Búsqueda con tolerancia a errores, filtros y relevancia, indexada fuera de tu base de datos principal.",
+    "headline": [
+      "Scout",
+      "Meilisearch / Typesense",
+      "pgvector"
+    ],
+    "when_to_use": [
+      "Catálogos y listados donde el usuario escribe mal o busca por varios campos.",
+      "Necesitas filtros, facetas y orden por relevancia con respuesta casi instantánea.",
+      "Búsqueda semántica, por significado, sobre documentos o productos."
+    ],
+    "when_to_avoid": [
+      "Un `LIKE` indexado, o el motor `database` de Scout, alcanza: pocos datos y búsquedas simples.",
+      "No quieres operar un servicio más ni pagar uno gestionado."
+    ],
+    "pros": [
+      "Scout mantiene el índice sincronizado con tus modelos Eloquent.",
+      "Puedes cambiar de motor tocando poco código.",
+      "El motor `database` permite empezar sin servicios extra."
+    ],
+    "cons": [
+      "Un servicio más que desplegar, vigilar y reindexar.",
+      "El índice puede quedar desfasado: la indexación se hace en cola y puede fallar.",
+      "Ajustar la relevancia lleva tiempo y pruebas."
+    ],
+    "technologies": [
+      {
+        "layer": "search",
+        "name": "Laravel Scout",
+        "note": "El trait `Searchable` en el modelo sincroniza el índice, con soporte para indexar en cola."
+      },
+      {
+        "layer": "search",
+        "name": "Meilisearch o Typesense",
+        "note": "Motores de búsqueda con tolerancia a errores de tipeo, autoalojados o gestionados."
+      },
+      {
+        "layer": "search",
+        "name": "Algolia o Turbopuffer (gestionados)",
+        "note": "Otros motores que Scout soporta oficialmente."
+      },
+      {
+        "layer": "search",
+        "name": "Motor `database`",
+        "note": "Para empezar sin servicios externos, con búsqueda sobre tus propias tablas."
+      },
+      {
+        "layer": "search",
+        "name": "PostgreSQL + pgvector",
+        "note": "Laravel 13 añade consultas por similitud vectorial (`whereVectorSimilarTo`) y embeddings desde el Laravel AI SDK."
+      },
+      {
+        "layer": "queue",
+        "name": "Indexación en cola",
+        "note": "Evita que guardar un modelo espere a que responda el motor de búsqueda."
+      },
+      {
+        "layer": "database",
+        "name": "MySQL o PostgreSQL",
+        "note": "La base de datos sigue siendo la fuente de verdad; el índice es una copia."
+      },
+      {
+        "layer": "testing",
+        "name": "Motor `collection` de Scout",
+        "note": "Evita depender del servicio de búsqueda en los tests."
+      },
+      {
+        "layer": "deploy",
+        "name": "Servicio de búsqueda junto a la app",
+        "note": "Con su propio respaldo, actualizaciones y un comando de reindexado en el deploy."
+      }
+    ],
+    "modules": [
+      "sql",
+      "elo",
+      "que",
+      "perf",
+      "scout",
+      "test"
+    ],
+    "also_learn": [
+      "Relevancia, facetas y sinónimos",
+      "Reindexado sin interrumpir el servicio"
+    ],
+    "sources": [
+      {
+        "title": "Laravel: Scout",
+        "url": "https://laravel.com/docs/13.x/scout"
+      },
+      {
+        "title": "Meilisearch",
+        "url": "https://www.meilisearch.com/docs"
+      },
+      {
+        "title": "Typesense",
+        "url": "https://typesense.org/docs/"
+      },
+      {
+        "title": "Laravel 13: Release Notes",
+        "url": "https://laravel.com/docs/13.x/releases"
+      }
+    ],
+    "reviewed_on": "2026-10-19"
+  },
+  {
+    "slug": "alto-rendimiento-octane",
+    "category": "product",
+    "name": "Alto rendimiento con Octane",
+    "summary": "Octane arranca la aplicación una sola vez y la mantiene en memoria entre requests. Menos trabajo por request, a cambio de escribir código que no acumule estado.",
+    "headline": [
+      "Octane",
+      "FrankenPHP",
+      "Redis"
+    ],
+    "when_to_use": [
+      "Mucho tráfico o latencia baja como requisito, y ya mediste que el cuello de botella es el arranque del framework.",
+      "APIs muy concurrentes.",
+      "Tienes la disciplina de evitar el estado global y los singletons con datos de la request."
+    ],
+    "when_to_avoid": [
+      "Poco tráfico: PHP-FPM rinde bien y es más simple de operar.",
+      "Tu código usa estáticos o singletons con estado, o dependencias que no están pensadas para procesos persistentes.",
+      "Aún no has medido: lo lento suele ser una consulta, no el framework."
+    ],
+    "pros": [
+      "Evita el costo de arrancar el framework en cada request.",
+      "Varios servidores a elegir: FrankenPHP, RoadRunner, Swoole y Open Swoole.",
+      "Con Swoole, además: tareas concurrentes, ticks, caché y tablas en memoria."
+    ],
+    "cons": [
+      "Fugas de memoria y estado compartido entre requests si guardas datos en estáticos o singletons.",
+      "No inyectes el container, la request ni la configuración en un singleton: quedarían obsoletos.",
+      "Hay que recargar los workers después de cada deploy con `octane:reload`."
+    ],
+    "technologies": [
+      {
+        "layer": "backend",
+        "name": "Laravel Octane",
+        "note": "Se instala con `composer require laravel/octane` y `php artisan octane:install`."
+      },
+      {
+        "layer": "deploy",
+        "name": "FrankenPHP",
+        "note": "El más sencillo de arrancar: Octane descarga el binario por ti. También hay imágenes oficiales de Docker."
+      },
+      {
+        "layer": "deploy",
+        "name": "RoadRunner o Swoole",
+        "note": "Alternativas. Las tareas concurrentes, los ticks, la caché de Octane y las tablas requieren Swoole."
+      },
+      {
+        "layer": "deploy",
+        "name": "Nginx delante + Supervisor",
+        "note": "Nginx sirve los estáticos y hace proxy al servidor Octane; Supervisor lo mantiene vivo."
+      },
+      {
+        "layer": "deploy",
+        "name": "Laravel Cloud",
+        "note": "Ofrece Octane gestionado si no quieres operar el servidor."
+      },
+      {
+        "layer": "cache",
+        "name": "Redis (o la caché de Octane con Swoole)",
+        "note": "La caché de Octane vive en memoria y se pierde al reiniciar el servidor."
+      },
+      {
+        "layer": "database",
+        "name": "MySQL o PostgreSQL con conexiones controladas",
+        "note": "Más workers significan más conexiones abiertas a la base de datos."
+      },
+      {
+        "layer": "testing",
+        "name": "Pest + pruebas de carga",
+        "note": "Mide antes y después de activar Octane, por ejemplo con k6, y prueba varias requests seguidas."
+      },
+      {
+        "layer": "monitoring",
+        "name": "Memoria por worker",
+        "note": "Octane reinicia cada worker tras 500 requests por defecto; ajústalo con `--max-requests`."
+      }
+    ],
+    "modules": [
+      "perf",
+      "ioc",
+      "oct",
+      "test",
+      "ops",
+      "obs"
+    ],
+    "also_learn": [
+      "Profiling de una aplicación bajo carga"
+    ],
+    "sources": [
+      {
+        "title": "Laravel: Octane",
+        "url": "https://laravel.com/docs/13.x/octane"
+      },
+      {
+        "title": "FrankenPHP",
+        "url": "https://frankenphp.dev"
+      }
+    ],
+    "reviewed_on": "2026-10-19"
+  }
+]
