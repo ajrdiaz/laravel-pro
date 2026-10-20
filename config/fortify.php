@@ -161,7 +161,9 @@ return [
     */
 
     'features' => [
-        Features::registration(),
+        // A public deployment turns this off (REGISTRATION_ENABLED=false) and its owner creates
+        // the account with `php artisan user:create`.
+        ...(env('REGISTRATION_ENABLED', true) ? [Features::registration()] : []),
         Features::resetPasswords(),
         Features::emailVerification(),
         Features::twoFactorAuthentication([

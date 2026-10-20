@@ -1,0 +1,21 @@
+# The app on one server: a single container (FrankenPHP with automatic HTTPS) and a volume
+# for the SQLite database and the HTTPS certificates.
+#
+#   docker compose up -d --build
+#
+# Setup, updates and backups: docs/deploy.md.
+services:
+    app:
+        build: .
+        image: ruta-laravel
+        restart: unless-stopped
+        env_file: .env.production
+        ports:
+            - '80:80'
+            - '443:443'
+            - '443:443/udp' # HTTP/3
+        volumes:
+            - data:/data
+
+volumes:
+    data:

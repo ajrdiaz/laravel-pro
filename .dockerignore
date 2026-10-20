@@ -1,0 +1,60 @@
+# What stays out of the image: secrets, dependencies that are installed inside it, the
+# local database and caches, and everything only development and testing need.
+
+.git
+.github
+.gitattributes
+.editorconfig
+
+# Secrets and local configuration. The server gets its own .env.production, at run time.
+.env
+.env.*
+
+# Installed or built inside the image.
+node_modules
+vendor
+public/build
+public/hot
+public/storage
+
+# Local state: a stale cache would list development packages the image does not have.
+bootstrap/cache/*.php
+bootstrap/ssr
+storage/logs
+storage/framework/cache
+storage/framework/sessions
+storage/framework/views
+storage/framework/testing
+storage/inertia-devtools
+storage/pail
+database/*.sqlite
+database/*.sqlite-*
+database/backups
+
+# Tests and tooling.
+tests
+e2e
+scripts
+playwright.config.ts
+playwright-report
+test-results
+blob-report
+.phpunit.cache
+.phpunit.result.cache
+phpunit.xml
+phpstan.neon
+pint.json
+*.md
+
+# Editors and assistants.
+.idea
+.vscode
+.claude
+.agents
+.playwright-mcp
+
+# The files that build the image do not need to be inside it.
+Dockerfile
+compose.yaml
+.dockerignore
+docker/smoke-test.sh

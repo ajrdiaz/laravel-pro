@@ -1,0 +1,54 @@
+# The web server of the image: Caddy with FrankenPHP, as in the image's own Caddyfile,
+# plus the headers an app served to the public should send.
+# https://frankenphp.dev/docs/config  https://caddyserver.com/docs/caddyfile
+
+{
+	skip_install_trust
+
+	{$CADDY_GLOBAL_OPTIONS}
+
+	frankenphp {
+		{$FRANKENPHP_CONFIG}
+	}
+}
+
+# SERVER_NAME is the address people use. A domain gets an HTTPS certificate on its own
+# (Let's Encrypt) and plain HTTP is redirected to it. ":80" serves plain HTTP only.
+{$SERVER_NAME:localhost} {
+	root {$SERVER_ROOT:public/}
+	encode zstd br gzip
+
+	header {
+		X-Content-Type-Options nosniff
+		Referrer-Policy strict-origin-when-cross-origin
+		-Server
+	}
+
+	# Only meaningful (and only honoured by browsers) over HTTPS.
+	@secure protocol https
+	header @secure Strict-Transport-Security "max-age=31536000"
+
+	# The built files carry a hash in their name, so they never change.
+	@built path /build/assets/*
+	header @built Cache-Control "public, max-age=31536000, immutable"
+
+	# The browser has to ask again for the service worker, the manifest and the offline
+	# page, or an update of the app would not reach it.
+	@fresh path /sw.js /manifest.json /offline.html
+	header @fresh Cache-Control "no-cache"
+
+	@icons path /icons/* /apple-touch-icon.png /favicon.ico /favicon.svg
+	header @icons Cache-Control "public, max-age=604800"
+
+	{$CADDY_SERVER_EXTRA_DIRECTIVES}
+
+	php_server
+}
+
+# The health check of the container. It listens on the loopback only, and the port is not
+# published, so nobody outside can reach it.
+http://127.0.0.1:8081 {
+	bind 127.0.0.1
+	root {$SERVER_ROOT:public/}
+	php_server
+}
